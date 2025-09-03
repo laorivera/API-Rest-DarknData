@@ -32,7 +32,7 @@ var classFighter = Stats{
 
 var classBarbarian = Stats{
 	Strength:        20,
-	Vigor:           25,
+	Vigor:           20,
 	Agility:         13,
 	Dexterity:       12,
 	Will:            18,

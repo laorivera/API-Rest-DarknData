@@ -196,7 +196,7 @@ func Helmet_EnchantmentList_Handler(c *gin.Context) {
 	helmet_EnchantmentName := map[string][]string{}
 	helmet_EnchantmentValues := map[string][]float32{}
 
-	helmet_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_ExceptionBase(c)["helmet"]
+	helmet_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["helmet"]
 	helmet_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["helmet"]
 	helmet_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["helmet"]
 	helmet_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["helmet"]
@@ -227,7 +227,7 @@ func Chest_EnchantmentList_Handler(c *gin.Context) {
 	chest_EnchantmentName := map[string][]string{}
 	chest_EnchantmentValues := map[string][]float32{}
 
-	chest_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_ExceptionBase(c)["chest"]
+	chest_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["chest"]
 	chest_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["chest"]
 	chest_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["chest"]
 	chest_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["chest"]
@@ -258,7 +258,7 @@ func Gloves_EnchantmentList_Handler(c *gin.Context) {
 	gloves_EnchantmentName := map[string][]string{}
 	gloves_EnchantmentValues := map[string][]float32{}
 
-	gloves_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_ExceptionBase(c)["gloves"]
+	gloves_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["gloves"]
 	gloves_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["gloves"]
 	gloves_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["gloves"]
 	gloves_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["gloves"]
@@ -289,7 +289,7 @@ func Pants_EnchantmentList_Handler(c *gin.Context) {
 	pants_EnchantmentName := map[string][]string{}
 	pants_EnchantmentValues := map[string][]float32{}
 
-	pants_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_ExceptionBase(c)["pants"]
+	pants_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["pants"]
 	pants_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["pants"]
 	pants_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["pants"]
 	pants_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["pants"]
@@ -320,7 +320,7 @@ func Boots_EnchantmentList_Handler(c *gin.Context) {
 	boots_EnchantmentName := map[string][]string{}
 	boots_EnchantmentValues := map[string][]float32{}
 
-	boots_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_ExceptionBase(c)["boots"]
+	boots_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["boots"]
 	boots_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["boots"]
 	boots_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["boots"]
 	boots_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["boots"]
@@ -350,7 +350,7 @@ func Cloak_EnchantmentList_Handler(c *gin.Context) {
 	cloak_EnchantmentName := map[string][]string{}
 	cloak_EnchantmentValues := map[string][]float32{}
 
-	cloak_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_ExceptionBase(c)["cloak"]
+	cloak_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["cloak"]
 	cloak_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["cloak"]
 	cloak_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["cloak"]
 	cloak_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["cloak"]
@@ -381,7 +381,7 @@ func Necklace_EnchantmentList_Handler(c *gin.Context) {
 	necklace_EnchantmentName := map[string][]string{}
 	necklace_EnchantmentValues := map[string][]float32{}
 
-	necklace_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_ExceptionBase(c)["necklace"]
+	necklace_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_Base(c)["necklace"]
 
 	necklace_EnchantmentName["Rare"] = GetEnchantmentLists_Accessory_TypeRare(c)["necklace"]
 	necklace_EnchantmentName["Epic"] = GetEnchantmentLists_Accessory_TypeEpic(c)["necklace"]
@@ -413,7 +413,7 @@ func Ring_EnchantmentList_Handler(c *gin.Context) {
 	ring_EnchantmentName := map[string][]string{}
 	ring_EnchantmentValues := map[string][]float32{}
 
-	ring_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_ExceptionBase(c)["ring"]
+	ring_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_Base(c)["ring"]
 	ring_EnchantmentName["Rare"] = GetEnchantmentLists_Accessory_TypeRare(c)["ring"]
 	ring_EnchantmentName["Epic"] = GetEnchantmentLists_Accessory_TypeEpic(c)["ring"]
 	ring_EnchantmentName["Legend"] = GetEnchantmentLists_Accessory_TypeLegend(c)["ring"]
@@ -444,7 +444,7 @@ func RingTwo_EnchantmentList_Handler(c *gin.Context) {
 	ringTwo_EnchantmentName := map[string][]string{}
 	ringTwo_EnchantmentValues := map[string][]float32{}
 
-	ringTwo_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_ExceptionBase(c)["ringtwo"]
+	ringTwo_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_Base(c)["ringtwo"]
 	ringTwo_EnchantmentName["Rare"] = GetEnchantmentLists_Accessory_TypeRare(c)["ringtwo"]
 	ringTwo_EnchantmentName["Epic"] = GetEnchantmentLists_Accessory_TypeEpic(c)["ringtwo"]
 	ringTwo_EnchantmentName["Legend"] = GetEnchantmentLists_Accessory_TypeLegend(c)["ringtwo"]
@@ -474,7 +474,7 @@ func Pwo_EnchantmentList_Handler(c *gin.Context) {
 	primaryWeapon_EnchantmentName := map[string][]string{}
 	primaryWeapon_EnchantmentValues := map[string][]float32{}
 
-	primaryWeapon_EnchantmentName["Uncommon"] = GetEnchantmentLists_Weapon_ExceptionBase(c)["pwo"]
+	primaryWeapon_EnchantmentName["Uncommon"] = GetEnchantmentLists_Weapon_Base(c)["pwo"]
 	primaryWeapon_EnchantmentName["Rare"] = GetEnchantmentLists_Weapon_TypeRare(c)["pwo"]
 	primaryWeapon_EnchantmentName["Epic"] = GetEnchantmentLists_Weapon_TypeEpic(c)["pwo"]
 	primaryWeapon_EnchantmentName["Legend"] = GetEnchantmentLists_Weapon_TypeLegend(c)["pwo"]
@@ -505,7 +505,7 @@ func Pwt_EnchantmentList_Handler(c *gin.Context) {
 	primaryOffhandWeapon_EnchantmentName := map[string][]string{}
 	primaryOffhandWeapon_EnchantmentValues := map[string][]float32{}
 
-	primaryOffhandWeapon_EnchantmentName["Uncommon"] = GetEnchantmentLists_Weapon_ExceptionBase(c)["pwt"]
+	primaryOffhandWeapon_EnchantmentName["Uncommon"] = GetEnchantmentLists_Weapon_Base(c)["pwt"]
 	primaryOffhandWeapon_EnchantmentName["Rare"] = GetEnchantmentLists_Weapon_TypeRare(c)["pwt"]
 	primaryOffhandWeapon_EnchantmentName["Epic"] = GetEnchantmentLists_Weapon_TypeEpic(c)["pwt"]
 	primaryOffhandWeapon_EnchantmentName["Legend"] = GetEnchantmentLists_Weapon_TypeLegend(c)["pwt"]
