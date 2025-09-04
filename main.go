@@ -12,11 +12,12 @@ func main() {
 	r.Use(func(c *gin.Context) {
 
 		allowedOrigins := []string{
-			//"https://laorivera.github.io",
-			//"http://10.8.0.0/24",
-			"http://localhost:8080",
+			"https://laorivera.github.io", // Angular app
+			"http://localhost:4200",
+			"http://10.8.0.0/24",
 		}
 
+		// Get the request's Origin
 		requestOrigin := c.Request.Header.Get("Origin")
 
 		for _, origin := range allowedOrigins {
@@ -26,8 +27,8 @@ func main() {
 			}
 		}
 
-		// headers
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET")
+		// Required headers
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
 		c.Next()
