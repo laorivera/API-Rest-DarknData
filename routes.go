@@ -28,7 +28,7 @@ func itemDisplayHandler(c *gin.Context) {
 
 func Helmet_List_Handler(c *gin.Context) {
 	class := c.Param("classSelection")
-	helmetList := GetItemLists_Armor_Json(c, class)["Head"]
+	helmetList := GetItemLists_Armor_Json(class)["Head"]
 	imageHelmet := ImageLocation("Head", helmetList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -38,7 +38,7 @@ func Helmet_List_Handler(c *gin.Context) {
 
 func Chest_List_Handler(c *gin.Context) {
 	class := c.Param("classSelection")
-	chestList := GetItemLists_Armor_Json(c, class)["Chest"]
+	chestList := GetItemLists_Armor_Json(class)["Chest"]
 
 	imageChest := ImageLocation("Chest", chestList)
 
@@ -49,7 +49,7 @@ func Chest_List_Handler(c *gin.Context) {
 
 func Gloves_List_Handler(c *gin.Context) {
 	class := c.Param("classSelection")
-	glovesList := GetItemLists_Armor_Json(c, class)["Hands"]
+	glovesList := GetItemLists_Armor_Json(class)["Hands"]
 	imageGloves := ImageLocation("Hands", glovesList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -59,7 +59,7 @@ func Gloves_List_Handler(c *gin.Context) {
 
 func Pants_List_Handler(c *gin.Context) {
 	class := c.Param("classSelection")
-	pantsList := GetItemLists_Armor_Json(c, class)["Legs"]
+	pantsList := GetItemLists_Armor_Json(class)["Legs"]
 	imagePants := ImageLocation("Legs", pantsList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -70,7 +70,7 @@ func Pants_List_Handler(c *gin.Context) {
 
 func Boots_List_Handler(c *gin.Context) {
 	class := c.Param("classSelection")
-	bootsList := GetItemLists_Armor_Json(c, class)["Foot"]
+	bootsList := GetItemLists_Armor_Json(class)["Foot"]
 	imageBoots := ImageLocation("Foot", bootsList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -80,7 +80,7 @@ func Boots_List_Handler(c *gin.Context) {
 
 func Cloak_List_Handler(c *gin.Context) {
 	class := c.Param("classSelection")
-	cloakList := GetItemLists_Armor_Json(c, class)["Back"]
+	cloakList := GetItemLists_Armor_Json(class)["Back"]
 	imageCloak := ImageLocation("Back", cloakList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -89,7 +89,7 @@ func Cloak_List_Handler(c *gin.Context) {
 }
 
 func Necklace_List_Handler(c *gin.Context) {
-	necklaceList := GetItemLists_Accesory_Json(c)["Necklace"]
+	necklaceList := GetItemLists_Accesory_Json()["Necklace"]
 	imageNecklace := ImageLocation("Necklace", necklaceList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -98,7 +98,7 @@ func Necklace_List_Handler(c *gin.Context) {
 }
 
 func Ring_List_Handler(c *gin.Context) {
-	ringList := GetItemLists_Accesory_Json(c)["Ring"]
+	ringList := GetItemLists_Accesory_Json()["Ring"]
 	imageRing := ImageLocation("Ring", ringList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -108,7 +108,7 @@ func Ring_List_Handler(c *gin.Context) {
 
 func Pwo_List_Handler(c *gin.Context) {
 	class := c.Param("classSelection")
-	primaryWeaponList := GetItemLists_Weapon_Json(c, class)["Main Hand"]
+	primaryWeaponList := GetItemLists_Weapon_Json(class)["Main Hand"]
 	imagePwo := ImageLocation("Main Hand", primaryWeaponList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -118,7 +118,7 @@ func Pwo_List_Handler(c *gin.Context) {
 
 func Pwt_List_Handler(c *gin.Context) {
 	class := c.Param("classSelection")
-	primaryOffhandWeaponList := GetItemLists_Weapon_Json(c, class)["Off Hand"]
+	primaryOffhandWeaponList := GetItemLists_Weapon_Json(class)["Off Hand"]
 	imagePwt := ImageLocation("Off Hand", primaryOffhandWeaponList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -571,10 +571,10 @@ func setupRoutes(r *gin.Engine) {
 	r.GET("/enchantmentlistring/", Ring_EnchantmentList_Handler)
 	r.GET("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)
 
-	// ITEM FIXED ATTRIBUTES ENDPOINT
+	// item display
 	r.GET("/itemdisplay/:item", itemDisplayHandler)
 
-	// Calculate stats endpoint
+	// Calculate stats
 	r.GET("/charbuilder/:classSelection", updateStatsHandler)
 
 }

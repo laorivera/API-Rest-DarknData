@@ -2,6 +2,8 @@ package main
 
 import (
 	//"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,15 +16,14 @@ var slotshand = []string{"Main Hand", "Off Hand"}
 
 // get item lists
 
-func GetItemLists_Armor_Json(c *gin.Context, class string) map[string][]string {
-
+func GetItemLists_Armor_Json(class string) map[string][]string {
 	lists := map[string][]string{}
 	for i := 0; i < len(slotsm); i++ {
 		lists[slotsm[i]] = ItemsBySlotType_Json(class, slotsm[i])
 	}
 	return lists
 }
-func GetItemLists_Accesory_Json(c *gin.Context) map[string][]string {
+func GetItemLists_Accesory_Json() map[string][]string {
 
 	lists := map[string][]string{}
 	for i := 0; i < len(slotsmacc); i++ {
@@ -34,26 +35,38 @@ func GetItemLists_Accesory_Json(c *gin.Context) map[string][]string {
 // get rating lists
 
 func GetRatingLists_Armor(c *gin.Context) map[string][]int {
-
 	ratings := map[string][]int{}
+
 	for i := 0; i < len(slots); i++ {
-		ratings[slots[i]] = CompleteArrayInt(ItemsByNameArmor(c.Query("item" + slots[i])).ArmorRatings[StringtoInt(c.Query("rarityselect_"+slots[i]))])
+		itemName := c.Query("item" + slots[i])
+		rarityIndex, _ := strconv.Atoi((c.Query("rarityselect_" + slots[i])))
+
+		item := ItemsByNameArmor(itemName)
+		ratings[slots[i]] = CompleteArrayInt(item.ArmorRatings[rarityIndex])
 	}
+
 	return ratings
 }
-func GetItemLists_Weapon_Json(c *gin.Context, class string) map[string][]string {
 
+func GetItemLists_Weapon_Json(class string) map[string][]string {
 	lists := map[string][]string{}
+
 	for i := 0; i < len(slotshand); i++ {
 		lists[slotshand[i]] = WeaponsBySlotType_Json(class, slotshand[i])
 	}
+
 	return lists
 }
 func GetRatingLists_Weapon(c *gin.Context) map[string][]int {
 
 	ratings := map[string][]int{}
 	for i := 0; i < len(slotsweapon); i++ {
-		ratings[slotsweapon[i]] = CompleteArrayInt(ItemsByNameWeapon(c.Query("item" + slotsweapon[i])).DamageRatings[StringtoInt(c.Query("rarityselect_"+slotsweapon[i]))])
+		itemname := c.Query("item" + slotsweapon[i])
+		rarityindex, _ := strconv.Atoi((c.Query("rarityselect_" + slotsweapon[i])))
+
+		item := ItemsByNameWeapon(itemname)
+		ratings[slotsweapon[i]] = CompleteArrayInt(item.DamageRatings[rarityindex])
+
 	}
 
 	return ratings
