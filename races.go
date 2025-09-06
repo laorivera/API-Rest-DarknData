@@ -1,7 +1,5 @@
 package main
 
-//var races = []string{"Skeleton", "Elite Skeleton", "Nightmare Skeleton", "Skeleton Champion", "Lizardmen", "FrostWalker", "Zombie", "DarkElf", "Mummy", "Panther", "Felidian", "Lycan", "Orc", "Elf"}
-
 var raceStats = map[string]Stats{
 	"Orc": {
 		Strength: 1,

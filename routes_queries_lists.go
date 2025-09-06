@@ -7,12 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var slots = []string{"helmet", "chest", "gloves", "pants", "boots", "cloak"}
-var slotsm = []string{"Head", "Chest", "Hands", "Legs", "Foot", "Back"}
-var slotsacc = []string{"necklace", "ring", "ringtwo"}
-var slotsmacc = []string{"Necklace", "Ring"}
-var slotsweapon = []string{"pwo", "pwt", "swo", "swt"}
-var slotshand = []string{"Main Hand", "Off Hand"}
+//type amor_manager struct {
+//	slotarmor   []string
+//	slot
+//}
 
 // get item lists
 
@@ -79,7 +77,10 @@ func GetEnchatmentLists_Armor_Base(c *gin.Context) map[string][]string {
 	lists := map[string][]string{}
 	for i := 0; i < len(slots); i++ {
 		if slots[i] == "helmet" {
-			lists[slots[i]] = EnchantBaseAttribExeption(EnchamentbySlot(Enchantments.Helmet), ItemsByNameArmor(c.Query("item"+slots[i])))
+			query := c.Query("item" + slots[i])
+			item := ItemsByNameArmor(query)
+			echantments := EnchamentbySlot(Enchantments.Helmet)
+			lists[slots[i]] = EnchantBaseAttribExeption(echantments, item)
 		}
 		if slots[i] == "chest" {
 			lists[slots[i]] = EnchantBaseAttribExeption(EnchamentbySlot(Enchantments.Chest), ItemsByNameArmor(c.Query("item"+slots[i])))

@@ -1,5 +1,143 @@
 package main
 
+type Attributes struct {
+	Strenght        []float64
+	Vigor           []float32
+	Agility         []float32
+	Dexterity       []float32
+	Will            []float32
+	Knowledge       []float32
+	Resourcefulness []float32
+}
+
+type PhysicalDamage struct {
+	TruePhyisicalDamage    []float32
+	PhysicalPowerBonus     []float32
+	PhysicalPower          []float32
+	AdditionalWeaponDamage []float32
+	PhysicalDamage         []float32
+	ArmorPenetration       []float32
+}
+
+type MagicalDamage struct {
+	MagicalPowerBonus []float32
+	MagicalPower      []float32
+	MagicalDamage     []float32
+	TrueMagicalDamage []float32
+	MagicPenetration  []float32
+}
+
+type Reductions struct {
+	ArmorRating             []float32
+	PhysicalDamageReduction []float32
+	ProjectileReduction     []float32
+	MagicalDamageReduction  []float32
+	MagicResistance         []float32
+	CooldownReduction       []float32
+}
+
+type Actions struct {
+	ActionSpeed             []float32
+	RegularInteractionSpeed []float32
+	MagicalInteractionSpeed []float32
+	SpellCastingSpeed       []float32
+	MoveSpeed               []float32
+	MoveSpeedBonus          []float32
+}
+
+type Health struct {
+	MaxHealthAdd    []float32
+	MaxHealthBonus  []float32
+	PhysicalHealing []float32
+	MagicalHealing  []float32
+}
+type Statuses struct {
+	BuffDurationBonus []float32
+	DebuffDuration    []float32
+}
+
+type Memory struct {
+	MemoryCapacityAdd   []float32
+	MemoryCapacityBonus []float32
+}
+
+type Misc struct {
+	Luck []float32
+}
+
+/*
+	type enchantmentx struct {
+		Base      Attributes
+		Physical  PhysicalDamage
+		Magical   MagicalDamage
+		Reduction Reductions
+		Action    Actions
+		Health    Health
+		Status    Statuses
+		Memory    Memory
+		Misc      Misc
+	}
+
+	var helmet_enchant = enchantmentx{
+		Base: Attributes{
+			Strenght:        []float64{1, 2},
+			Vigor:           []float32{},
+			Agility:         []float32{},
+			Dexterity:       []float32{},
+			Will:            []float32{},
+			Knowledge:       []float32{},
+			Resourcefulness: []float32{},
+		},
+		Physical: PhysicalDamage{
+			TruePhyisicalDamage:    []float32{},
+			PhysicalPowerBonus:     []float32{},
+			PhysicalPower:          []float32{},
+			AdditionalWeaponDamage: []float32{},
+			PhysicalDamage:         []float32{},
+			ArmorPenetration:       []float32{},
+		},
+		Magical: MagicalDamage{
+			MagicalPowerBonus: []float32{},
+			MagicalPower:      []float32{},
+			MagicalDamage:     []float32{},
+			TrueMagicalDamage: []float32{},
+			MagicPenetration:  []float32{},
+		},
+		Reduction: Reductions{
+			ArmorRating:             []float32{},
+			PhysicalDamageReduction: []float32{},
+			ProjectileReduction:     []float32{},
+			MagicalDamageReduction:  []float32{},
+			MagicResistance:         []float32{},
+			CooldownReduction:       []float32{},
+		},
+		Action: Actions{
+			ActionSpeed:             []float32{},
+			RegularInteractionSpeed: []float32{},
+			MagicalInteractionSpeed: []float32{},
+			SpellCastingSpeed:       []float32{},
+			MoveSpeed:               []float32{},
+			MoveSpeedBonus:          []float32{},
+		},
+		Health: Health{
+			MaxHealthAdd:    []float32{},
+			MaxHealthBonus:  []float32{},
+			PhysicalHealing: []float32{},
+			MagicalHealing:  []float32{},
+		},
+		Status: Statuses{
+			BuffDurationBonus: []float32{},
+			DebuffDuration:    []float32{},
+		},
+		Memory: Memory{
+			MemoryCapacityAdd:   []float32{},
+			MemoryCapacityBonus: []float32{},
+		},
+		Misc: Misc{
+			Luck: []float32{},
+		},
+	}
+*/
 type Enchanmentcat struct {
 	Attributes map[string][]float32
 	Others     map[string][]float32

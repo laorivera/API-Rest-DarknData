@@ -7,30 +7,10 @@ import (
 	"strconv"
 )
 
-// FIND ITEMS BY SLOT TYPE
-func ItemsBySlotType(class string, slot string) []Item_Armor {
-	switch class {
-	case "1":
-		class = "Fighter"
-	case "2":
-		class = "Barbarian"
-	case "3":
-		class = "Rogue"
-	case "4":
-		class = "Wizard"
-	case "5":
-		class = "Cleric"
-	case "6":
-		class = "Warlock"
-	case "7":
-		class = "Bard"
-	case "8":
-		class = "Druid"
-	case "9":
-		class = "Ranger"
-	default:
+// FIND ITEMS BY SLOT TYPE'\
 
-	}
+func ItemsBySlotType(class string, slot string) []Item_Armor {
+	class = InttoClass(class)
 	var result []Item_Armor
 	for i := 0; i < len(Items.ItemsArmor); i++ {
 		for _, c := range Items.ItemsArmor[i].Classes {
@@ -269,26 +249,6 @@ func readJSON(filename string, data interface{}) error {
 
 	decoder := json.NewDecoder(file)
 	return decoder.Decode(data)
-}
-
-// /////////////////////////////////////////////////////////////////////////////////////////////
-// CREATE AN ITEM
-func CreateItemArmor(itemfile string) Item_Armor {
-	var item Item_Armor // item to create
-	readJSON(itemfile, &item)
-	return item
-}
-
-func CreateItemWeapon(itemfile string) Item_Weapon {
-	var item Item_Weapon // item to create
-	readJSON(itemfile, &item)
-	return item
-}
-
-func CreateItemAccessory(itemfile string) Item_Accessory {
-	var item Item_Accessory // item to create
-	readJSON(itemfile, &item)
-	return item
 }
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////

@@ -12,15 +12,16 @@ func GetSelectedRace(c *gin.Context) string {
 
 // get selected armors
 func GetSelectedItems_Armor(c *gin.Context) []Item_Armor {
-	slots := []string{"helmet", "chest", "gloves", "pants", "boots", "cloak"}
+
 	values := []Item_Armor{}
 	for i := 0; i < len(slots); i++ {
-		values = append(values, ItemsByNameArmor(c.Query("item"+slots[i])))
+		query := c.Query("item" + slots[i])
+		values = append(values, ItemsByNameArmor(query))
 	}
 	return values
 }
 func GetSelectedRarities_Armor(c *gin.Context) []int {
-	slots := []string{"helmet", "chest", "gloves", "pants", "boots", "cloak"}
+
 	values := []int{}
 	for i := 0; i < len(slots); i++ {
 		values = append(values, StringtoInt(c.Query("rarityselect_"+slots[i])))

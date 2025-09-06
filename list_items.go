@@ -482,3 +482,30 @@ var Items = List_Items{
 		item.RingOfResolve,
 	},
 }
+
+// /////////////////////////////////////////////////////////////////////////////////////////////
+// CREATE AN ITEM
+func CreateItemArmor(itemfile string) Item_Armor {
+	var item Item_Armor // item to create
+	readJSON(itemfile, &item)
+	return item
+}
+
+func CreateItemWeapon(itemfile string) Item_Weapon {
+	var item Item_Weapon // item to create
+	readJSON(itemfile, &item)
+	return item
+}
+
+func CreateItemAccessory(itemfile string) Item_Accessory {
+	var item Item_Accessory // item to create
+	readJSON(itemfile, &item)
+	return item
+}
+
+var slots = []string{"helmet", "chest", "gloves", "pants", "boots", "cloak"}
+var slotsm = []string{"Head", "Chest", "Hands", "Legs", "Foot", "Back"}
+var slotsacc = []string{"necklace", "ring", "ringtwo"}
+var slotsmacc = []string{"Necklace", "Ring"}
+var slotsweapon = []string{"pwo", "pwt", "swo", "swt"}
+var slotshand = []string{"Main Hand", "Off Hand"}
