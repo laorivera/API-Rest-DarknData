@@ -1,15 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"github.com/gin-gonic/gin"
 )
 
-/*
 func main() {
 
-	itemmanager := NewItemManager()
-	fmt.Println(itemmanager.ArmorsBySlot("Head", "1")[0])
-	fmt.Println(Items.ItemsArmor[0])
 	r := gin.Default()
 
 	// CORS
@@ -31,7 +27,7 @@ func main() {
 		}
 
 		// Required headers
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
 		c.Next()
@@ -43,17 +39,26 @@ func main() {
 	r.Run()
 
 }
-*/
 
+/*
 func main() {
 
 	Im := NewItemManager()
-	fmt.Println(Im.ArmorsBySlot("Head", "1")[0].Name)
+
+	fmt.Println(Im.ArmorsBySlot("Head", "7")[0].Name)
+
 	listhead := Im.ArmorsBySlot("Head", "1")
+
 	var list []string
 	for i := 0; i < len(listhead); i++ {
 		list = append(list, listhead[i].Name)
 	}
-	fmt.Println(Items.ItemsArmor[0])
+	//fmt.Println(Items.ItemsArmor[0])
 	fmt.Println(list)
+
+	//Sm := NewStatsManager()
+
+	//fmt.Println(Sm.ClassValue("2"))
+
 }
+*/

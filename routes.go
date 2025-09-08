@@ -581,4 +581,6 @@ func setupRoutes(r *gin.Engine) {
 	// Calculate stats
 	r.GET("/charbuilder/:classSelection", updateStatsHandler)
 
+	r.POST("/api/", postHandler)
+
 }

@@ -2,6 +2,8 @@ package main
 
 import (
 	//"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,7 +26,9 @@ func GetSelectedRarities_Armor(c *gin.Context) []int {
 
 	values := []int{}
 	for i := 0; i < len(slots); i++ {
-		values = append(values, StringtoInt(c.Query("rarityselect_"+slots[i])))
+		query := c.Query("rarityselect_" + slots[i])
+		rating, _ := strconv.Atoi(query)
+		values = append(values, rating)
 	}
 	return values
 }
@@ -32,7 +36,9 @@ func GetSelectedRatings_Armor(c *gin.Context) []int {
 	slots := []string{"helmet", "chest", "gloves", "pants", "boots", "cloak"}
 	values := []int{}
 	for i := 0; i < len(slots); i++ {
-		values = append(values, StringtoInt(c.Query("armorrating_"+slots[i])))
+		query := c.Query("armorrating_" + slots[i])
+		rating, _ := strconv.Atoi(query)
+		values = append(values, rating)
 	}
 	return values
 }
@@ -48,7 +54,9 @@ func GetSelectedRarities_Accessory(c *gin.Context) []int {
 	slots := []string{"necklace", "ring", "ringtwo"}
 	values := []int{}
 	for i := 0; i < len(slots); i++ {
-		values = append(values, StringtoInt(c.Query("rarityselect_"+slots[i])))
+		query := c.Query("rarityselect_" + slots[i])
+		rating, _ := strconv.Atoi(query)
+		values = append(values, rating)
 	}
 	return values
 }
@@ -65,15 +73,21 @@ func GetSelectedRarities_Weapons(c *gin.Context) []int {
 	slots := []string{"pwo", "pwt", "swo", "swt"}
 	values := []int{}
 	for i := 0; i < len(slots); i++ {
-		values = append(values, StringtoInt(c.Query("rarityselect_"+slots[i])))
+		query := c.Query("rarityselect_" + slots[i])
+		rating, _ := strconv.Atoi(query)
+		values = append(values, rating)
 	}
 	return values
 }
 func GetSelectedRatings_Weapons(c *gin.Context) []int {
+
 	slots := []string{"pwo", "pwt", "swo", "swt"}
 	values := []int{}
 	for i := 0; i < len(slots); i++ {
-		values = append(values, StringtoInt(c.Query("armorrating_"+slots[i])))
+		query := c.Query("armorrating_" + slots[i])
+		rating, _ := strconv.Atoi(query)
+		values = append(values, rating)
+
 	}
 	return values
 }

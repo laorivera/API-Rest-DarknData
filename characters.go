@@ -1,5 +1,9 @@
 package main
 
+var Characterlist = []Stats{
+	characterStats, classFighter, classBarbarian, classRogue, classWizard, classCleric, classWarlock, classBard, classDruid, classRanger, classSorcerer,
+}
+
 var characterHolder = Stats{
 	Strength:        0,
 	Vigor:           0,
@@ -121,6 +125,26 @@ var classSorcerer = Stats{
 }
 
 type Character struct {
-	EquippedItems []Item_Armor
-	BaseAttribute []Stats
+	Fighter   Stats
+	Barbarian Stats
+	Rogue     Stats
+	Wizard    Stats
+	Cleric    Stats
+	Warlock   Stats
+	Bard      Stats
+	Druid     Stats
+	Ranger    Stats
+	Sorcerer  Stats
+}
+
+var SCharacter = Character{
+	Fighter:   classFighter,
+	Barbarian: classBarbarian,
+	Rogue:     classRogue,
+	Wizard:    classWizard,
+	Cleric:    classCleric,
+	Warlock:   classWarlock,
+	Bard:      classBard,
+	Ranger:    classRanger,
+	Sorcerer:  classSorcerer,
 }

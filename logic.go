@@ -1,9 +1,7 @@
 package main
 
 import (
-	"encoding/json"
 	"math"
-	"os"
 	"strconv"
 )
 
@@ -239,18 +237,6 @@ func SelectClass(classselected string) Stats {
 	return characterStats
 }
 
-// LOAD ITEM FROM JSON
-func readJSON(filename string, data interface{}) error {
-	file, err := os.Open(filename)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	decoder := json.NewDecoder(file)
-	return decoder.Decode(data)
-}
-
 // //////////////////////////////////////////////////////////////////////////////////////////////////
 // CALCULATE TOTAL ENCHANTMENT STATS
 func setEnchantStats(enchantments []map[string]int) Stats {
@@ -290,13 +276,13 @@ func SetItemStats(baseStats Stats, item []Item_Armor, rarity []int /* enchantmen
 	// Calculate total by sum base stats and item stats
 	for i := 0; i < len(item) && i < len(rarity); i++ {
 		baseStats = Stats{
-			Strength:        baseStats.Strength + item[i].BaseAttribute.Strength[rarity[i]],               // + enchantments[i]["Strength"],
-			Vigor:           baseStats.Vigor + item[i].BaseAttribute.Vigor[rarity[i]],                     // + enchantments[i]["Vigor"],
-			Agility:         baseStats.Agility + item[i].BaseAttribute.Agility[rarity[i]],                 // + enchantments[i]["Agility"],
-			Dexterity:       baseStats.Dexterity + item[i].BaseAttribute.Dexterity[rarity[i]],             // + enchantments[i]["Dexterity"],
-			Will:            baseStats.Will + item[i].BaseAttribute.Will[rarity[i]],                       // + enchantments[i]["Will"],
-			Knowledge:       baseStats.Knowledge + item[i].BaseAttribute.Knowledge[rarity[i]],             // + enchantments[i]["Knowledge"],
-			Resourcefulness: baseStats.Resourcefulness + item[i].BaseAttribute.Resourcefulness[rarity[i]], // + enchantments[i]["Resourcefulness"],
+			Strength:        baseStats.Strength + item[i].BaseAttribute.Strength[rarity[i]],
+			Vigor:           baseStats.Vigor + item[i].BaseAttribute.Vigor[rarity[i]],
+			Agility:         baseStats.Agility + item[i].BaseAttribute.Agility[rarity[i]],
+			Dexterity:       baseStats.Dexterity + item[i].BaseAttribute.Dexterity[rarity[i]],
+			Will:            baseStats.Will + item[i].BaseAttribute.Will[rarity[i]],
+			Knowledge:       baseStats.Knowledge + item[i].BaseAttribute.Knowledge[rarity[i]],
+			Resourcefulness: baseStats.Resourcefulness + item[i].BaseAttribute.Resourcefulness[rarity[i]],
 		}
 	}
 	// Return the total stats struct
@@ -347,17 +333,6 @@ func InttoClass(convert string) string {
 	default:
 	}
 	return convert
-}
-
-// CONVERT STRING INTO INT
-func StringtoInt(convert string) int {
-	intkey, _ := strconv.Atoi(convert)
-	return intkey
-}
-
-func StringtoFloat(convert string) float64 {
-	floatkey, _ := strconv.ParseFloat(convert, 64)
-	return floatkey
 }
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -535,24 +510,24 @@ func EnchantValuesCalc(enchantmentvalue string, enchantmenttype map[string][]flo
 }
 
 func Enchantattrib(enchantmenttype string, enchantmentvalue string) map[string]int {
-
+	value, _ := strconv.Atoi(enchantmentvalue)
 	switch enchantmenttype {
 	case "Strength", "Vigor", "Agility", "Dexterity", "Will", "Knowledge", "Resourcefulness", "AllAttributes":
 		return map[string]int{
-			enchantmenttype: StringtoInt(enchantmentvalue),
+			enchantmenttype: value,
 		}
 	}
 	return map[string]int{}
 }
 
 func Enchantother(enchantmenttype string, enchantmentvalue string) map[string]float64 {
-
+	value, _ := strconv.ParseFloat(enchantmentvalue, 64)
 	switch enchantmenttype {
 	case "Strength", "Vigor", "Agility", "Dexterity", "Will", "Knowledge", "Resourcefulness", "AllAttributes":
 		return map[string]float64{}
 	default:
 		return map[string]float64{
-			enchantmenttype: StringtoFloat(enchantmentvalue),
+			enchantmenttype: value,
 		}
 	}
 }
