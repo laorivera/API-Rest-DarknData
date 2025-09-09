@@ -65,79 +65,18 @@ type Misc struct {
 	Luck []float32
 }
 
-/*
-	type enchantmentx struct {
-		Base      Attributes
-		Physical  PhysicalDamage
-		Magical   MagicalDamage
-		Reduction Reductions
-		Action    Actions
-		Health    Health
-		Status    Statuses
-		Memory    Memory
-		Misc      Misc
-	}
+type Enchantmentx struct {
+	Base      Attributes
+	Physical  PhysicalDamage
+	Magical   MagicalDamage
+	Reduction Reductions
+	Action    Actions
+	Health    Health
+	Status    Statuses
+	Memory    Memory
+	Misc      Misc
+}
 
-	var helmet_enchant = enchantmentx{
-		Base: Attributes{
-			Strenght:        []float64{1, 2},
-			Vigor:           []float32{},
-			Agility:         []float32{},
-			Dexterity:       []float32{},
-			Will:            []float32{},
-			Knowledge:       []float32{},
-			Resourcefulness: []float32{},
-		},
-		Physical: PhysicalDamage{
-			TruePhyisicalDamage:    []float32{},
-			PhysicalPowerBonus:     []float32{},
-			PhysicalPower:          []float32{},
-			AdditionalWeaponDamage: []float32{},
-			PhysicalDamage:         []float32{},
-			ArmorPenetration:       []float32{},
-		},
-		Magical: MagicalDamage{
-			MagicalPowerBonus: []float32{},
-			MagicalPower:      []float32{},
-			MagicalDamage:     []float32{},
-			TrueMagicalDamage: []float32{},
-			MagicPenetration:  []float32{},
-		},
-		Reduction: Reductions{
-			ArmorRating:             []float32{},
-			PhysicalDamageReduction: []float32{},
-			ProjectileReduction:     []float32{},
-			MagicalDamageReduction:  []float32{},
-			MagicResistance:         []float32{},
-			CooldownReduction:       []float32{},
-		},
-		Action: Actions{
-			ActionSpeed:             []float32{},
-			RegularInteractionSpeed: []float32{},
-			MagicalInteractionSpeed: []float32{},
-			SpellCastingSpeed:       []float32{},
-			MoveSpeed:               []float32{},
-			MoveSpeedBonus:          []float32{},
-		},
-		Health: Health{
-			MaxHealthAdd:    []float32{},
-			MaxHealthBonus:  []float32{},
-			PhysicalHealing: []float32{},
-			MagicalHealing:  []float32{},
-		},
-		Status: Statuses{
-			BuffDurationBonus: []float32{},
-			DebuffDuration:    []float32{},
-		},
-		Memory: Memory{
-			MemoryCapacityAdd:   []float32{},
-			MemoryCapacityBonus: []float32{},
-		},
-		Misc: Misc{
-			Luck: []float32{},
-		},
-	}
-*/
 type Enchanmentcat struct {
 	Attributes map[string][]float32
 	Others     map[string][]float32
@@ -294,14 +233,615 @@ var Enchantments = Enchantment{
 	},
 }
 
-/*
-type List_Enchantment struct {
-	Enchantments []map[string][]float32
+var EnchantmentMap = map[string]Enchantmentx{
+	"chest":    chestEnchantment,
+	"cloak":    cloakEnchantment,
+	"foot":     bootsEnchantment,
+	"hands":    glovesEnchantment,
+	"head":     helmetEnchantment,
+	"pants":    pantsEnchantment,
+	"necklace": necklaceEnchantment,
+	"ring":     ringEnchantment,
+	"onehand":  onehandEnchantment,
+	"twohand":  twohandEnchantment,
 }
 
-var Listx = List_Enchantment{
-	Enchantments: []map[string][]float32{
-		Enchantments.Helmet,
+var chestEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 3},
+		Vigor:           []float32{1, 3},
+		Agility:         []float32{1, 3},
+		Dexterity:       []float32{1, 3},
+		Will:            []float32{1, 3},
+		Knowledge:       []float32{1, 3},
+		Resourcefulness: []float32{1, 3},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{0}, // Not specified
+		PhysicalPowerBonus:     []float32{0.9, 1.8},
+		PhysicalPower:          []float32{1, 2},
+		AdditionalWeaponDamage: []float32{0}, // Not specified
+		PhysicalDamage:         []float32{0.9, 1.8},
+		ArmorPenetration:       []float32{1.5, 3.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.7, 1.8},
+		MagicalPower:      []float32{1, 2},
+		MagicalDamage:     []float32{0.7, 1.8},
+		TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration:  []float32{1.5, 3.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{5, 10},
+		PhysicalDamageReduction: []float32{0.7, 1.5},
+		ProjectileReduction:     []float32{1.0, 2.0},
+		MagicalDamageReduction:  []float32{0.7, 1.5},
+		MagicResistance:         []float32{5, 10},
+		CooldownReduction:       []float32{1.0, 2.0},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.9, 1.8},
+		RegularInteractionSpeed: []float32{1.5, 3.0},
+		MagicalInteractionSpeed: []float32{1.5, 3.0},
+		SpellCastingSpeed:       []float32{1.2, 2.5},
+		MoveSpeed:               []float32{0}, // Not specified
+		MoveSpeedBonus:          []float32{0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{2, 4},
+		MaxHealthBonus:  []float32{1.5, 3.0},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{1.0, 2.0},
+		DebuffDuration:    []float32{1.0, 2.0},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{2, 4},
+		MemoryCapacityBonus: []float32{2.2, 4.5},
+	},
+	Misc: Misc{
+		Luck: []float32{22, 45},
 	},
 }
-*/
+
+var pantsEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 3},
+		Vigor:           []float32{1, 3},
+		Agility:         []float32{1, 3},
+		Dexterity:       []float32{1, 3},
+		Will:            []float32{1, 3},
+		Knowledge:       []float32{1, 3},
+		Resourcefulness: []float32{1, 3},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{0}, // Not specified
+		PhysicalPowerBonus:     []float32{0.9, 1.8},
+		PhysicalPower:          []float32{1, 2},
+		AdditionalWeaponDamage: []float32{0}, // Not specified
+		PhysicalDamage:         []float32{0.9, 1.8},
+		ArmorPenetration:       []float32{1.5, 3.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.7, 1.8},
+		MagicalPower:      []float32{1, 2},
+		MagicalDamage:     []float32{0.7, 1.8},
+		TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration:  []float32{1.5, 3.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{5, 10},
+		PhysicalDamageReduction: []float32{0.7, 1.5},
+		ProjectileReduction:     []float32{1.0, 2.0},
+		MagicalDamageReduction:  []float32{0.7, 1.5},
+		MagicResistance:         []float32{5, 10},
+		CooldownReduction:       []float32{1.0, 2.0},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.9, 1.8},
+		RegularInteractionSpeed: []float32{1.5, 3.0},
+		MagicalInteractionSpeed: []float32{1.5, 3.0},
+		SpellCastingSpeed:       []float32{1.2, 2.5},
+		MoveSpeed:               []float32{0}, // Not specified
+		MoveSpeedBonus:          []float32{0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{2, 4},
+		MaxHealthBonus:  []float32{1.5, 3.0},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{1.0, 2.0},
+		DebuffDuration:    []float32{1.0, 2.0},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{2, 4},
+		MemoryCapacityBonus: []float32{2.2, 4.5},
+	},
+	Misc: Misc{
+		Luck: []float32{22, 45},
+	},
+}
+
+var cloakEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 2},
+		Vigor:           []float32{1, 2},
+		Agility:         []float32{1, 2},
+		Dexterity:       []float32{1, 2},
+		Will:            []float32{1, 2},
+		Knowledge:       []float32{1, 2},
+		Resourcefulness: []float32{1, 2},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{1, 1},
+		PhysicalPowerBonus:     []float32{0.6, 1.2},
+		PhysicalPower:          []float32{1, 1},
+		AdditionalWeaponDamage: []float32{1, 1},
+		PhysicalDamage:         []float32{0.6, 1.2},
+		ArmorPenetration:       []float32{1.0, 2.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.5, 1.2},
+		MagicalPower:      []float32{1, 1},
+		MagicalDamage:     []float32{0.5, 1.2},
+		TrueMagicalDamage: []float32{1, 1},
+		MagicPenetration:  []float32{1.0, 2.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{3, 6},
+		PhysicalDamageReduction: []float32{0.5, 1.0},
+		ProjectileReduction:     []float32{0.7, 1.5},
+		MagicalDamageReduction:  []float32{0.5, 1.0},
+		MagicResistance:         []float32{3, 6},
+		CooldownReduction:       []float32{0.7, 1.5},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.6, 1.2},
+		RegularInteractionSpeed: []float32{1.0, 2.0},
+		MagicalInteractionSpeed: []float32{1.0, 2.0},
+		SpellCastingSpeed:       []float32{1.0, 2.0},
+		MoveSpeed:               []float32{0}, // Not specified
+		MoveSpeedBonus:          []float32{0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{1, 3},
+		MaxHealthBonus:  []float32{1.0, 2.0},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{0.7, 1.5},
+		DebuffDuration:    []float32{0.7, 1.5},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{1, 2},
+		MemoryCapacityBonus: []float32{1.5, 3.0},
+	},
+	Misc: Misc{
+		Luck: []float32{15, 30},
+	},
+}
+
+var bootsEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 2},
+		Vigor:           []float32{1, 2},
+		Agility:         []float32{1, 2},
+		Dexterity:       []float32{1, 2},
+		Will:            []float32{1, 2},
+		Knowledge:       []float32{1, 2},
+		Resourcefulness: []float32{1, 2},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{0}, // Not specified
+		PhysicalPowerBonus:     []float32{0.6, 1.2},
+		PhysicalPower:          []float32{1, 1},
+		AdditionalWeaponDamage: []float32{0}, // Not specified
+		PhysicalDamage:         []float32{0.6, 1.2},
+		ArmorPenetration:       []float32{1.0, 2.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.5, 1.2},
+		MagicalPower:      []float32{1, 1},
+		MagicalDamage:     []float32{0.5, 1.2},
+		TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration:  []float32{1.0, 2.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{3, 6},
+		PhysicalDamageReduction: []float32{0.5, 1.0},
+		ProjectileReduction:     []float32{0.7, 1.5},
+		MagicalDamageReduction:  []float32{0.5, 1.0},
+		MagicResistance:         []float32{3, 6},
+		CooldownReduction:       []float32{0.7, 1.5},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.6, 1.2},
+		RegularInteractionSpeed: []float32{1.0, 2.0},
+		MagicalInteractionSpeed: []float32{1.0, 2.0},
+		SpellCastingSpeed:       []float32{1.0, 2.0},
+		MoveSpeed:               []float32{1, 5},
+		MoveSpeedBonus:          []float32{3, 15},
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{1, 3},
+		MaxHealthBonus:  []float32{1.0, 2.0},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{0.7, 1.5},
+		DebuffDuration:    []float32{0.7, 1.5},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{1, 2},
+		MemoryCapacityBonus: []float32{1.5, 3.0},
+	},
+	Misc: Misc{
+		Luck: []float32{15, 30},
+	},
+}
+
+var glovesEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 2},
+		Vigor:           []float32{1, 2},
+		Agility:         []float32{1, 2},
+		Dexterity:       []float32{1, 2},
+		Will:            []float32{1, 2},
+		Knowledge:       []float32{1, 2},
+		Resourcefulness: []float32{1, 2},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{1, 1},
+		PhysicalPowerBonus:     []float32{0.6, 1.2},
+		PhysicalPower:          []float32{1, 1},
+		AdditionalWeaponDamage: []float32{1, 1},
+		PhysicalDamage:         []float32{0.6, 1.2},
+		ArmorPenetration:       []float32{1.0, 2.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.5, 1.2},
+		MagicalPower:      []float32{1, 1},
+		MagicalDamage:     []float32{0.5, 1.2},
+		TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration:  []float32{1.0, 2.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{3, 6},
+		PhysicalDamageReduction: []float32{0.5, 1.0},
+		ProjectileReduction:     []float32{0.7, 1.5},
+		MagicalDamageReduction:  []float32{0.5, 1.0},
+		MagicResistance:         []float32{3, 6},
+		CooldownReduction:       []float32{0.7, 1.5},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.6, 1.2},
+		RegularInteractionSpeed: []float32{1.0, 2.0},
+		MagicalInteractionSpeed: []float32{1.0, 2.0},
+		SpellCastingSpeed:       []float32{1.0, 2.0},
+		MoveSpeed:               []float32{0}, // Not specified
+		MoveSpeedBonus:          []float32{0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{1, 3},
+		MaxHealthBonus:  []float32{1.0, 2.0},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{0.7, 1.5},
+		DebuffDuration:    []float32{0.7, 1.5},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{1, 2},
+		MemoryCapacityBonus: []float32{1.5, 3.0},
+	},
+	Misc: Misc{
+		Luck: []float32{15, 30},
+	},
+}
+
+var helmetEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 2},
+		Vigor:           []float32{1, 2},
+		Agility:         []float32{1, 2},
+		Dexterity:       []float32{1, 2},
+		Will:            []float32{1, 2},
+		Knowledge:       []float32{1, 2},
+		Resourcefulness: []float32{1, 2},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{0}, // Not specified
+		PhysicalPowerBonus:     []float32{0.6, 1.2},
+		PhysicalPower:          []float32{1, 1},
+		AdditionalWeaponDamage: []float32{1, 1},
+		PhysicalDamage:         []float32{0.6, 1.2},
+		ArmorPenetration:       []float32{1.0, 2.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.5, 1.2},
+		MagicalPower:      []float32{1, 1},
+		MagicalDamage:     []float32{0.5, 1.2},
+		TrueMagicalDamage: []float32{1, 1},
+		MagicPenetration:  []float32{1.0, 2.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{3, 6},
+		PhysicalDamageReduction: []float32{0.5, 1.0},
+		ProjectileReduction:     []float32{0.7, 1.5},
+		MagicalDamageReduction:  []float32{0.5, 1.0},
+		MagicResistance:         []float32{3, 6},
+		CooldownReduction:       []float32{0.7, 1.5},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.6, 1.2},
+		RegularInteractionSpeed: []float32{1.0, 2.0},
+		MagicalInteractionSpeed: []float32{1.0, 2.0},
+		SpellCastingSpeed:       []float32{1.0, 2.0},
+		MoveSpeed:               []float32{0}, // Not specified
+		MoveSpeedBonus:          []float32{0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{1, 3},
+		MaxHealthBonus:  []float32{1.0, 2.0},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{0.7, 1.5},
+		DebuffDuration:    []float32{0.7, 1.5},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{1, 2},
+		MemoryCapacityBonus: []float32{1.5, 3.0},
+	},
+	Misc: Misc{
+		Luck: []float32{15, 30},
+	},
+}
+
+var necklaceEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 3},
+		Vigor:           []float32{1, 3},
+		Agility:         []float32{1, 3},
+		Dexterity:       []float32{1, 3},
+		Will:            []float32{1, 3},
+		Knowledge:       []float32{1, 3},
+		Resourcefulness: []float32{1, 3},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{1, 1},
+		PhysicalPowerBonus:     []float32{0.9, 1.8},
+		PhysicalPower:          []float32{1, 2},
+		AdditionalWeaponDamage: []float32{1, 1},
+		PhysicalDamage:         []float32{0.9, 1.8},
+		ArmorPenetration:       []float32{1.5, 3.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.7, 1.8},
+		MagicalPower:      []float32{1, 2},
+		MagicalDamage:     []float32{0.7, 1.8},
+		TrueMagicalDamage: []float32{1, 1},
+		MagicPenetration:  []float32{1.5, 3.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{5, 10},
+		PhysicalDamageReduction: []float32{0.7, 1.5},
+		ProjectileReduction:     []float32{1.0, 2.0},
+		MagicalDamageReduction:  []float32{0.7, 1.5},
+		MagicResistance:         []float32{5, 10},
+		CooldownReduction:       []float32{1.0, 2.0},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.9, 1.8},
+		RegularInteractionSpeed: []float32{1.5, 3.0},
+		MagicalInteractionSpeed: []float32{1.5, 3.0},
+		SpellCastingSpeed:       []float32{1.2, 2.5},
+		MoveSpeed:               []float32{0}, // Not specified
+		MoveSpeedBonus:          []float32{0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{2, 4},
+		MaxHealthBonus:  []float32{1.5, 3.0},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{1.0, 2.0},
+		DebuffDuration:    []float32{1.0, 2.0},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{2, 4},
+		MemoryCapacityBonus: []float32{2.2, 4.5},
+	},
+	Misc: Misc{
+		Luck: []float32{22, 45},
+	},
+}
+
+var ringEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 2},
+		Vigor:           []float32{1, 2},
+		Agility:         []float32{1, 2},
+		Dexterity:       []float32{1, 2},
+		Will:            []float32{1, 2},
+		Knowledge:       []float32{1, 2},
+		Resourcefulness: []float32{1, 2},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{1, 1},
+		PhysicalPowerBonus:     []float32{0.6, 1.2},
+		PhysicalPower:          []float32{1, 1},
+		AdditionalWeaponDamage: []float32{1, 1},
+		PhysicalDamage:         []float32{0.6, 1.2},
+		ArmorPenetration:       []float32{1.0, 2.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.5, 1.2},
+		MagicalPower:      []float32{1, 1},
+		MagicalDamage:     []float32{0.5, 1.2},
+		TrueMagicalDamage: []float32{1, 1},
+		MagicPenetration:  []float32{1.0, 2.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{3, 6},
+		PhysicalDamageReduction: []float32{0.5, 1.0},
+		ProjectileReduction:     []float32{0.7, 1.5},
+		MagicalDamageReduction:  []float32{0.5, 1.0},
+		MagicResistance:         []float32{3, 6},
+		CooldownReduction:       []float32{0.7, 1.5},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.6, 1.2},
+		RegularInteractionSpeed: []float32{1.0, 2.0},
+		MagicalInteractionSpeed: []float32{1.0, 2.0},
+		SpellCastingSpeed:       []float32{1.0, 2.0},
+		MoveSpeed:               []float32{0}, // Not specified
+		MoveSpeedBonus:          []float32{0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{1, 3},
+		MaxHealthBonus:  []float32{1.0, 2.0},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{0.7, 1.5},
+		DebuffDuration:    []float32{0.7, 1.5},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{1, 2},
+		MemoryCapacityBonus: []float32{1.5, 3.0},
+	},
+	Misc: Misc{
+		Luck: []float32{15, 30},
+	},
+}
+
+var onehandEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 1},
+		Vigor:           []float32{1, 1},
+		Agility:         []float32{1, 1},
+		Dexterity:       []float32{1, 1},
+		Will:            []float32{1, 1},
+		Knowledge:       []float32{1, 1},
+		Resourcefulness: []float32{1, 1},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{0, 0}, // Not specified
+		PhysicalPowerBonus:     []float32{0.6, 1.2},
+		PhysicalPower:          []float32{1, 1},
+		AdditionalWeaponDamage: []float32{1, 1},
+		PhysicalDamage:         []float32{0.6, 1.2},
+		ArmorPenetration:       []float32{1.0, 2.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{0.5, 1.2},
+		MagicalPower:      []float32{1, 1},
+		MagicalDamage:     []float32{0.5, 1.2},
+		TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration:  []float32{1.0, 2.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{3, 6},
+		PhysicalDamageReduction: []float32{0.5, 1.0},
+		ProjectileReduction:     []float32{0.7, 1.5},
+		MagicalDamageReduction:  []float32{0.5, 1.0},
+		MagicResistance:         []float32{3, 6},
+		CooldownReduction:       []float32{0.7, 1.5},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{0.6, 1.2},
+		RegularInteractionSpeed: []float32{1.0, 2.0},
+		MagicalInteractionSpeed: []float32{1.0, 2.0},
+		SpellCastingSpeed:       []float32{1.0, 2.0},
+		MoveSpeed:               []float32{0}, // Not specified
+		MoveSpeedBonus:          []float32{0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{1, 2},
+		MaxHealthBonus:  []float32{0.7, 1.5},
+		PhysicalHealing: []float32{1, 1},
+		MagicalHealing:  []float32{1, 1},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{0.7, 1.5},
+		DebuffDuration:    []float32{0.7, 1.5},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{1, 2},
+		MemoryCapacityBonus: []float32{1.5, 3.0},
+	},
+	Misc: Misc{
+		Luck: []float32{15, 30},
+	},
+}
+
+var twohandEnchantment = Enchantmentx{
+	Base: Attributes{
+		Strenght:        []float64{1, 2},
+		Vigor:           []float32{1, 2},
+		Agility:         []float32{1, 2},
+		Dexterity:       []float32{1, 2},
+		Will:            []float32{1, 2},
+		Knowledge:       []float32{1, 2},
+		Resourcefulness: []float32{1, 2},
+	},
+	Physical: PhysicalDamage{
+		TruePhyisicalDamage:    []float32{0, 0}, // Not specified
+		PhysicalPowerBonus:     []float32{1.2, 2.4},
+		PhysicalPower:          []float32{1, 2},
+		AdditionalWeaponDamage: []float32{1, 2},
+		PhysicalDamage:         []float32{1.2, 2.4},
+		ArmorPenetration:       []float32{2.0, 4.0},
+	},
+	Magical: MagicalDamage{
+		MagicalPowerBonus: []float32{1.2, 2.4},
+		MagicalPower:      []float32{1, 2},
+		MagicalDamage:     []float32{1.2, 2.4},
+		TrueMagicalDamage: []float32{0, 0}, // Not specified
+		MagicPenetration:  []float32{2.0, 4.0},
+	},
+	Reduction: Reductions{
+		ArmorRating:             []float32{6, 12},
+		PhysicalDamageReduction: []float32{1.0, 2.0},
+		ProjectileReduction:     []float32{2.0, 4.0},
+		MagicalDamageReduction:  []float32{1.0, 2.0},
+		MagicResistance:         []float32{6, 12},
+		CooldownReduction:       []float32{1.5, 3.0},
+	},
+	Action: Actions{
+		ActionSpeed:             []float32{1.2, 2.4},
+		RegularInteractionSpeed: []float32{2.0, 4.0},
+		MagicalInteractionSpeed: []float32{2.0, 4.0},
+		SpellCastingSpeed:       []float32{2.0, 4.0},
+		MoveSpeed:               []float32{0, 0}, // Not specified
+		MoveSpeedBonus:          []float32{0, 0}, // Not specified
+	},
+	Health: Health{
+		MaxHealthAdd:    []float32{2, 4},
+		MaxHealthBonus:  []float32{1.5, 3.0},
+		PhysicalHealing: []float32{1, 2},
+		MagicalHealing:  []float32{1, 2},
+	},
+	Status: Statuses{
+		BuffDurationBonus: []float32{1.5, 3.0},
+		DebuffDuration:    []float32{1.5, 3.0},
+	},
+	Memory: Memory{
+		MemoryCapacityAdd:   []float32{2, 4},
+		MemoryCapacityBonus: []float32{3.0, 6.0},
+	},
+	Misc: Misc{
+		Luck: []float32{30, 60},
+	},
+}

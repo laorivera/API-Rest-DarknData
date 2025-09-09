@@ -5,34 +5,55 @@ import (
 )
 
 func Selection_Class(item Selection) Stats {
-	var result Stats
 	class := item.Class
-	switch class {
-	case "Fighter":
-		result = SCharacter.Fighter
-	case "Barbarian":
-		result = SCharacter.Barbarian
-	case "Rogue":
-		result = SCharacter.Rogue
-	case "Wizard":
-		result = SCharacter.Wizard
-	case "Cleric":
-		result = SCharacter.Cleric
-	case "Warlock":
-		result = SCharacter.Warlock
-	case "Bard":
-		result = SCharacter.Bard
-	case "Ranger":
-		result = SCharacter.Ranger
-	case "Sorcerer":
-		result = SCharacter.Sorcerer
-	default:
-		result = Stats{}
+	var result Stats
+	if x, exists := characterStat[class]; exists {
+		result = x
 	}
 	return result
 }
 
-// ItemManager
+func Selection_Race(item Selection) Stats {
+	race := item.Race
+	var result Stats
+	if x, exists := raceStats[race]; exists {
+		result = x
+	}
+	return result
+}
+
+func Selection_Brace(item Selection) Computed_Stats {
+	race := item.Race
+	var result Computed_Stats
+	if x, exists := raceComputed[race]; exists {
+		result = x
+	}
+	return result
+}
+
+func Rating_Calc(ratings []int) int {
+	result := 0
+	for i := 0; i < len(ratings); i++ {
+		result = result + ratings[i]
+	}
+	return result
+}
+
+func Speed_Calc(items []Item_Armor, rarity []int) int {
+	speedrating := 0
+	for i := 0; i < len(items); i++ {
+
+		if items[i].SlotType != "Foot" {
+			speedrating += items[i].MoveSpeed[1]
+		}
+		if items[i].SlotType == "Foot" {
+			speedrating += items[i].MoveSpeed[rarity[i]]
+		}
+	}
+	return speedrating
+}
+
+// //////////////////////////////////////////////ItemManager////////////////////////////////////////////////////////////////
 type ItemManager struct {
 	armorItems     []Item_Armor
 	weaponItems    []Item_Weapon
@@ -47,6 +68,7 @@ func NewItemManager() *ItemManager {
 	}
 }
 
+/*
 func (im *ItemManager) ArmorsBySlot(slot string, classID string) []Item_Armor {
 	class := InttoClass(classID)
 	var result []Item_Armor
@@ -90,14 +112,12 @@ func (im *ItemManager) AccesoryBySlot(slot string, classID string) []Item_Access
 
 	}
 	return result
-}
+}*/
 
-func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor { // selected weapons from json
+func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor { //select items from json
 	var selection []string
-	selection = append(selection,
-		item.ItemSlot.Head.Name, item.ItemSlot.Chest.Name, item.ItemSlot.Foot.Name,
-		item.ItemSlot.Hands.Name, item.ItemSlot.Pants.Name, item.ItemSlot.Back.Name)
-
+	selection = append(selection, item.ItemSlot.Head.Name, item.ItemSlot.Chest.Name,
+		item.ItemSlot.Foot.Name, item.ItemSlot.Hands.Name, item.ItemSlot.Pants.Name, item.ItemSlot.Back.Name)
 	var result []Item_Armor
 	for i := 0; i < len(im.armorItems); i++ {
 		for j := 0; j < len(selection); j++ {
@@ -151,9 +171,26 @@ func (im *ItemManager) SelByRarity(item Selection) []int {
 	return result
 }
 
+func (im *ItemManager) SelByRating(item Selection) []int {
+	var selection []string
+	selection = append(selection,
+		item.ItemSlot.Head.Rating, item.ItemSlot.Chest.Rating, item.ItemSlot.Foot.Rating,
+		item.ItemSlot.Hands.Rating, item.ItemSlot.Pants.Rating, item.ItemSlot.Back.Rating)
+	var result []int
+	for i := 0; i < len(selection); i++ {
+		if num, err := strconv.Atoi(selection[i]); err == nil {
+			result = append(result, num)
+		}
+	}
+	return result
+}
+
+// //////////////////////////////////////////////StatsManager////////////////////////////////////////////////////////////////
 type StatsManager struct {
-	base     Stats
-	variable Computed_Stats
+	base        Stats
+	variable    Computed_Stats
+	totalrating int
+	totalspeed  int
 }
 
 func NewStatsManager() *StatsManager {
@@ -163,15 +200,17 @@ func NewStatsManager() *StatsManager {
 	}
 }
 
-func (sm *StatsManager) ItemsBaseStats(selection Selection) Stats {
+func (sm *StatsManager) ItemsBaseStats(selection Selection) {
 	// CALCULATE TOTAL BASE ATTRIBUTE STATS OF ITEMS=
 	Im := NewItemManager()
+	var selrace Stats = Selection_Race(selection)
 	var selclass Stats = Selection_Class(selection)
+	selclass = selclass.AddStats(selrace)
 	var selarmor []Item_Armor = Im.ArmorsByName(selection)
 	var selrarity []int = Im.SelByRarity(selection)
-	// Calculate total by sum base stats and item stats
+
 	for i := 0; i < len(selarmor) && i < len(selrarity); i++ {
-		selclass = Stats{
+		selrace = Stats{
 			Strength:        selclass.Strength + selarmor[i].BaseAttribute.Strength[selrarity[i]],
 			Vigor:           selclass.Vigor + selarmor[i].BaseAttribute.Vigor[selrarity[i]],
 			Agility:         selclass.Agility + selarmor[i].BaseAttribute.Agility[selrarity[i]],
@@ -181,15 +220,16 @@ func (sm *StatsManager) ItemsBaseStats(selection Selection) Stats {
 			Resourcefulness: selclass.Resourcefulness + selarmor[i].BaseAttribute.Resourcefulness[selrarity[i]],
 		}
 	}
-	// Return the total stats struct
-	return selclass
+	sm.base = selrace
+
 }
 
-func (sm *StatsManager) BaseItemCalc(selection Selection) Computed_Stats {
+func (sm *StatsManager) BaseItemCalc(selection Selection) {
 	Im := NewItemManager()
+	var computed Computed_Stats = Selection_Brace(selection) // race selection passed into computed
 	var selarmor []Item_Armor = Im.ArmorsByName(selection)
 	var selrarity []int = Im.SelByRarity(selection)
-	computed := Computed_Stats{}
+
 	for i := 0; i < len(selarmor); i++ {
 		computed.Health += selarmor[i].MaxHealthAdd[selrarity[i]]
 		computed.ProjectileReduction += selarmor[i].ProjectileReduction
@@ -212,5 +252,18 @@ func (sm *StatsManager) BaseItemCalc(selection Selection) Computed_Stats {
 			computed.MaxHealthBonus += selarmor[i].MaxHealthBonus[selrarity[i]][i]
 		}
 	}
-	return computed
+	sm.variable = computed
+}
+
+func (sm *StatsManager) TotalSpeedRating(selection Selection) {
+	Im := NewItemManager()
+	var selarmor []Item_Armor = Im.ArmorsByName(selection)
+	var selrarity []int = Im.SelByRarity(selection)
+	sm.totalspeed = SpeedCalc(selarmor, selrarity)
+}
+
+func (sm *StatsManager) TotalArmorRating(selection Selection) {
+	Im := NewItemManager()
+	var selrating = Im.SelByRating(selection)
+	sm.totalrating = RatingCalc(selrating)
 }

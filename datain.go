@@ -11,6 +11,8 @@ type EnchantSelect struct {
 	ValueL string `json:"valuel"`
 	TypeQ  string `json:"typeq"`
 	ValueQ string `json:"valueq"`
+	TypeA  string `json:"typea"`
+	ValueA string `json:"valuea"`
 }
 
 type ItemSelect struct {
@@ -18,6 +20,7 @@ type ItemSelect struct {
 	Name    string        `json:"name"`
 	Rarity  string        `json:"rarity"`
 	Enchant EnchantSelect `json:"enchant"`
+	Rating  string        `json:"rating"`
 }
 
 type ItemSlot struct {
