@@ -203,6 +203,7 @@ func NewStatsManager() *StatsManager {
 func (sm *StatsManager) ItemsBaseStats(selection Selection) {
 	// CALCULATE TOTAL BASE ATTRIBUTE STATS OF ITEMS=
 	Im := NewItemManager()
+
 	var selrace Stats = Selection_Race(selection)
 	var selclass Stats = Selection_Class(selection)
 	selclass = selclass.AddStats(selrace)
@@ -210,17 +211,15 @@ func (sm *StatsManager) ItemsBaseStats(selection Selection) {
 	var selrarity []int = Im.SelByRarity(selection)
 
 	for i := 0; i < len(selarmor) && i < len(selrarity); i++ {
-		selrace = Stats{
-			Strength:        selclass.Strength + selarmor[i].BaseAttribute.Strength[selrarity[i]],
-			Vigor:           selclass.Vigor + selarmor[i].BaseAttribute.Vigor[selrarity[i]],
-			Agility:         selclass.Agility + selarmor[i].BaseAttribute.Agility[selrarity[i]],
-			Dexterity:       selclass.Dexterity + selarmor[i].BaseAttribute.Dexterity[selrarity[i]],
-			Will:            selclass.Will + selarmor[i].BaseAttribute.Will[selrarity[i]],
-			Knowledge:       selclass.Knowledge + selarmor[i].BaseAttribute.Knowledge[selrarity[i]],
-			Resourcefulness: selclass.Resourcefulness + selarmor[i].BaseAttribute.Resourcefulness[selrarity[i]],
-		}
+		selclass.Strength += selarmor[i].BaseAttribute.Strength[selrarity[i]]
+		selclass.Vigor += selarmor[i].BaseAttribute.Vigor[selrarity[i]]
+		selclass.Agility += selarmor[i].BaseAttribute.Agility[selrarity[i]]
+		selclass.Dexterity += selarmor[i].BaseAttribute.Dexterity[selrarity[i]]
+		selclass.Will += selarmor[i].BaseAttribute.Will[selrarity[i]]
+		selclass.Knowledge += selarmor[i].BaseAttribute.Knowledge[selrarity[i]]
+		selclass.Resourcefulness += selarmor[i].BaseAttribute.Resourcefulness[selrarity[i]]
 	}
-	sm.base = selrace
+	sm.base = selclass
 
 }
 
@@ -228,20 +227,21 @@ func (sm *StatsManager) BaseItemCalc(selection Selection) {
 	Im := NewItemManager()
 	var computed Computed_Stats = Selection_Brace(selection) // race selection passed into computed
 	var selarmor []Item_Armor = Im.ArmorsByName(selection)
+	var selacc []Item_Accessory = Im.AccesorysByName()
 	var selrarity []int = Im.SelByRarity(selection)
 
-	for i := 0; i < len(selarmor); i++ {
-		computed.Health += selarmor[i].MaxHealthAdd[selrarity[i]]
+	for i := 0; i < len(selarmor) && i < len(selrarity); i++ {
+		computed.Health += (selarmor[i].MaxHealthAdd[selrarity[i]] + selacc[i].MaxHealthAdd[selrarity[i]])
 		computed.ProjectileReduction += selarmor[i].ProjectileReduction
 		computed.ProjectileReduction += selarmor[i].ProjectileReductionRate[selrarity[i]]
 		computed.HeadshotReduction += selarmor[i].HeadshotReduction
-		computed.MoveSpeedBonus += selarmor[i].MoveSpeedBonus
+		computed.MoveSpeedBonus += selarmor[i].MoveSpeedBonus + selacc[i].MoveSpeedBonus
 		computed.ArmorPenetration += selarmor[i].ArmorPenetration
 		computed.MagicPenetration += selarmor[i].MagicPenetration
 		computed.ActionSpeed += selarmor[i].ActionSpeed[0]
 		computed.MagicalDamageReduction += selarmor[i].MagicalDamageReduction
 		computed.PhysicalDamageReduction += selarmor[i].PhysicalDamageReduction
-		computed.Luck += selarmor[i].Luck
+		computed.Luck += selarmor[i].Luck + selacc[i].Luck[selrarity[i]]
 		computed.MagicalHealing += selarmor[i].MagicalHealing[selrarity[i]]
 		computed.MagicalPower += selarmor[i].MagicalPower[selrarity[i]]
 		computed.PhysicalPower += selarmor[i].PhysicalPower

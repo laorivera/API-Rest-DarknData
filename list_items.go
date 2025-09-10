@@ -155,6 +155,7 @@ type Item struct {
 	WarMaul              Item_Weapon
 	WindlassCrossbow     Item_Weapon
 	Zweihander           Item_Weapon
+	PaddedTunic          Item_Armor
 }
 
 var item = Item{
@@ -312,6 +313,7 @@ var item = Item{
 	WarMaul:              CreateItemWeapon("./data/WarMaul.json"),
 	WindlassCrossbow:     CreateItemWeapon("./data/WindlassCrossbow.json"),
 	Zweihander:           CreateItemWeapon("./data/Zweihander.json"),
+	PaddedTunic:          CreateItemArmor("./data/PaddedTunic.json"),
 }
 
 type List_Items struct {
@@ -417,6 +419,7 @@ var Items = List_Items{
 		item.PlateBoots,
 		item.VisoredSallet,
 		item.VisoredBarbutaHelm,
+		item.PaddedTunic,
 	},
 	ItemsWeapon: []Item_Weapon{
 		item.ArmingSword,
