@@ -317,18 +317,18 @@ func Helmet_EnchantmentList_Handler(c *gin.Context) {
 	var selection Selection
 	c.BindJSON(&selection)
 
-	selitem := ItemsByNameArmor(selection.ItemSlot.Head.Name)
-	fmt.Println(selitem)
+	//selitem := ItemsByNameArmor(selection.ItemSlot.Head.Name)
+	fmt.Println(selection)
 
 	//listU := GetAvailableHelmetEnchantments(selection)
-	listUt := GetEnchatmentLists_Armor_Base(selection)["helmet"]
-	listUv := GetEnchatmentLists_Armor_ValuesUncommon(selection)["helmet"]
-	listRt := GetEnchatmentLists_Armor_TypeRare(selection)["helmet"]
-	//helmet_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["helmet"]
-	//helmet_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["helmet"]
+	helmet_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["helmet"]
+	helmet_EnchantmentNameR := GetEnchatmentLists_Armor_TypeRare(selection)["helmet"]
+	helmet_EnchantmentNameE := GetEnchatmentLists_Armor_TypeEpic(selection)["helmet"]
 	//helmet_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["helmet"]
 	//helmet_EnchantmentName["Unique"] = GetEnchatmentLists_Armor_TypeUnique(c)["helmet"]
 
+	helmet_EnchantmentValuesU := GetEnchatmentLists_Armor_ValuesUncommon(selection)["helmet"]
+	helmet_EnchantmentValuesR := GetEnchatmentLists_Armor_TypeRare(selection)["helmet"]
 	//helmet_EnchantmentValues["Uncommon"] = GetEnchatmentLists_Armor_ValuesUncommon(c)["helmet"]
 	//helmet_EnchantmentValues["Rare"] = GetEnchatmentLists_Armor_ValuesRare(c)["helmet"]
 	//helmet_EnchantmentValues["Epic"] = GetEnchatmentLists_Armor_ValuesEpic(c)["helmet"]
@@ -336,19 +336,16 @@ func Helmet_EnchantmentList_Handler(c *gin.Context) {
 	//helmet_EnchantmentValues["Unique"] = GetEnchatmentLists_Armor_ValuesUnique(c)["helmet"]
 
 	c.JSON(http.StatusOK, gin.H{
-		//"listname_uncommon":  listU,
-		"listname_uncommon":  listUt,
-		"listvalue_uncommon": listUv,
-		"listname_rare":      listRt,
-		//"listvalue_uncommon": helmet_EnchantmentValues["Uncommon"],
-		//"listname_rare":      helmet_EnchantmentName["Rare"],
-		//"listvalue_rare":     helmet_EnchantmentValues["Rare"],
-		//"listname_epic":      helmet_EnchantmentName["Epic"],
-		//"listvalue_epic":     helmet_EnchantmentValues["Epic"],
-		//"listname_legend":    helmet_EnchantmentName["Legend"],
-		//"listvalue_legend":   helmet_EnchantmentValues["Legend"],
-		//"listname_unique":    helmet_EnchantmentName["Unique"],
-		//"listvalue_unique":   helmet_EnchantmentValues["Unique"],
+		"listname_uncommon":  helmet_EnchantmentNameU,
+		"listvalue_uncommon": helmet_EnchantmentValuesU,
+		"listname_rare":      helmet_EnchantmentNameR,
+		"listvalue_rare":     helmet_EnchantmentValuesR,
+		"listname_epic":      helmet_EnchantmentName["Epic"],
+		"listvalue_epic":     helmet_EnchantmentValues["Epic"],
+		"listname_legend":    helmet_EnchantmentName["Legend"],
+		"listvalue_legend":   helmet_EnchantmentValues["Legend"],
+		"listname_unique":    helmet_EnchantmentName["Unique"],
+		"listvalue_unique":   helmet_EnchantmentValues["Unique"],
 	})
 
 }

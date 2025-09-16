@@ -1,5 +1,7 @@
 package main
 
+import "github.com/gin-gonic/gin"
+
 //import "fmt"
 
 //"net/http"
@@ -186,7 +188,6 @@ func GetEnchatmentLists_Armor_ValuesRare(selection Selection) map[string][]float
 	return lists
 }
 
-/*
 func GetEnchatmentLists_Armor_TypeEpic(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
@@ -204,7 +205,6 @@ func GetEnchatmentLists_Armor_TypeEpic(selection Selection) map[string][]string 
 
 	return lists
 }
-
 
 func GetEnchatmentLists_Armor_ValuesEpic(c *gin.Context) map[string][]float32 {
 
@@ -323,6 +323,7 @@ func GetEnchatmentLists_Armor_ValuesUnique(c *gin.Context) map[string][]float32 
 	return lists
 }
 
+/*
 /////////\\\\\\\\\ --------------> ENCHCANTMENT LISTS ACCESSORY <------------------ //////////\\\\\\\\\
 
 func GetEnchatmentLists_Accessory_Base(c *gin.Context) map[string][]string {
