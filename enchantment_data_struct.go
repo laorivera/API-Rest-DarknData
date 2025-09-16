@@ -233,18 +233,20 @@ var Enchantments = Enchantment{
 	},
 }
 
-var EnchantmentMap = map[string]Enchantmentx{
-	"chest":    chestEnchantment,
-	"cloak":    cloakEnchantment,
-	"foot":     bootsEnchantment,
-	"hands":    glovesEnchantment,
-	"head":     helmetEnchantment,
-	"pants":    pantsEnchantment,
-	"necklace": necklaceEnchantment,
-	"ring":     ringEnchantment,
-	"onehand":  onehandEnchantment,
-	"twohand":  twohandEnchantment,
-}
+/*
+	var EnchantmentMap = map[string]Enchantmentx{
+		"chest":    chestEnchantment,
+		"cloak":    cloakEnchantment,
+		"foot":     bootsEnchantment,
+		"hands":    glovesEnchantment,
+		"head":     helmetEnchantment,
+		"pants":    pantsEnchantment,
+		"necklace": necklaceEnchantment,
+		"ring":     ringEnchantment,
+		"onehand":  onehandEnchantment,
+		"twohand":  twohandEnchantment,
+	}
+
 
 var chestEnchantment = Enchantmentx{
 	Base: Attributes{
@@ -257,19 +259,19 @@ var chestEnchantment = Enchantmentx{
 		Resourcefulness: []float32{1, 3},
 	},
 	Physical: PhysicalDamage{
-		TruePhyisicalDamage:    []float32{0}, // Not specified
-		PhysicalPowerBonus:     []float32{0.9, 1.8},
-		PhysicalPower:          []float32{1, 2},
-		AdditionalWeaponDamage: []float32{0}, // Not specified
-		PhysicalDamage:         []float32{0.9, 1.8},
-		ArmorPenetration:       []float32{1.5, 3.0},
+		//TruePhyisicalDamage:    []float32{0}, // Not specified
+		PhysicalPowerBonus: []float32{0.9, 1.8},
+		PhysicalPower:      []float32{1, 2},
+		//AdditionalWeaponDamage: []float32{0}, // Not specified
+		PhysicalDamage:   []float32{0.9, 1.8},
+		ArmorPenetration: []float32{1.5, 3.0},
 	},
 	Magical: MagicalDamage{
 		MagicalPowerBonus: []float32{0.7, 1.8},
 		MagicalPower:      []float32{1, 2},
 		MagicalDamage:     []float32{0.7, 1.8},
-		TrueMagicalDamage: []float32{0}, // Not specified
-		MagicPenetration:  []float32{1.5, 3.0},
+		//TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration: []float32{1.5, 3.0},
 	},
 	Reduction: Reductions{
 		ArmorRating:             []float32{5, 10},
@@ -284,8 +286,8 @@ var chestEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{1.5, 3.0},
 		MagicalInteractionSpeed: []float32{1.5, 3.0},
 		SpellCastingSpeed:       []float32{1.2, 2.5},
-		MoveSpeed:               []float32{0}, // Not specified
-		MoveSpeedBonus:          []float32{0}, // Not specified
+		//MoveSpeed:               []float32{0}, // Not specified
+		//MoveSpeedBonus:          []float32{0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{2, 4},
@@ -317,19 +319,19 @@ var pantsEnchantment = Enchantmentx{
 		Resourcefulness: []float32{1, 3},
 	},
 	Physical: PhysicalDamage{
-		TruePhyisicalDamage:    []float32{0}, // Not specified
-		PhysicalPowerBonus:     []float32{0.9, 1.8},
-		PhysicalPower:          []float32{1, 2},
-		AdditionalWeaponDamage: []float32{0}, // Not specified
-		PhysicalDamage:         []float32{0.9, 1.8},
-		ArmorPenetration:       []float32{1.5, 3.0},
+		//	TruePhyisicalDamage:    []float32{0}, // Not specified
+		PhysicalPowerBonus: []float32{0.9, 1.8},
+		PhysicalPower:      []float32{1, 2},
+		//	AdditionalWeaponDamage: []float32{0}, // Not specified
+		PhysicalDamage:   []float32{0.9, 1.8},
+		ArmorPenetration: []float32{1.5, 3.0},
 	},
 	Magical: MagicalDamage{
 		MagicalPowerBonus: []float32{0.7, 1.8},
 		MagicalPower:      []float32{1, 2},
 		MagicalDamage:     []float32{0.7, 1.8},
-		TrueMagicalDamage: []float32{0}, // Not specified
-		MagicPenetration:  []float32{1.5, 3.0},
+		//	TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration: []float32{1.5, 3.0},
 	},
 	Reduction: Reductions{
 		ArmorRating:             []float32{5, 10},
@@ -344,8 +346,8 @@ var pantsEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{1.5, 3.0},
 		MagicalInteractionSpeed: []float32{1.5, 3.0},
 		SpellCastingSpeed:       []float32{1.2, 2.5},
-		MoveSpeed:               []float32{0}, // Not specified
-		MoveSpeedBonus:          []float32{0}, // Not specified
+		//	MoveSpeed:               []float32{0}, // Not specified
+		//	MoveSpeedBonus:          []float32{0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{2, 4},
@@ -404,8 +406,8 @@ var cloakEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{1.0, 2.0},
 		MagicalInteractionSpeed: []float32{1.0, 2.0},
 		SpellCastingSpeed:       []float32{1.0, 2.0},
-		MoveSpeed:               []float32{0}, // Not specified
-		MoveSpeedBonus:          []float32{0}, // Not specified
+		//	MoveSpeed:               []float32{0}, // Not specified
+		//	MoveSpeedBonus:          []float32{0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{1, 3},
@@ -437,19 +439,19 @@ var bootsEnchantment = Enchantmentx{
 		Resourcefulness: []float32{1, 2},
 	},
 	Physical: PhysicalDamage{
-		TruePhyisicalDamage:    []float32{0}, // Not specified
-		PhysicalPowerBonus:     []float32{0.6, 1.2},
-		PhysicalPower:          []float32{1, 1},
-		AdditionalWeaponDamage: []float32{0}, // Not specified
-		PhysicalDamage:         []float32{0.6, 1.2},
-		ArmorPenetration:       []float32{1.0, 2.0},
+		//	TruePhyisicalDamage:    []float32{0}, // Not specified
+		PhysicalPowerBonus: []float32{0.6, 1.2},
+		PhysicalPower:      []float32{1, 1},
+		//	AdditionalWeaponDamage: []float32{0}, // Not specified
+		PhysicalDamage:   []float32{0.6, 1.2},
+		ArmorPenetration: []float32{1.0, 2.0},
 	},
 	Magical: MagicalDamage{
 		MagicalPowerBonus: []float32{0.5, 1.2},
 		MagicalPower:      []float32{1, 1},
 		MagicalDamage:     []float32{0.5, 1.2},
-		TrueMagicalDamage: []float32{0}, // Not specified
-		MagicPenetration:  []float32{1.0, 2.0},
+		//	TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration: []float32{1.0, 2.0},
 	},
 	Reduction: Reductions{
 		ArmorRating:             []float32{3, 6},
@@ -508,8 +510,8 @@ var glovesEnchantment = Enchantmentx{
 		MagicalPowerBonus: []float32{0.5, 1.2},
 		MagicalPower:      []float32{1, 1},
 		MagicalDamage:     []float32{0.5, 1.2},
-		TrueMagicalDamage: []float32{0}, // Not specified
-		MagicPenetration:  []float32{1.0, 2.0},
+		//	TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration: []float32{1.0, 2.0},
 	},
 	Reduction: Reductions{
 		ArmorRating:             []float32{3, 6},
@@ -524,8 +526,8 @@ var glovesEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{1.0, 2.0},
 		MagicalInteractionSpeed: []float32{1.0, 2.0},
 		SpellCastingSpeed:       []float32{1.0, 2.0},
-		MoveSpeed:               []float32{0}, // Not specified
-		MoveSpeedBonus:          []float32{0}, // Not specified
+		//	MoveSpeed:               []float32{0}, // Not specified
+		//	MoveSpeedBonus:          []float32{0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{1, 3},
@@ -557,7 +559,7 @@ var helmetEnchantment = Enchantmentx{
 		Resourcefulness: []float32{1, 2},
 	},
 	Physical: PhysicalDamage{
-		TruePhyisicalDamage:    []float32{0}, // Not specified
+		//TruePhyisicalDamage:    []float32{0}, // Not specified
 		PhysicalPowerBonus:     []float32{0.6, 1.2},
 		PhysicalPower:          []float32{1, 1},
 		AdditionalWeaponDamage: []float32{1, 1},
@@ -584,8 +586,8 @@ var helmetEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{1.0, 2.0},
 		MagicalInteractionSpeed: []float32{1.0, 2.0},
 		SpellCastingSpeed:       []float32{1.0, 2.0},
-		MoveSpeed:               []float32{0}, // Not specified
-		MoveSpeedBonus:          []float32{0}, // Not specified
+		//MoveSpeed:               []float32{0}, // Not specified
+		//MoveSpeedBonus:          []float32{0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{1, 3},
@@ -644,8 +646,8 @@ var necklaceEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{1.5, 3.0},
 		MagicalInteractionSpeed: []float32{1.5, 3.0},
 		SpellCastingSpeed:       []float32{1.2, 2.5},
-		MoveSpeed:               []float32{0}, // Not specified
-		MoveSpeedBonus:          []float32{0}, // Not specified
+		//	MoveSpeed:               []float32{0}, // Not specified
+		//	MoveSpeedBonus:          []float32{0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{2, 4},
@@ -704,8 +706,8 @@ var ringEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{1.0, 2.0},
 		MagicalInteractionSpeed: []float32{1.0, 2.0},
 		SpellCastingSpeed:       []float32{1.0, 2.0},
-		MoveSpeed:               []float32{0}, // Not specified
-		MoveSpeedBonus:          []float32{0}, // Not specified
+		//	MoveSpeed:               []float32{0}, // Not specified
+		//	MoveSpeedBonus:          []float32{0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{1, 3},
@@ -737,7 +739,7 @@ var onehandEnchantment = Enchantmentx{
 		Resourcefulness: []float32{1, 1},
 	},
 	Physical: PhysicalDamage{
-		TruePhyisicalDamage:    []float32{0, 0}, // Not specified
+		//	TruePhyisicalDamage:    []float32{0, 0}, // Not specified
 		PhysicalPowerBonus:     []float32{0.6, 1.2},
 		PhysicalPower:          []float32{1, 1},
 		AdditionalWeaponDamage: []float32{1, 1},
@@ -748,8 +750,8 @@ var onehandEnchantment = Enchantmentx{
 		MagicalPowerBonus: []float32{0.5, 1.2},
 		MagicalPower:      []float32{1, 1},
 		MagicalDamage:     []float32{0.5, 1.2},
-		TrueMagicalDamage: []float32{0}, // Not specified
-		MagicPenetration:  []float32{1.0, 2.0},
+		//	TrueMagicalDamage: []float32{0}, // Not specified
+		MagicPenetration: []float32{1.0, 2.0},
 	},
 	Reduction: Reductions{
 		ArmorRating:             []float32{3, 6},
@@ -764,8 +766,8 @@ var onehandEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{1.0, 2.0},
 		MagicalInteractionSpeed: []float32{1.0, 2.0},
 		SpellCastingSpeed:       []float32{1.0, 2.0},
-		MoveSpeed:               []float32{0}, // Not specified
-		MoveSpeedBonus:          []float32{0}, // Not specified
+		//	MoveSpeed:               []float32{0}, // Not specified
+		//	MoveSpeedBonus:          []float32{0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{1, 2},
@@ -797,7 +799,7 @@ var twohandEnchantment = Enchantmentx{
 		Resourcefulness: []float32{1, 2},
 	},
 	Physical: PhysicalDamage{
-		TruePhyisicalDamage:    []float32{0, 0}, // Not specified
+		//	TruePhyisicalDamage:    []float32{0, 0}, // Not specified
 		PhysicalPowerBonus:     []float32{1.2, 2.4},
 		PhysicalPower:          []float32{1, 2},
 		AdditionalWeaponDamage: []float32{1, 2},
@@ -808,8 +810,8 @@ var twohandEnchantment = Enchantmentx{
 		MagicalPowerBonus: []float32{1.2, 2.4},
 		MagicalPower:      []float32{1, 2},
 		MagicalDamage:     []float32{1.2, 2.4},
-		TrueMagicalDamage: []float32{0, 0}, // Not specified
-		MagicPenetration:  []float32{2.0, 4.0},
+		//	TrueMagicalDamage: []float32{0, 0}, // Not specified
+		MagicPenetration: []float32{2.0, 4.0},
 	},
 	Reduction: Reductions{
 		ArmorRating:             []float32{6, 12},
@@ -824,8 +826,8 @@ var twohandEnchantment = Enchantmentx{
 		RegularInteractionSpeed: []float32{2.0, 4.0},
 		MagicalInteractionSpeed: []float32{2.0, 4.0},
 		SpellCastingSpeed:       []float32{2.0, 4.0},
-		MoveSpeed:               []float32{0, 0}, // Not specified
-		MoveSpeedBonus:          []float32{0, 0}, // Not specified
+		//	MoveSpeed:               []float32{0, 0}, // Not specified
+		//	MoveSpeedBonus:          []float32{0, 0}, // Not specified
 	},
 	Health: Health{
 		MaxHealthAdd:    []float32{2, 4},
@@ -845,3 +847,43 @@ var twohandEnchantment = Enchantmentx{
 		Luck: []float32{30, 60},
 	},
 }
+
+var helmetEnchantments = []string{
+	"Strength",
+	"Vigor",
+	"Agility",
+	"Dexterity",
+	"Will",
+	"Knowledge",
+	"Resourcefulness",
+	"PhysicalPowerBonus",
+	"PhysicalPower",
+	"AdditionalWeaponDamage",
+	"PhysicalDamage",
+	"ArmorPenetration",
+	"MagicalPowerBonus",
+	"MagicalPower",
+	"MagicalDamage",
+	"TrueMagicalDamage",
+	"MagicPenetration",
+	"ArmorRating",
+	"PhysicalDamageReduction",
+	"ProjectileReduction",
+	"MagicalDamageReduction",
+	"MagicResistance",
+	"CooldownReduction",
+	"ActionSpeed",
+	"RegularInteractionSpeed",
+	"MagicalInteractionSpeed",
+	"SpellCastingSpeed",
+	"MaxHealthAdd",
+	"MaxHealthBonus",
+	"PhysicalHealing",
+	"MagicalHealing",
+	"BuffDurationBonus",
+	"DebuffDuration",
+	"MemoryCapacityAdd",
+	"MemoryCapacityBonus",
+	"Luck",
+}
+*/

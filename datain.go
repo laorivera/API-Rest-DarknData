@@ -1,26 +1,9 @@
 package main
 
-type EnchantSelect struct {
-	TypeU  string `json:"typeu"`
-	ValueU string `json:"valueu"`
-	TypeR  string `json:"typer"`
-	ValueR string `json:"valuer"`
-	TypeE  string `json:"typee"`
-	ValueE string `json:"valuee"`
-	TypeL  string `json:"typel"`
-	ValueL string `json:"valuel"`
-	TypeQ  string `json:"typeq"`
-	ValueQ string `json:"valueq"`
-	TypeA  string `json:"typea"`
-	ValueA string `json:"valuea"`
-}
-
-type ItemSelect struct {
-	Id      string        `json:"id"`
-	Name    string        `json:"name"`
-	Rarity  string        `json:"rarity"`
-	Enchant EnchantSelect `json:"enchant"`
-	Rating  string        `json:"rating"`
+type Selection struct {
+	Class    string   `json:"class"`
+	Race     string   `json:"race"`
+	ItemSlot ItemSlot `json:"itemSlot"`
 }
 
 type ItemSlot struct {
@@ -37,8 +20,25 @@ type ItemSlot struct {
 	WeaponTwo ItemSelect `json:"weaponTwo"`
 }
 
-type Selection struct {
-	Class    string   `json:"class"`
-	Race     string   `json:"race"`
-	ItemSlot ItemSlot `json:"itemSlot"`
+type ItemSelect struct {
+	Id      string        `json:"id"`
+	Name    string        `json:"name"`
+	Rarity  string        `json:"rarity"`
+	Enchant EnchantSelect `json:"enchant"`
+	Rating  string        `json:"rating"`
+}
+
+type EnchantSelect struct {
+	TypeU  string `json:"typeu"`
+	ValueU string `json:"valueu"`
+	TypeR  string `json:"typer"`
+	ValueR string `json:"valuer"`
+	TypeE  string `json:"typee"`
+	ValueE string `json:"valuee"`
+	TypeL  string `json:"typel"`
+	ValueL string `json:"valuel"`
+	TypeQ  string `json:"typeq"`
+	ValueQ string `json:"valueq"`
+	TypeA  string `json:"typea"`
+	ValueA string `json:"valuea"`
 }

@@ -1,5 +1,7 @@
 package main
 
+/*
+
 import (
 	//"net/http"
 	"strconv"
@@ -345,3 +347,5 @@ func GetSelectedEnchantmentsOther_WeaponUnique(c *gin.Context) []map[string]floa
 	}
 	return enchantments
 }
+
+*/

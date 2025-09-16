@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 )
@@ -606,32 +607,29 @@ func EnchantComputedOthers(enchant []map[string]float64) Computed_Stats {
 // ///////////////////////////////////////////////////////////////////////////////////////
 // Remove base attributes from the enchantment list
 func EnchantBaseAttribExeption(enchantmentlist []string, itemtype Item_Armor) []string {
-	// Create a map of attributes to remove
 	removeAttrs := make(map[string]bool)
-
-	if itemtype.BaseAttribute.Strength[1] == 1 {
+	if itemtype.BaseAttribute.Strength[1] != 0 {
 		removeAttrs["Strength"] = true
 	}
-	if itemtype.BaseAttribute.Vigor[1] == 1 {
+	if itemtype.BaseAttribute.Vigor[1] != 0 {
 		removeAttrs["Vigor"] = true
 	}
-	if itemtype.BaseAttribute.Agility[1] == 1 {
+	if itemtype.BaseAttribute.Agility[1] != 0 {
 		removeAttrs["Agility"] = true
 	}
-	if itemtype.BaseAttribute.Dexterity[1] == 1 {
+	if itemtype.BaseAttribute.Dexterity[1] != 0 {
 		removeAttrs["Dexterity"] = true
 	}
-	if itemtype.BaseAttribute.Will[1] == 1 {
+	if itemtype.BaseAttribute.Will[1] != 0 {
 		removeAttrs["Will"] = true
 	}
-	if itemtype.BaseAttribute.Knowledge[1] == 1 {
+	if itemtype.BaseAttribute.Knowledge[1] != 0 {
 		removeAttrs["Knowledge"] = true
 	}
-	if itemtype.BaseAttribute.Resourcefulness[1] == 1 {
+	if itemtype.BaseAttribute.Resourcefulness[1] != 0 {
 		removeAttrs["Resourcefulness"] = true
 	}
-
-	// Build a new list excluding base attributes
+	fmt.Println(removeAttrs)
 	result := make([]string, 0, len(enchantmentlist))
 	for _, enchant := range enchantmentlist {
 		if !removeAttrs[enchant] {
@@ -639,6 +637,7 @@ func EnchantBaseAttribExeption(enchantmentlist []string, itemtype Item_Armor) []
 		}
 	}
 	return result
+
 }
 
 // Remove a specific enchantment type from the list
@@ -812,3 +811,11 @@ func CompleteArrayInt(array []int) []int {
 
 	return result
 }
+
+/*
+func x(a []string, b Selection){
+	for i:=0;i<len(a);i++{
+		if a[i] ==
+	}
+}
+*/

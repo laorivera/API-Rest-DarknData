@@ -3,20 +3,22 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 //////////\\\\\\\\\ ------->  LISTS ITEMS HANDLER <------- //////////\\\\\\\\\
 
+var Im = NewItemManager()
+
 func itemDisplayHandler(c *gin.Context) {
-	selecteditem := c.Param("item")
+	var selection Selection
+	c.BindJSON(&selection)
 
-	fmt.Println("Selected item:", selecteditem)
-
-	itemArmor := ItemsByNameArmor(selecteditem)
-	itemAccesory := ItemsByNameAccesory(selecteditem)
-	itemWeapon := ItemsByNameWeapon(selecteditem)
+	itemArmor := Im.ArmorsByName(selection)
+	itemAccesory := Im.AccesoriesByName(selection)
+	itemWeapon := Im.WeaponsByName(selection)
 
 	c.JSON(http.StatusOK, gin.H{
 
@@ -27,8 +29,10 @@ func itemDisplayHandler(c *gin.Context) {
 }
 
 func Helmet_List_Handler(c *gin.Context) {
-	class := c.Param("classSelection")
-	helmetList := GetItemLists_Armor_Json(class)["Head"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	helmetList := Im.ArmorsBySlot("Head", selection.Class)
 	imageHelmet := ImageLocation("Head", helmetList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -37,9 +41,10 @@ func Helmet_List_Handler(c *gin.Context) {
 }
 
 func Chest_List_Handler(c *gin.Context) {
-	class := c.Param("classSelection")
-	chestList := GetItemLists_Armor_Json(class)["Chest"]
+	var selection Selection
+	c.BindJSON(&selection)
 
+	chestList := Im.ArmorsBySlot("Chest", selection.Class)
 	imageChest := ImageLocation("Chest", chestList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -48,8 +53,10 @@ func Chest_List_Handler(c *gin.Context) {
 }
 
 func Gloves_List_Handler(c *gin.Context) {
-	class := c.Param("classSelection")
-	glovesList := GetItemLists_Armor_Json(class)["Hands"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	glovesList := Im.ArmorsBySlot("Hands", selection.Class)
 	imageGloves := ImageLocation("Hands", glovesList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -58,8 +65,10 @@ func Gloves_List_Handler(c *gin.Context) {
 }
 
 func Pants_List_Handler(c *gin.Context) {
-	class := c.Param("classSelection")
-	pantsList := GetItemLists_Armor_Json(class)["Legs"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	pantsList := Im.ArmorsBySlot("Legs", selection.Class)
 	imagePants := ImageLocation("Legs", pantsList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -69,8 +78,10 @@ func Pants_List_Handler(c *gin.Context) {
 }
 
 func Boots_List_Handler(c *gin.Context) {
-	class := c.Param("classSelection")
-	bootsList := GetItemLists_Armor_Json(class)["Foot"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	bootsList := Im.ArmorsBySlot("Foot", selection.Class)
 	imageBoots := ImageLocation("Foot", bootsList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -79,8 +90,10 @@ func Boots_List_Handler(c *gin.Context) {
 }
 
 func Cloak_List_Handler(c *gin.Context) {
-	class := c.Param("classSelection")
-	cloakList := GetItemLists_Armor_Json(class)["Back"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	cloakList := Im.ArmorsBySlot("Back", selection.Class)
 	imageCloak := ImageLocation("Back", cloakList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -89,7 +102,8 @@ func Cloak_List_Handler(c *gin.Context) {
 }
 
 func Necklace_List_Handler(c *gin.Context) {
-	necklaceList := GetItemLists_Accesory_Json()["Necklace"]
+
+	necklaceList := Im.AccesoryBySlot("Necklace")
 	imageNecklace := ImageLocation("Necklace", necklaceList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -98,7 +112,7 @@ func Necklace_List_Handler(c *gin.Context) {
 }
 
 func Ring_List_Handler(c *gin.Context) {
-	ringList := GetItemLists_Accesory_Json()["Ring"]
+	ringList := Im.AccesoryBySlot("Ring")
 	imageRing := ImageLocation("Ring", ringList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -107,8 +121,10 @@ func Ring_List_Handler(c *gin.Context) {
 }
 
 func Pwo_List_Handler(c *gin.Context) {
-	class := c.Param("classSelection")
-	primaryWeaponList := GetItemLists_Weapon_Json(class)["Main Hand"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	primaryWeaponList := Im.WeaponsBySlot("Main Hand", selection.Class)
 	imagePwo := ImageLocation("Main Hand", primaryWeaponList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -117,8 +133,10 @@ func Pwo_List_Handler(c *gin.Context) {
 }
 
 func Pwt_List_Handler(c *gin.Context) {
-	class := c.Param("classSelection")
-	primaryOffhandWeaponList := GetItemLists_Weapon_Json(class)["Off Hand"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	primaryOffhandWeaponList := Im.WeaponsBySlot("Off Hand", selection.Class)
 	imagePwt := ImageLocation("Off Hand", primaryOffhandWeaponList)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -133,44 +151,116 @@ func Rating_List(c *gin.Context) {
 }
 
 func Helmet_RatingList_Handler(c *gin.Context) {
+	var selection Selection
+	c.BindJSON(&selection)
 
-	helmetRatingList := GetRatingLists_Armor(c)["helmet"]
+	list := Im.ArmorsByName(selection)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.Head.Rarity)
 
+	var result = []int{}
+
+	for i := 0; i < len(list); i++ {
+		if list[i].Name == selection.ItemSlot.Head.Name {
+			result = list[i].ArmorRatings[rarity]
+		}
+	}
+	helmetRatingList := CompleteArrayInt(result)
 	c.JSON(http.StatusOK, gin.H{
 		"list": helmetRatingList},
 	)
 }
 
 func Chest_RatingList_Handler(c *gin.Context) {
-	chestRatingList := GetRatingLists_Armor(c)["chest"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	list := Im.ArmorsByName(selection)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.Chest.Rarity)
+	var result = []int{}
+
+	for i := 0; i < len(list); i++ {
+		if list[i].Name == selection.ItemSlot.Chest.Name {
+			result = list[i].ArmorRatings[rarity]
+		}
+	}
+	chestRatingList := CompleteArrayInt(result)
 	c.JSON(http.StatusOK, gin.H{
 		"list": chestRatingList},
 	)
 }
 
 func Gloves_RatingList_Handler(c *gin.Context) {
-	glovesRatingList := GetRatingLists_Armor(c)["gloves"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	list := Im.ArmorsByName(selection)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.Hands.Rarity)
+	var result = []int{}
+
+	for i := 0; i < len(list); i++ {
+		if list[i].Name == selection.ItemSlot.Hands.Name {
+			result = list[i].ArmorRatings[rarity]
+		}
+	}
+	glovesRatingList := CompleteArrayInt(result)
+
 	c.JSON(http.StatusOK, gin.H{
 		"list": glovesRatingList},
 	)
 }
 
 func Pants_RatingList_Handler(c *gin.Context) {
-	pantsRatingList := GetRatingLists_Armor(c)["pants"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	list := Im.ArmorsByName(selection)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.Pants.Rarity)
+	var result = []int{}
+
+	for i := 0; i < len(list); i++ {
+		if list[i].Name == selection.ItemSlot.Pants.Name {
+			result = list[i].ArmorRatings[rarity]
+		}
+	}
+	pantsRatingList := CompleteArrayInt(result)
 	c.JSON(http.StatusOK, gin.H{
 		"list": pantsRatingList},
 	)
 }
 
 func Boots_RatingList_Handler(c *gin.Context) {
-	bootsRatingList := GetRatingLists_Armor(c)["boots"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	list := Im.ArmorsByName(selection)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.Foot.Rarity)
+	var result = []int{}
+
+	for i := 0; i < len(list); i++ {
+		if list[i].Name == selection.ItemSlot.Foot.Id {
+			result = list[i].ArmorRatings[rarity]
+		}
+	}
+	bootsRatingList := CompleteArrayInt(result)
 	c.JSON(http.StatusOK, gin.H{
 		"list": bootsRatingList},
 	)
 }
 
 func Cloak_RatingList_Handler(c *gin.Context) {
-	cloakRatingList := GetRatingLists_Armor(c)["cloak"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	list := Im.ArmorsByName(selection)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.Foot.Rarity)
+	var result = []int{}
+
+	for i := 0; i < len(list); i++ {
+		if list[i].Name == selection.ItemSlot.Foot.Id {
+			result = list[i].ArmorRatings[rarity]
+		}
+	}
+	cloakRatingList := CompleteArrayInt(result)
 	c.JSON(http.StatusOK, gin.H{
 		"list": cloakRatingList},
 	)
@@ -178,7 +268,20 @@ func Cloak_RatingList_Handler(c *gin.Context) {
 
 func Pwo_RatingList_Handler(c *gin.Context) {
 
-	primaryWeaponRatingList := GetRatingLists_Weapon(c)["pwo"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	list := Im.WeaponsByName(selection)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.WeaponOne.Rarity)
+	var result = []int{}
+
+	for i := 0; i < len(list); i++ {
+		if list[i].Name == selection.ItemSlot.WeaponOne.Id {
+			result = list[i].DamageRatings[rarity]
+		}
+	}
+
+	primaryWeaponRatingList := CompleteArrayInt(result)
 
 	c.JSON(http.StatusOK, gin.H{
 		"list": primaryWeaponRatingList},
@@ -187,7 +290,20 @@ func Pwo_RatingList_Handler(c *gin.Context) {
 
 func Pwt_RatingList_Handler(c *gin.Context) {
 
-	primaryoffhandWeaponRatingList := GetRatingLists_Weapon(c)["pwt"]
+	var selection Selection
+	c.BindJSON(&selection)
+
+	list := Im.WeaponsByName(selection)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.WeaponTwo.Rarity)
+	var result = []int{}
+
+	for i := 0; i < len(list); i++ {
+		if list[i].Name == selection.ItemSlot.WeaponTwo.Id {
+			result = list[i].DamageRatings[rarity]
+		}
+	}
+
+	primaryoffhandWeaponRatingList := CompleteArrayInt(result)
 
 	c.JSON(http.StatusOK, gin.H{
 		"list": primaryoffhandWeaponRatingList},
@@ -197,35 +313,47 @@ func Pwt_RatingList_Handler(c *gin.Context) {
 //////////\\\\\\\\\ ------->   ENCHANTMENT LISTS HANDLER   <------- //////////\\\\\\\\\
 
 func Helmet_EnchantmentList_Handler(c *gin.Context) {
-	helmet_EnchantmentName := map[string][]string{}
-	helmet_EnchantmentValues := map[string][]float32{}
 
-	helmet_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["helmet"]
-	helmet_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["helmet"]
-	helmet_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["helmet"]
-	helmet_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["helmet"]
-	helmet_EnchantmentName["Unique"] = GetEnchatmentLists_Armor_TypeUnique(c)["helmet"]
+	var selection Selection
+	c.BindJSON(&selection)
 
-	helmet_EnchantmentValues["Uncommon"] = GetEnchatmentLists_Armor_ValuesUncommon(c)["helmet"]
-	helmet_EnchantmentValues["Rare"] = GetEnchatmentLists_Armor_ValuesRare(c)["helmet"]
-	helmet_EnchantmentValues["Epic"] = GetEnchatmentLists_Armor_ValuesEpic(c)["helmet"]
-	helmet_EnchantmentValues["Legend"] = GetEnchatmentLists_Armor_ValuesLegend(c)["helmet"]
-	helmet_EnchantmentValues["Unique"] = GetEnchatmentLists_Armor_ValuesUnique(c)["helmet"]
+	selitem := ItemsByNameArmor(selection.ItemSlot.Head.Name)
+	fmt.Println(selitem)
+
+	//listU := GetAvailableHelmetEnchantments(selection)
+	listUt := GetEnchatmentLists_Armor_Base(selection)["helmet"]
+	listUv := GetEnchatmentLists_Armor_ValuesUncommon(selection)["helmet"]
+	listRt := GetEnchatmentLists_Armor_TypeRare(selection)["helmet"]
+	//helmet_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["helmet"]
+	//helmet_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["helmet"]
+	//helmet_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["helmet"]
+	//helmet_EnchantmentName["Unique"] = GetEnchatmentLists_Armor_TypeUnique(c)["helmet"]
+
+	//helmet_EnchantmentValues["Uncommon"] = GetEnchatmentLists_Armor_ValuesUncommon(c)["helmet"]
+	//helmet_EnchantmentValues["Rare"] = GetEnchatmentLists_Armor_ValuesRare(c)["helmet"]
+	//helmet_EnchantmentValues["Epic"] = GetEnchatmentLists_Armor_ValuesEpic(c)["helmet"]
+	//helmet_EnchantmentValues["Legend"] = GetEnchatmentLists_Armor_ValuesLegend(c)["helmet"]
+	//helmet_EnchantmentValues["Unique"] = GetEnchatmentLists_Armor_ValuesUnique(c)["helmet"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  helmet_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": helmet_EnchantmentValues["Uncommon"],
-		"listname_rare":      helmet_EnchantmentName["Rare"],
-		"listvalue_rare":     helmet_EnchantmentValues["Rare"],
-		"listname_epic":      helmet_EnchantmentName["Epic"],
-		"listvalue_epic":     helmet_EnchantmentValues["Epic"],
-		"listname_legend":    helmet_EnchantmentName["Legend"],
-		"listvalue_legend":   helmet_EnchantmentValues["Legend"],
-		"listname_unique":    helmet_EnchantmentName["Unique"],
-		"listvalue_unique":   helmet_EnchantmentValues["Unique"],
+		//"listname_uncommon":  listU,
+		"listname_uncommon":  listUt,
+		"listvalue_uncommon": listUv,
+		"listname_rare":      listRt,
+		//"listvalue_uncommon": helmet_EnchantmentValues["Uncommon"],
+		//"listname_rare":      helmet_EnchantmentName["Rare"],
+		//"listvalue_rare":     helmet_EnchantmentValues["Rare"],
+		//"listname_epic":      helmet_EnchantmentName["Epic"],
+		//"listvalue_epic":     helmet_EnchantmentValues["Epic"],
+		//"listname_legend":    helmet_EnchantmentName["Legend"],
+		//"listvalue_legend":   helmet_EnchantmentValues["Legend"],
+		//"listname_unique":    helmet_EnchantmentName["Unique"],
+		//"listvalue_unique":   helmet_EnchantmentValues["Unique"],
 	})
 
 }
+
+/*
 
 func Chest_EnchantmentList_Handler(c *gin.Context) {
 	chest_EnchantmentName := map[string][]string{}
@@ -534,52 +662,53 @@ func Pwt_EnchantmentList_Handler(c *gin.Context) {
 		"listvalue_unique":   primaryOffhandWeapon_EnchantmentValues["Unique"],
 	})
 }
-
+*/
 //////////\\\\\\\\\ ------->   ROUTES  <------- //////////\\\\\\\\\
 
 func setupRoutes(r *gin.Engine) {
 	// LISTS ITEMS ENDPOINTS
-	r.GET("/helmetlist/:classSelection", Helmet_List_Handler)
-	r.GET("/chestlist/:classSelection", Chest_List_Handler)
-	r.GET("/gloveslist/:classSelection", Gloves_List_Handler)
-	r.GET("/pantslist/:classSelection", Pants_List_Handler)
-	r.GET("/bootslist/:classSelection", Boots_List_Handler)
-	r.GET("/cloaklist/:classSelection", Cloak_List_Handler)
-	r.GET("/pwolist/:classSelection", Pwo_List_Handler)
-	r.GET("/pwtlist/:classSelection", Pwt_List_Handler)
-	r.GET("/necklacelist/", Necklace_List_Handler)
-	r.GET("/ringlist/", Ring_List_Handler)
+	r.POST("/helmetlist/", Helmet_List_Handler)
+	r.POST("/chestlist/", Chest_List_Handler)
+	r.POST("/gloveslist/", Gloves_List_Handler)
+	r.POST("/pantslist/", Pants_List_Handler)
+	r.POST("/bootslist/", Boots_List_Handler)
+	r.POST("/cloaklist/", Cloak_List_Handler)
+	r.POST("/pwolist/", Pwo_List_Handler)
+	r.POST("/pwtlist/", Pwt_List_Handler)
+	r.POST("/necklacelist/", Necklace_List_Handler)
+	r.POST("/ringlist/", Ring_List_Handler)
 
 	// RATING LISTS ENDPOINTS
-	r.GET("/helmetratinglist/", Helmet_RatingList_Handler)
-	r.GET("/chestratinglist/", Chest_RatingList_Handler)
-	r.GET("/glovesratinglist/", Gloves_RatingList_Handler)
-	r.GET("/pantsratinglist/", Pants_RatingList_Handler)
-	r.GET("/bootsratinglist/", Boots_RatingList_Handler)
-	r.GET("/cloakratinglist/", Cloak_RatingList_Handler)
-	r.GET("/pworatinglist/", Pwo_RatingList_Handler)
-	r.GET("/pwtratinglist/", Pwt_RatingList_Handler)
+	r.POST("/helmetratinglist/", Helmet_RatingList_Handler)
+	r.POST("/chestratinglist/", Chest_RatingList_Handler)
+	r.POST("/glovesratinglist/", Gloves_RatingList_Handler)
+	r.POST("/pantsratinglist/", Pants_RatingList_Handler)
+	r.POST("/bootsratinglist/", Boots_RatingList_Handler)
+	r.POST("/cloakratinglist/", Cloak_RatingList_Handler)
+	r.POST("/pworatinglist/", Pwo_RatingList_Handler)
+	r.POST("/pwtratinglist/", Pwt_RatingList_Handler)
 
 	//ENCHANTMENT LISTS ENDPOINTS
-	r.GET("/enchantmentlisthelmet/", Helmet_EnchantmentList_Handler)
-	r.GET("/enchantmentlistchest/", Chest_EnchantmentList_Handler)
-	r.GET("/enchantmentlistgloves/", Gloves_EnchantmentList_Handler)
-	r.GET("/enchantmentlistpants/", Pants_EnchantmentList_Handler)
-	r.GET("/enchantmentlistboots/", Boots_EnchantmentList_Handler)
-	r.GET("/enchantmentlistcloak/", Cloak_EnchantmentList_Handler)
+	r.POST("/enchantmentlisthelmet/", Helmet_EnchantmentList_Handler)
+	/*
+		r.GET("/enchantmentlistchest/", Chest_EnchantmentList_Handler)
+		r.GET("/enchantmentlistgloves/", Gloves_EnchantmentList_Handler)
+		r.GET("/enchantmentlistpants/", Pants_EnchantmentList_Handler)
+		r.GET("/enchantmentlistboots/", Boots_EnchantmentList_Handler)
+		r.GET("/enchantmentlistcloak/", Cloak_EnchantmentList_Handler)
 
-	r.GET("/enchantmentlistpwo/", Pwo_EnchantmentList_Handler)
-	r.GET("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
+		r.GET("/enchantmentlistpwo/", Pwo_EnchantmentList_Handler)
+		r.GET("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
 
-	r.GET("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
-	r.GET("/enchantmentlistring/", Ring_EnchantmentList_Handler)
-	r.GET("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)
-
+		r.GET("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
+		r.GET("/enchantmentlistring/", Ring_EnchantmentList_Handler)
+		r.GET("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)
+	*/
 	// item display
-	r.GET("/itemdisplay/:item", itemDisplayHandler)
+	r.POST("/itemdisplay/", itemDisplayHandler)
 
 	// Calculate stats
-	r.GET("/charbuilder/:classSelection", updateStatsHandler)
+	//r.GET("/charbuilder/:classSelection", updateStatsHandler)
 
 	// json handler
 	r.POST("/api/", postHandler)

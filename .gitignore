@@ -12,12 +12,10 @@ Thumbs.db
 *.log
 
 # Ignore Go build files
-bcalculation.go
-broute.go
 *.out
 *.o
 
 # Ignore directories
 /vendor/
 node_modules/
-/calc/
+

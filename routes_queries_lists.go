@@ -1,143 +1,156 @@
 package main
 
-import (
-	//"net/http"
-	"strconv"
+//import "fmt"
 
-	"github.com/gin-gonic/gin"
-)
+//"net/http"
+//"strconv"
 
 //type amor_manager struct {
 //	slotarmor   []string
 //	slot
 //}
 
+/*
 // get item lists
 
-func GetItemLists_Armor_Json(class string) map[string][]string {
-	lists := map[string][]string{}
-	for i := 0; i < len(slotsm); i++ {
-		lists[slotsm[i]] = ItemsBySlotType_Json(class, slotsm[i])
+	func GetItemLists_Armor_Json(class string) map[string][]string {
+		lists := map[string][]string{}
+		for i := 0; i < len(slotsm); i++ {
+			lists[slotsm[i]] = ItemsBySlotType_Json(class, slotsm[i])
+		}
+		return lists
 	}
-	return lists
-}
+
 func GetItemLists_Accesory_Json() map[string][]string {
 
-	lists := map[string][]string{}
-	for i := 0; i < len(slotsmacc); i++ {
-		lists[slotsmacc[i]] = AccessoryBySlotType_Json(slotsmacc[i])
+		lists := map[string][]string{}
+		for i := 0; i < len(slotsmacc); i++ {
+			lists[slotsmacc[i]] = AccessoryBySlotType_Json(slotsmacc[i])
+		}
+		return lists
 	}
-	return lists
-}
 
 // get rating lists
 
-func GetRatingLists_Armor(c *gin.Context) map[string][]int {
-	ratings := map[string][]int{}
+	func GetRatingLists_Armor(c *gin.Context) map[string][]int {
+		ratings := map[string][]int{}
 
-	for i := 0; i < len(slots); i++ {
-		itemName := c.Query("item" + slots[i])
-		rarityIndex, _ := strconv.Atoi((c.Query("rarityselect_" + slots[i])))
+		for i := 0; i < len(slots); i++ {
+			itemName := c.Query("item" + slots[i])
+			rarityIndex, _ := strconv.Atoi((c.Query("rarityselect_" + slots[i])))
 
-		item := ItemsByNameArmor(itemName)
-		ratings[slots[i]] = CompleteArrayInt(item.ArmorRatings[rarityIndex])
+			item := ItemsByNameArmor(itemName)
+			ratings[slots[i]] = CompleteArrayInt(item.ArmorRatings[rarityIndex])
+		}
+
+		return ratings
 	}
 
-	return ratings
-}
+	func GetItemLists_Weapon_Json(class string) map[string][]string {
+		lists := map[string][]string{}
 
-func GetItemLists_Weapon_Json(class string) map[string][]string {
-	lists := map[string][]string{}
+		for i := 0; i < len(slotshand); i++ {
+			lists[slotshand[i]] = WeaponsBySlotType_Json(class, slotshand[i])
+		}
 
-	for i := 0; i < len(slotshand); i++ {
-		lists[slotshand[i]] = WeaponsBySlotType_Json(class, slotshand[i])
+		return lists
 	}
 
-	return lists
-}
 func GetRatingLists_Weapon(c *gin.Context) map[string][]int {
 
-	ratings := map[string][]int{}
-	for i := 0; i < len(slotsweapon); i++ {
-		itemname := c.Query("item" + slotsweapon[i])
-		rarityindex, _ := strconv.Atoi((c.Query("rarityselect_" + slotsweapon[i])))
+		ratings := map[string][]int{}
+		for i := 0; i < len(slotsweapon); i++ {
+			itemname := c.Query("item" + slotsweapon[i])
+			rarityindex, _ := strconv.Atoi((c.Query("rarityselect_" + slotsweapon[i])))
 
-		item := ItemsByNameWeapon(itemname)
-		ratings[slotsweapon[i]] = CompleteArrayInt(item.DamageRatings[rarityindex])
+			item := ItemsByNameWeapon(itemname)
+			ratings[slotsweapon[i]] = CompleteArrayInt(item.DamageRatings[rarityindex])
 
+		}
+
+		return ratings
 	}
 
-	return ratings
-}
-
 // /////\\\\\\ --------------> ENCHCANTMENT LISTS ARMOR <------------------///////////\\\\\\\\\
-
-func GetEnchatmentLists_Armor_Base(c *gin.Context) map[string][]string {
+*/
+func GetEnchatmentLists_Armor_Base(selection Selection) map[string][]string {
 
 	lists := map[string][]string{}
 	for i := 0; i < len(slots); i++ {
 		if slots[i] == "helmet" {
-			query := c.Query("item" + slots[i])
-			item := ItemsByNameArmor(query)
+			item := ItemsByNameArmor(selection.ItemSlot.Head.Name)
 			echantments := EnchamentbySlot(Enchantments.Helmet)
 			lists[slots[i]] = EnchantBaseAttribExeption(echantments, item)
 		}
 		if slots[i] == "chest" {
-			lists[slots[i]] = EnchantBaseAttribExeption(EnchamentbySlot(Enchantments.Chest), ItemsByNameArmor(c.Query("item"+slots[i])))
+			item := ItemsByNameArmor(selection.ItemSlot.Chest.Name)
+			echantments := EnchamentbySlot(Enchantments.Chest)
+			lists[slots[i]] = EnchantBaseAttribExeption(echantments, item)
 		}
 		if slots[i] == "gloves" {
-			lists[slots[i]] = EnchantBaseAttribExeption(EnchamentbySlot(Enchantments.Gloves), ItemsByNameArmor(c.Query("item"+slots[i])))
+			item := ItemsByNameArmor(selection.ItemSlot.Hands.Name)
+			echantments := EnchamentbySlot(Enchantments.Gloves)
+			lists[slots[i]] = EnchantBaseAttribExeption(echantments, item)
 		}
 		if slots[i] == "pants" {
-			lists[slots[i]] = EnchantBaseAttribExeption(EnchamentbySlot(Enchantments.Pants), ItemsByNameArmor(c.Query("item"+slots[i])))
+			item := ItemsByNameArmor(selection.ItemSlot.Pants.Name)
+			echantments := EnchamentbySlot(Enchantments.Pants)
+			lists[slots[i]] = EnchantBaseAttribExeption(echantments, item)
 		}
 		if slots[i] == "boots" {
-			lists[slots[i]] = EnchantBaseAttribExeption(EnchamentbySlot(Enchantments.Boots), ItemsByNameArmor(c.Query("item"+slots[i])))
+			item := ItemsByNameArmor(selection.ItemSlot.Foot.Name)
+			echantments := EnchamentbySlot(Enchantments.Boots)
+			lists[slots[i]] = EnchantBaseAttribExeption(echantments, item)
 		}
 		if slots[i] == "cloak" {
-			lists[slots[i]] = EnchantBaseAttribExeption(EnchamentbySlot(Enchantments.Cloak), ItemsByNameArmor(c.Query("item"+slots[i])))
+			item := ItemsByNameArmor(selection.ItemSlot.Back.Name)
+			echantments := EnchamentbySlot(Enchantments.Cloak)
+			lists[slots[i]] = EnchantBaseAttribExeption(echantments, item)
 		}
 
 	}
 	return lists
 
 }
-func GetEnchatmentLists_Armor_ValuesUncommon(c *gin.Context) map[string][]float32 {
+
+func GetEnchatmentLists_Armor_ValuesUncommon(selection Selection) map[string][]float32 {
 
 	lists := map[string][]float32{}
 	for i := 0; i < len(slots); i++ {
-		Query := c.Query("enchantment_" + slots[i] + "type")
+
 		if slots[i] == "helmet" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Helmet)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Head.Enchant.TypeU, Enchantments.Helmet)
 		}
 		if slots[i] == "chest" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Chest)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Chest.Enchant.TypeU, Enchantments.Chest)
 		}
 		if slots[i] == "gloves" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Gloves)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Hands.Enchant.TypeU, Enchantments.Gloves)
 		}
 		if slots[i] == "pants" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Pants)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Pants.Enchant.TypeU, Enchantments.Pants)
 		}
 		if slots[i] == "boots" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Boots)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Foot.Enchant.TypeU, Enchantments.Boots)
 		}
 		if slots[i] == "cloak" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Cloak)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Back.Enchant.TypeU, Enchantments.Cloak)
 		}
 	}
 	return lists
 }
-func GetEnchatmentLists_Armor_TypeRare(c *gin.Context) map[string][]string {
+
+func GetEnchatmentLists_Armor_TypeRare(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchatmentLists_Armor_Base(c)
+	baseLists := GetEnchatmentLists_Armor_Base(selection)
 
 	for _, slot := range slots {
 		// Pass all previous selections up to Epic
-		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"), // Uncommon
+		previousSelections := []string{ // uncommon
+			selection.ItemSlot.Head.Enchant.TypeU, selection.ItemSlot.Chest.Enchant.TypeU, selection.ItemSlot.Hands.Enchant.TypeU,
+			selection.ItemSlot.Foot.Enchant.TypeU, selection.ItemSlot.Back.Enchant.TypeU,
 		}
 		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
 	}
@@ -145,37 +158,40 @@ func GetEnchatmentLists_Armor_TypeRare(c *gin.Context) map[string][]string {
 	return lists
 
 }
-func GetEnchatmentLists_Armor_ValuesRare(c *gin.Context) map[string][]float32 {
+
+func GetEnchatmentLists_Armor_ValuesRare(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slots); i++ {
-		Query := c.Query("enchantment_" + slots[i] + "type2")
+
 		if slots[i] == "helmet" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Helmet)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Head.Enchant.TypeR, Enchantments.Helmet)
 		}
 		if slots[i] == "chest" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Chest)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Chest.Enchant.TypeR, Enchantments.Chest)
 		}
 		if slots[i] == "gloves" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Gloves)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Hands.Enchant.TypeR, Enchantments.Gloves)
 		}
 		if slots[i] == "pants" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Pants)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Pants.Enchant.TypeR, Enchantments.Pants)
 		}
 		if slots[i] == "boots" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Boots)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Foot.Enchant.TypeR, Enchantments.Boots)
 		}
 		if slots[i] == "cloak" {
-			lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.Cloak)
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.Back.Enchant.TypeR, Enchantments.Cloak)
 		}
 	}
 	return lists
 }
-func GetEnchatmentLists_Armor_TypeEpic(c *gin.Context) map[string][]string {
+
+/*
+func GetEnchatmentLists_Armor_TypeEpic(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchatmentLists_Armor_Base(c)
+	baseLists := GetEnchatmentLists_Armor_Base(selection)
 
 	for _, slot := range slots {
 		// Pass all previous selections up to Epic
@@ -188,6 +204,8 @@ func GetEnchatmentLists_Armor_TypeEpic(c *gin.Context) map[string][]string {
 
 	return lists
 }
+
+
 func GetEnchatmentLists_Armor_ValuesEpic(c *gin.Context) map[string][]float32 {
 
 	lists := make(map[string][]float32)
@@ -214,6 +232,7 @@ func GetEnchatmentLists_Armor_ValuesEpic(c *gin.Context) map[string][]float32 {
 	}
 	return lists
 }
+
 func GetEnchatmentLists_Armor_TypeLegend(c *gin.Context) map[string][]string {
 
 	lists := make(map[string][]string)
@@ -478,6 +497,8 @@ func GetEnchantmentLists_Accessory_ValuesUnique(c *gin.Context) map[string][]flo
 	return lists
 }
 
+/*
+
 /////////\\\\\\\\\ --------------> ENCHCANTMENT LISTS WEAPON <------------------ //////////\\\\\\\\\
 
 func GetEnchantmentLists_Weapon_Base(c *gin.Context) map[string][]string {
@@ -599,7 +620,7 @@ func GetEnchantmentLists_Weapon_ValuesEpic(c *gin.Context) map[string][]float32 
 		if slotsweapon[i] == "pwo" {
 			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
 		}
-		/*
+
 			if slots[i] == "pwt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.PrimaryWeaponTwoHand)
 			}
@@ -609,7 +630,7 @@ func GetEnchantmentLists_Weapon_ValuesEpic(c *gin.Context) map[string][]float32 
 			if slots[i] == "swt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponTwoHand)
 			}
-		*/
+
 	}
 	return lists
 }
@@ -640,7 +661,7 @@ func GetEnchantmentLists_Weapon_ValuesLegend(c *gin.Context) map[string][]float3
 		if slotsweapon[i] == "pwo" {
 			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
 		}
-		/*
+
 			if slots[i] == "pwt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.PrimaryWeaponTwoHand)
 			}
@@ -650,7 +671,7 @@ func GetEnchantmentLists_Weapon_ValuesLegend(c *gin.Context) map[string][]float3
 			if slots[i] == "swt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponTwoHand)
 			}
-		*/
+
 	}
 	return lists
 }
@@ -682,7 +703,7 @@ func GetEnchantmentLists_Weapon_ValuesUnique(c *gin.Context) map[string][]float3
 		if slotsweapon[i] == "pwo" {
 			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
 		}
-		/*
+
 			if slots[i] == "pwt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.PrimaryWeaponTwoHand)
 			}
@@ -692,7 +713,9 @@ func GetEnchantmentLists_Weapon_ValuesUnique(c *gin.Context) map[string][]float3
 			if slots[i] == "swt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponTwoHand)
 			}
-		*/
+
 	}
 	return lists
 }
+
+*/
