@@ -107,6 +107,7 @@ func postHandler(c *gin.Context) {
 		fmt.Println("JSON Bind Error:", err)
 		return
 	}
+	fmt.Println(selection)
 	//var Im = NewItemManager()
 	var Sm = NewStatsManager()
 
@@ -119,7 +120,8 @@ func postHandler(c *gin.Context) {
 
 	Sm.base = ProcessBaseEnchantments(selection).AddStats(Sm.base)
 
-	resultother := ProcessOtherEnchantments(selection)
+	resultother := ProcessOtherEnchantments(selection).AddEnchant(Sm.variable)
+	fmt.Println(resultother)
 
 	totally := Calculate(Sm.base, Sm.totalrating, Sm.totalspeed, resultother, Sm.variable)
 
