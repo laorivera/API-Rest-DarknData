@@ -534,7 +534,7 @@ func Enchantother(enchantmenttype string, enchantmentvalue string) map[string]fl
 }
 
 func EnchantComputedOthers(enchant []map[string]float64) Computed_Stats {
-	var result Computed_Stats      // Uses zero-value initialization
+	var result = Computed_Stats{}  // Uses zero-value initialization
 	for _, item := range enchant { // Better range loop
 		for key, value := range item {
 			switch key {

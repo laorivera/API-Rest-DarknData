@@ -2,7 +2,7 @@
   "name": "Hounskull",
   "armorRatings": {
     "1": [
-      35
+      58
     ],
     "2": [
       36,
@@ -28,6 +28,15 @@
       48
     ]
   },
+  "magicalResistance": {
+        "1": [-10],
+        "2": [-10],
+        "3": [-10],
+        "4": [-10],
+        "5": [-10],
+        "6": [-10],
+        "7": [-10]
+    },
   "projectileReduction": 2.1,
   "headshotReduction": 23,
   "BaseAttribute": {

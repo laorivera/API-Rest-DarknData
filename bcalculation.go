@@ -67,7 +67,7 @@ func Calculate(stats_compute Stats, rating_armor int, rating_speed int, enchant 
 		MagicalInteractionSpeed: runcurve(stats_compute.Will, "./calc/curvemagicalinteractionspeed.json") * 100,
 		Persuasiveness:          runcurve(stats_compute.Resourcefulness, "./calc/curvepersuasiveness.json"),
 		CooldownReduction:       runcurve(stats_compute.Resourcefulness, "./calc/curvecooldownreduction.json") * 100,
-		PhysicalDamageReduction: runcurve(rating_armor+(enchant.FromArmorRating), "./calc/curvephysicaldamagereduction.json") * 100, // 0 defense value without equipement
+		PhysicalDamageReduction: runcurve((rating_armor+enchant.FromArmorRating), "./calc/curvephysicaldamagereduction.json") * 100, // 0 defense value without equipement
 	}
 
 	result.PhysicalPowerBonus = runcurve(int(result.PhysicalPower), "./calc/curvephysicaldamage.json")*100 + enchant.PhysicalPowerBonus
@@ -75,7 +75,7 @@ func Calculate(stats_compute Stats, rating_armor int, rating_speed int, enchant 
 	result.Health = result.Health + (result.Health * (enchant.MaxHealthBonus) / 100)
 	result.MagicalDamageReduction = runcurve(int(result.MagicRating), "./calc/curvemagicaldamagereduction.json") * 100
 	result.MoveSpeedBonus = result.MoveSpeed / 3
-	result.FromArmorRating = rating_armor
+	result.FromArmorRating = (rating_armor + enchant.FromArmorRating)
 	result.MemoryCapacity = result.MemoryCapacity + (result.MemoryCapacity * (enchant.MemoryCapacityBonus) / 100)
 
 	return result

@@ -121,11 +121,17 @@ func postHandler(c *gin.Context) {
 	Sm.base = ProcessBaseEnchantments(selection).AddStats(Sm.base)
 
 	resultother := ProcessOtherEnchantments(selection).AddEnchant(Sm.variable)
-	fmt.Println(resultother)
 
+	fmt.Println(Sm.base, "1")
+	fmt.Println(Sm.totalrating, "2")
+	fmt.Println(Sm.totalspeed, "3")
+	fmt.Println(resultother, "4")
+	fmt.Println(Sm.variable, "5")
 	totally := Calculate(Sm.base, Sm.totalrating, Sm.totalspeed, resultother, Sm.variable)
+	total := totally.AddEnchant(resultother)
 
-	//test := Selection_Brace(selection)
+	//fmt.Println(total.Luck)
+	//fmt.Println(total)
 
 	c.JSON(http.StatusOK, gin.H{
 		//"test":   Sm.base,
@@ -134,7 +140,7 @@ func postHandler(c *gin.Context) {
 		//"test3":  Sm.totalrating,
 		//"test4":  Sm.totalspeed,
 		"stats":               Sm.base,
-		"computedstats":       totally,
+		"computedstats":       total,
 		"computedstatsweapon": Sm.weapon,
 	})
 
