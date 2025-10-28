@@ -509,7 +509,7 @@ func CreateItemAccessory(itemfile string) Item_Accessory {
 var slots = []string{"helmet", "chest", "gloves", "pants", "boots", "cloak"}
 
 // var slotsm = []string{"Head", "Chest", "Hands", "Legs", "Foot", "Back"}
-//var slotsacc = []string{"necklace", "ring", "ringtwo"}
+var slotsacc = []string{"necklace", "ring", "ringtwo"}
 
 //var slotsmacc = []string{"Necklace", "Ring"}
 //var slotsweapon = []string{"pwo", "pwt", "swo", "swt"}

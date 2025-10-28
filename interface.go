@@ -112,8 +112,7 @@ func (im *ItemManager) AccesoryBySlot(slot string) []string {
 
 func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor { //select items from json
 	var selection []string
-	selection = append(selection, item.ItemSlot.Head.Name, item.ItemSlot.Chest.Name,
-		item.ItemSlot.Foot.Name, item.ItemSlot.Hands.Name, item.ItemSlot.Pants.Name, item.ItemSlot.Back.Name)
+	selection = append(selection, item.ItemSlot.Head.Name, item.ItemSlot.Chest.Name, item.ItemSlot.Foot.Name, item.ItemSlot.Hands.Name, item.ItemSlot.Pants.Name, item.ItemSlot.Back.Name)
 	var result []Item_Armor
 	for i := 0; i < len(im.armorItems); i++ {
 		for j := 0; j < len(selection); j++ {

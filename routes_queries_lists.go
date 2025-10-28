@@ -112,7 +112,6 @@ func GetEnchatmentLists_Armor_Base(selection Selection) map[string][]string {
 	return lists
 
 }
-
 func GetEnchatmentLists_Armor_ValuesUncommon(selection Selection) map[string][]float32 {
 
 	lists := map[string][]float32{}
@@ -139,7 +138,6 @@ func GetEnchatmentLists_Armor_ValuesUncommon(selection Selection) map[string][]f
 	}
 	return lists
 }
-
 func GetEnchatmentLists_Armor_TypeRare(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
@@ -158,7 +156,6 @@ func GetEnchatmentLists_Armor_TypeRare(selection Selection) map[string][]string 
 	return lists
 
 }
-
 func GetEnchatmentLists_Armor_ValuesRare(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
@@ -185,7 +182,6 @@ func GetEnchatmentLists_Armor_ValuesRare(selection Selection) map[string][]float
 	}
 	return lists
 }
-
 func GetEnchatmentLists_Armor_TypeEpic(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
@@ -205,7 +201,6 @@ func GetEnchatmentLists_Armor_TypeEpic(selection Selection) map[string][]string 
 
 	return lists
 }
-
 func GetEnchatmentLists_Armor_ValuesEpic(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
@@ -232,7 +227,6 @@ func GetEnchatmentLists_Armor_ValuesEpic(selection Selection) map[string][]float
 	}
 	return lists
 }
-
 func GetEnchatmentLists_Armor_TypeLegend(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
@@ -330,176 +324,179 @@ func GetEnchatmentLists_Armor_ValuesUnique(selection Selection) map[string][]flo
 	return lists
 }
 
-/*
 /////////\\\\\\\\\ --------------> ENCHCANTMENT LISTS ACCESSORY <------------------ //////////\\\\\\\\\
 
-func GetEnchatmentLists_Accessory_Base(c *gin.Context) map[string][]string {
+func GetEnchatmentLists_Accessory_Base(selection Selection) map[string][]string {
 
 	lists := map[string][]string{}
 	for i := 0; i < len(slotsacc); i++ {
 		if slotsacc[i] == "necklace" {
-			lists[slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(Enchantments.Necklace), ItemsByNameAccesory(c.Query("item"+slotsacc[i])))
+			lists[slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(Enchantments.Necklace), ItemsByNameAccesory(selection.ItemSlot.Necklace.Name))
 		}
 		if slotsacc[i] == "ring" {
-			lists[slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(Enchantments.Ring), ItemsByNameAccesory(c.Query("item"+slotsacc[i])))
+			lists[slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(Enchantments.Ring), ItemsByNameAccesory(selection.ItemSlot.RingOne.Name))
 		}
 		if slotsacc[i] == "ringtwo" {
-			lists[slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(Enchantments.Ring), ItemsByNameAccesory(c.Query("item"+slotsacc[i])))
+			lists[slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(Enchantments.Ring), ItemsByNameAccesory(selection.ItemSlot.RingTwo.Name))
 		}
 	}
 	return lists
 
 }
-func GetEnchantmentLists_Accessory_ValuesUncommon(c *gin.Context) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesUncommon(selection Selection) map[string][]float32 {
 
 	lists := map[string][]float32{}
 	for i := 0; i < len(slotsacc); i++ {
-		Query := c.Query("enchantment_" + slotsacc[i] + "type")
+		//
 		if slotsacc[i] == "necklace" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Necklace)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.Necklace.Enchant.TypeU, Enchantments.Necklace)
 		}
 		if slotsacc[i] == "ring" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingOne.Enchant.TypeU, Enchantments.Ring)
 		}
 		if slotsacc[i] == "ringtwo" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingTwo.Enchant.TypeU, Enchantments.Ring)
 		}
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_TypeRare(c *gin.Context) map[string][]string {
+func GetEnchantmentLists_Accessory_TypeRare(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchatmentLists_Accessory_Base(c)
+	baseLists := GetEnchatmentLists_Accessory_Base(selection)
 
 	for _, slot := range slotsacc {
 		// Pass all previous selections up to Epic
 		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"), // Uncommon
+			selection.ItemSlot.Necklace.Enchant.TypeU, selection.ItemSlot.RingOne.Enchant.TypeU,
+			selection.ItemSlot.RingTwo.Enchant.TypeU, // Uncommon
 		}
 		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_ValuesRare(c *gin.Context) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesRare(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsacc); i++ {
-		Query := c.Query("enchantment_" + slotsacc[i] + "type2")
+
 		if slotsacc[i] == "necklace" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Necklace)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.Necklace.Enchant.TypeR, Enchantments.Necklace)
 		}
 		if slotsacc[i] == "ring" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingOne.Enchant.TypeR, Enchantments.Ring)
 		}
 		if slotsacc[i] == "ringtwo" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingTwo.Enchant.TypeR, Enchantments.Ring)
 		}
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_TypeEpic(c *gin.Context) map[string][]string {
+func GetEnchantmentLists_Accessory_TypeEpic(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchatmentLists_Accessory_Base(c)
+	baseLists := GetEnchatmentLists_Accessory_Base(selection)
 
 	for _, slot := range slotsacc {
 		// Pass all previous selections up to Epic
 		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"),  // Uncommon
-			c.Query("enchantment_" + slot + "type2"), // Rare
-		}
-		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
-	}
-
-	return lists
-}
-func GetEnchantmentLists_Accessory_ValuesEpic(c *gin.Context) map[string][]float32 {
-
-	lists := make(map[string][]float32)
-	for i := 0; i < len(slotsacc); i++ {
-		Query := c.Query("enchantment_" + slotsacc[i] + "type3")
-		if slotsacc[i] == "necklace" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Necklace)
-		}
-		if slotsacc[i] == "ring" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
-		}
-		if slotsacc[i] == "ringtwo" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
-		}
-	}
-	return lists
-}
-func GetEnchantmentLists_Accessory_TypeLegend(c *gin.Context) map[string][]string {
-
-	lists := make(map[string][]string)
-
-	baseLists := GetEnchatmentLists_Accessory_Base(c)
-
-	for _, slot := range slotsacc {
-		// Pass all previous selections up to Epic
-		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"),  // Uncommon
-			c.Query("enchantment_" + slot + "type2"), // Rare
-			c.Query("enchantment_" + slot + "type3"), // Epic
+			selection.ItemSlot.Necklace.Enchant.TypeU, selection.ItemSlot.RingOne.Enchant.TypeU,
+			selection.ItemSlot.RingTwo.Enchant.TypeU, selection.ItemSlot.Necklace.Enchant.TypeR, selection.ItemSlot.RingOne.Enchant.TypeR,
+			selection.ItemSlot.RingTwo.Enchant.TypeR, // Rare
 		}
 		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
 	}
 
 	return lists
 }
-func GetEnchantmentLists_Accessory_ValuesLegend(c *gin.Context) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesEpic(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsacc); i++ {
-		Query := c.Query("enchantment_" + slotsacc[i] + "type4")
+
 		if slotsacc[i] == "necklace" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Necklace)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.Necklace.Enchant.TypeE, Enchantments.Necklace)
 		}
 		if slotsacc[i] == "ring" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingOne.Enchant.TypeE, Enchantments.Ring)
 		}
 		if slotsacc[i] == "ringtwo" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingTwo.Enchant.TypeE, Enchantments.Ring)
 		}
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_TypeUnique(c *gin.Context) map[string][]string {
+func GetEnchantmentLists_Accessory_TypeLegend(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchatmentLists_Accessory_Base(c)
+	baseLists := GetEnchatmentLists_Accessory_Base(selection)
 
 	for _, slot := range slotsacc {
 		// Pass all previous selections up to Epic
 		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"),  // Uncommon
-			c.Query("enchantment_" + slot + "type2"), // Rare
-			c.Query("enchantment_" + slot + "type3"), // Epic
-			c.Query("enchantment_" + slot + "type4"), // Legend
+			selection.ItemSlot.Necklace.Enchant.TypeU, selection.ItemSlot.RingOne.Enchant.TypeU,
+			selection.ItemSlot.RingTwo.Enchant.TypeU, selection.ItemSlot.Necklace.Enchant.TypeR, selection.ItemSlot.RingOne.Enchant.TypeR,
+			selection.ItemSlot.RingTwo.Enchant.TypeR, selection.ItemSlot.Necklace.Enchant.TypeE, selection.ItemSlot.RingOne.Enchant.TypeE,
+			selection.ItemSlot.RingTwo.Enchant.TypeE, // Epic
 		}
 		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
 	}
 
 	return lists
 }
-func GetEnchantmentLists_Accessory_ValuesUnique(c *gin.Context) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesLegend(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsacc); i++ {
-		Query := c.Query("enchantment_" + slotsacc[i] + "type5")
+
 		if slotsacc[i] == "necklace" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Necklace)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.Necklace.Enchant.TypeL, Enchantments.Necklace)
 		}
 		if slotsacc[i] == "ring" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingOne.Enchant.TypeL, Enchantments.Ring)
 		}
 		if slotsacc[i] == "ringtwo" {
-			lists[slotsacc[i]] = EnchantValuesCalc(Query, Enchantments.Ring)
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingTwo.Enchant.TypeL, Enchantments.Ring)
+		}
+	}
+	return lists
+}
+func GetEnchantmentLists_Accessory_TypeUnique(selection Selection) map[string][]string {
+
+	lists := make(map[string][]string)
+
+	baseLists := GetEnchatmentLists_Accessory_Base(selection)
+
+	for _, slot := range slotsacc {
+		// Pass all previous selections up to Epic
+		previousSelections := []string{
+			selection.ItemSlot.Necklace.Enchant.TypeU, selection.ItemSlot.RingOne.Enchant.TypeU,
+			selection.ItemSlot.RingTwo.Enchant.TypeU, selection.ItemSlot.Necklace.Enchant.TypeR, selection.ItemSlot.RingOne.Enchant.TypeR,
+			selection.ItemSlot.RingTwo.Enchant.TypeR, selection.ItemSlot.Necklace.Enchant.TypeE, selection.ItemSlot.RingOne.Enchant.TypeE,
+			selection.ItemSlot.RingTwo.Enchant.TypeE, selection.ItemSlot.Necklace.Enchant.TypeL, selection.ItemSlot.RingOne.Enchant.TypeL,
+			selection.ItemSlot.RingTwo.Enchant.TypeL,
+		}
+		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
+	}
+
+	return lists
+}
+func GetEnchantmentLists_Accessory_ValuesUnique(selection Selection) map[string][]float32 {
+
+	lists := make(map[string][]float32)
+	for i := 0; i < len(slotsacc); i++ {
+
+		if slotsacc[i] == "necklace" {
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.Necklace.Enchant.TypeQ, Enchantments.Necklace)
+		}
+		if slotsacc[i] == "ring" {
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingOne.Enchant.TypeQ, Enchantments.Ring)
+		}
+		if slotsacc[i] == "ringtwo" {
+			lists[slotsacc[i]] = EnchantValuesCalc(selection.ItemSlot.RingTwo.Enchant.TypeQ, Enchantments.Ring)
 		}
 	}
 	return lists

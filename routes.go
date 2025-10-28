@@ -347,255 +347,254 @@ func Helmet_EnchantmentList_Handler(c *gin.Context) {
 
 }
 
-/*
-
 func Chest_EnchantmentList_Handler(c *gin.Context) {
-	chest_EnchantmentName := map[string][]string{}
-	chest_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
+	//fmt.Println(selection)
 
-	chest_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["chest"]
-	chest_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["chest"]
-	chest_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["chest"]
-	chest_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["chest"]
-	chest_EnchantmentName["Unique"] = GetEnchatmentLists_Armor_TypeUnique(c)["chest"]
+	chest_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["chest"]
+	chest_EnchantmentNameR := GetEnchatmentLists_Armor_TypeRare(selection)["chest"]
+	chest_EnchantmentNameE := GetEnchatmentLists_Armor_TypeEpic(selection)["chest"]
+	chest_EnchantmentNameL := GetEnchatmentLists_Armor_TypeLegend(selection)["chest"]
+	chest_EnchantmentNameQ := GetEnchatmentLists_Armor_TypeUnique(selection)["chest"]
 
-	chest_EnchantmentValues["Uncommon"] = GetEnchatmentLists_Armor_ValuesUncommon(c)["chest"]
-	chest_EnchantmentValues["Rare"] = GetEnchatmentLists_Armor_ValuesRare(c)["chest"]
-	chest_EnchantmentValues["Epic"] = GetEnchatmentLists_Armor_ValuesEpic(c)["chest"]
-	chest_EnchantmentValues["Legend"] = GetEnchatmentLists_Armor_ValuesLegend(c)["chest"]
-	chest_EnchantmentValues["Unique"] = GetEnchatmentLists_Armor_ValuesUnique(c)["chest"]
+	chest_EnchantmentValuesU := GetEnchatmentLists_Armor_ValuesUncommon(selection)["chest"]
+	chest_EnchantmentValuesR := GetEnchatmentLists_Armor_ValuesRare(selection)["chest"]
+	chest_EnchantmentValuesE := GetEnchatmentLists_Armor_ValuesEpic(selection)["chest"]
+	chest_EnchantmentValuesL := GetEnchatmentLists_Armor_ValuesLegend(selection)["chest"]
+	chest_EnchantmentValuesQ := GetEnchatmentLists_Armor_ValuesUnique(selection)["chest"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  chest_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": chest_EnchantmentValues["Uncommon"],
-		"listname_rare":      chest_EnchantmentName["Rare"],
-		"listvalue_rare":     chest_EnchantmentValues["Rare"],
-		"listname_epic":      chest_EnchantmentName["Epic"],
-		"listvalue_epic":     chest_EnchantmentValues["Epic"],
-		"listname_legend":    chest_EnchantmentName["Legend"],
-		"listvalue_legend":   chest_EnchantmentValues["Legend"],
-		"listname_unique":    chest_EnchantmentName["Unique"],
-		"listvalue_unique":   chest_EnchantmentValues["Unique"],
+		"listname_uncommon":  chest_EnchantmentNameU,
+		"listvalue_uncommon": chest_EnchantmentValuesU,
+		"listname_rare":      chest_EnchantmentNameR,
+		"listvalue_rare":     chest_EnchantmentValuesR,
+		"listname_epic":      chest_EnchantmentNameE,
+		"listvalue_epic":     chest_EnchantmentValuesE,
+		"listname_legend":    chest_EnchantmentNameL,
+		"listvalue_legend":   chest_EnchantmentValuesL,
+		"listname_unique":    chest_EnchantmentNameQ,
+		"listvalue_unique":   chest_EnchantmentValuesQ,
 	})
 
 }
 
 func Gloves_EnchantmentList_Handler(c *gin.Context) {
-	gloves_EnchantmentName := map[string][]string{}
-	gloves_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	gloves_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["gloves"]
-	gloves_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["gloves"]
-	gloves_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["gloves"]
-	gloves_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["gloves"]
-	gloves_EnchantmentName["Unique"] = GetEnchatmentLists_Armor_TypeUnique(c)["gloves"]
+	gloves_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["gloves"]
+	gloves_EnchantmentNameR := GetEnchatmentLists_Armor_TypeRare(selection)["gloves"]
+	gloves_EnchantmentNameE := GetEnchatmentLists_Armor_TypeEpic(selection)["gloves"]
+	gloves_EnchantmentNameL := GetEnchatmentLists_Armor_TypeLegend(selection)["gloves"]
+	gloves_EnchantmentNameQ := GetEnchatmentLists_Armor_TypeUnique(selection)["gloves"]
 
-	gloves_EnchantmentValues["Uncommon"] = GetEnchatmentLists_Armor_ValuesUncommon(c)["gloves"]
-	gloves_EnchantmentValues["Rare"] = GetEnchatmentLists_Armor_ValuesRare(c)["gloves"]
-	gloves_EnchantmentValues["Epic"] = GetEnchatmentLists_Armor_ValuesEpic(c)["gloves"]
-	gloves_EnchantmentValues["Legend"] = GetEnchatmentLists_Armor_ValuesLegend(c)["gloves"]
-	gloves_EnchantmentValues["Unique"] = GetEnchatmentLists_Armor_ValuesUnique(c)["gloves"]
+	gloves_EnchantmentValuesU := GetEnchatmentLists_Armor_ValuesUncommon(selection)["gloves"]
+	gloves_EnchantmentValuesR := GetEnchatmentLists_Armor_ValuesRare(selection)["gloves"]
+	gloves_EnchantmentValuesE := GetEnchatmentLists_Armor_ValuesEpic(selection)["gloves"]
+	gloves_EnchantmentValuesL := GetEnchatmentLists_Armor_ValuesLegend(selection)["gloves"]
+	gloves_EnchantmentValuesQ := GetEnchatmentLists_Armor_ValuesUnique(selection)["gloves"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  gloves_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": gloves_EnchantmentValues["Uncommon"],
-		"listname_rare":      gloves_EnchantmentName["Rare"],
-		"listvalue_rare":     gloves_EnchantmentValues["Rare"],
-		"listname_epic":      gloves_EnchantmentName["Epic"],
-		"listvalue_epic":     gloves_EnchantmentValues["Epic"],
-		"listname_legend":    gloves_EnchantmentName["Legend"],
-		"listvalue_legend":   gloves_EnchantmentValues["Legend"],
-		"listname_unique":    gloves_EnchantmentName["Unique"],
-		"listvalue_unique":   gloves_EnchantmentValues["Unique"],
+		"listname_uncommon":  gloves_EnchantmentNameU,
+		"listvalue_uncommon": gloves_EnchantmentValuesU,
+		"listname_rare":      gloves_EnchantmentNameR,
+		"listvalue_rare":     gloves_EnchantmentValuesR,
+		"listname_epic":      gloves_EnchantmentNameE,
+		"listvalue_epic":     gloves_EnchantmentValuesE,
+		"listname_legend":    gloves_EnchantmentNameL,
+		"listvalue_legend":   gloves_EnchantmentValuesL,
+		"listname_unique":    gloves_EnchantmentNameQ,
+		"listvalue_unique":   gloves_EnchantmentValuesQ,
 	})
 
 }
 
 func Pants_EnchantmentList_Handler(c *gin.Context) {
-	pants_EnchantmentName := map[string][]string{}
-	pants_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	pants_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["pants"]
-	pants_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["pants"]
-	pants_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["pants"]
-	pants_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["pants"]
-	pants_EnchantmentName["Unique"] = GetEnchatmentLists_Armor_TypeUnique(c)["pants"]
+	pants_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["pants"]
+	pants_EnchantmentNameR := GetEnchatmentLists_Armor_TypeRare(selection)["pants"]
+	pants_EnchantmentNameE := GetEnchatmentLists_Armor_TypeEpic(selection)["pants"]
+	pants_EnchantmentNameL := GetEnchatmentLists_Armor_TypeLegend(selection)["pants"]
+	pants_EnchantmentNameQ := GetEnchatmentLists_Armor_TypeUnique(selection)["pants"]
 
-	pants_EnchantmentValues["Uncommon"] = GetEnchatmentLists_Armor_ValuesUncommon(c)["pants"]
-	pants_EnchantmentValues["Rare"] = GetEnchatmentLists_Armor_ValuesRare(c)["pants"]
-	pants_EnchantmentValues["Epic"] = GetEnchatmentLists_Armor_ValuesEpic(c)["pants"]
-	pants_EnchantmentValues["Legend"] = GetEnchatmentLists_Armor_ValuesLegend(c)["pants"]
-	pants_EnchantmentValues["Unique"] = GetEnchatmentLists_Armor_ValuesUnique(c)["pants"]
+	pants_EnchantmentValuesU := GetEnchatmentLists_Armor_ValuesUncommon(selection)["pants"]
+	pants_EnchantmentValuesR := GetEnchatmentLists_Armor_ValuesRare(selection)["pants"]
+	pants_EnchantmentValuesE := GetEnchatmentLists_Armor_ValuesEpic(selection)["pants"]
+	pants_EnchantmentValuesL := GetEnchatmentLists_Armor_ValuesLegend(selection)["pants"]
+	pants_EnchantmentValuesQ := GetEnchatmentLists_Armor_ValuesUnique(selection)["pants"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  pants_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": pants_EnchantmentValues["Uncommon"],
-		"listname_rare":      pants_EnchantmentName["Rare"],
-		"listvalue_rare":     pants_EnchantmentValues["Rare"],
-		"listname_epic":      pants_EnchantmentName["Epic"],
-		"listvalue_epic":     pants_EnchantmentValues["Epic"],
-		"listname_legend":    pants_EnchantmentName["Legend"],
-		"listvalue_legend":   pants_EnchantmentValues["Legend"],
-		"listname_unique":    pants_EnchantmentName["Unique"],
-		"listvalue_unique":   pants_EnchantmentValues["Unique"],
+		"listname_uncommon":  pants_EnchantmentNameU,
+		"listvalue_uncommon": pants_EnchantmentValuesU,
+		"listname_rare":      pants_EnchantmentNameR,
+		"listvalue_rare":     pants_EnchantmentValuesR,
+		"listname_epic":      pants_EnchantmentNameE,
+		"listvalue_epic":     pants_EnchantmentValuesE,
+		"listname_legend":    pants_EnchantmentNameL,
+		"listvalue_legend":   pants_EnchantmentValuesL,
+		"listname_unique":    pants_EnchantmentNameQ,
+		"listvalue_unique":   pants_EnchantmentValuesQ,
 	})
 
 }
 
 func Boots_EnchantmentList_Handler(c *gin.Context) {
-	boots_EnchantmentName := map[string][]string{}
-	boots_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	boots_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["boots"]
-	boots_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["boots"]
-	boots_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["boots"]
-	boots_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["boots"]
-	boots_EnchantmentName["Unique"] = GetEnchatmentLists_Armor_TypeUnique(c)["boots"]
+	boots_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["boots"]
+	boots_EnchantmentNameR := GetEnchatmentLists_Armor_TypeRare(selection)["boots"]
+	boots_EnchantmentNameE := GetEnchatmentLists_Armor_TypeEpic(selection)["boots"]
+	boots_EnchantmentNameL := GetEnchatmentLists_Armor_TypeLegend(selection)["boots"]
+	boots_EnchantmentNameQ := GetEnchatmentLists_Armor_TypeUnique(selection)["boots"]
 
-	boots_EnchantmentValues["Uncommon"] = GetEnchatmentLists_Armor_ValuesUncommon(c)["boots"]
-	boots_EnchantmentValues["Rare"] = GetEnchatmentLists_Armor_ValuesRare(c)["boots"]
-	boots_EnchantmentValues["Epic"] = GetEnchatmentLists_Armor_ValuesEpic(c)["boots"]
-	boots_EnchantmentValues["Legend"] = GetEnchatmentLists_Armor_ValuesLegend(c)["boots"]
-	boots_EnchantmentValues["Unique"] = GetEnchatmentLists_Armor_ValuesUnique(c)["boots"]
+	boots_EnchantmentValuesU := GetEnchatmentLists_Armor_ValuesUncommon(selection)["boots"]
+	boots_EnchantmentValuesR := GetEnchatmentLists_Armor_ValuesRare(selection)["boots"]
+	boots_EnchantmentValuesE := GetEnchatmentLists_Armor_ValuesEpic(selection)["boots"]
+	boots_EnchantmentValuesL := GetEnchatmentLists_Armor_ValuesLegend(selection)["boots"]
+	boots_EnchantmentValuesQ := GetEnchatmentLists_Armor_ValuesUnique(selection)["boots"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  boots_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": boots_EnchantmentValues["Uncommon"],
-		"listname_rare":      boots_EnchantmentName["Rare"],
-		"listvalue_rare":     boots_EnchantmentValues["Rare"],
-		"listname_epic":      boots_EnchantmentName["Epic"],
-		"listvalue_epic":     boots_EnchantmentValues["Epic"],
-		"listname_legend":    boots_EnchantmentName["Legend"],
-		"listvalue_legend":   boots_EnchantmentValues["Legend"],
-		"listname_unique":    boots_EnchantmentName["Unique"],
-		"listvalue_unique":   boots_EnchantmentValues["Unique"],
+		"listname_uncommon":  boots_EnchantmentNameU,
+		"listvalue_uncommon": boots_EnchantmentValuesU,
+		"listname_rare":      boots_EnchantmentNameR,
+		"listvalue_rare":     boots_EnchantmentValuesR,
+		"listname_epic":      boots_EnchantmentNameE,
+		"listvalue_epic":     boots_EnchantmentValuesE,
+		"listname_legend":    boots_EnchantmentNameL,
+		"listvalue_legend":   boots_EnchantmentValuesL,
+		"listname_unique":    boots_EnchantmentNameQ,
+		"listvalue_unique":   boots_EnchantmentValuesQ,
 	})
 }
 
 func Cloak_EnchantmentList_Handler(c *gin.Context) {
-	cloak_EnchantmentName := map[string][]string{}
-	cloak_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	cloak_EnchantmentName["Uncommon"] = GetEnchatmentLists_Armor_Base(c)["cloak"]
-	cloak_EnchantmentName["Rare"] = GetEnchatmentLists_Armor_TypeRare(c)["cloak"]
-	cloak_EnchantmentName["Epic"] = GetEnchatmentLists_Armor_TypeEpic(c)["cloak"]
-	cloak_EnchantmentName["Legend"] = GetEnchatmentLists_Armor_TypeLegend(c)["cloak"]
-	cloak_EnchantmentName["Unique"] = GetEnchatmentLists_Armor_TypeUnique(c)["cloak"]
+	cloak_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["cloak"]
+	cloak_EnchantmentNameR := GetEnchatmentLists_Armor_TypeRare(selection)["cloak"]
+	cloak_EnchantmentNameE := GetEnchatmentLists_Armor_TypeEpic(selection)["cloak"]
+	cloak_EnchantmentNameL := GetEnchatmentLists_Armor_TypeLegend(selection)["cloak"]
+	cloak_EnchantmentNameQ := GetEnchatmentLists_Armor_TypeUnique(selection)["cloak"]
 
-	cloak_EnchantmentValues["Uncommon"] = GetEnchatmentLists_Armor_ValuesUncommon(c)["cloak"]
-	cloak_EnchantmentValues["Rare"] = GetEnchatmentLists_Armor_ValuesRare(c)["cloak"]
-	cloak_EnchantmentValues["Epic"] = GetEnchatmentLists_Armor_ValuesEpic(c)["cloak"]
-	cloak_EnchantmentValues["Legend"] = GetEnchatmentLists_Armor_ValuesLegend(c)["cloak"]
-	cloak_EnchantmentValues["Unique"] = GetEnchatmentLists_Armor_ValuesUnique(c)["cloak"]
+	cloak_EnchantmentValuesU := GetEnchatmentLists_Armor_ValuesUncommon(selection)["cloak"]
+	cloak_EnchantmentValuesR := GetEnchatmentLists_Armor_ValuesRare(selection)["cloak"]
+	cloak_EnchantmentValuesE := GetEnchatmentLists_Armor_ValuesEpic(selection)["cloak"]
+	cloak_EnchantmentValuesL := GetEnchatmentLists_Armor_ValuesLegend(selection)["cloak"]
+	cloak_EnchantmentValuesQ := GetEnchatmentLists_Armor_ValuesUnique(selection)["cloak"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  cloak_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": cloak_EnchantmentValues["Uncommon"],
-		"listname_rare":      cloak_EnchantmentName["Rare"],
-		"listvalue_rare":     cloak_EnchantmentValues["Rare"],
-		"listname_epic":      cloak_EnchantmentName["Epic"],
-		"listvalue_epic":     cloak_EnchantmentValues["Epic"],
-		"listname_legend":    cloak_EnchantmentName["Legend"],
-		"listvalue_legend":   cloak_EnchantmentValues["Legend"],
-		"listname_unique":    cloak_EnchantmentName["Unique"],
-		"listvalue_unique":   cloak_EnchantmentValues["Unique"],
+		"listname_uncommon":  cloak_EnchantmentNameU,
+		"listvalue_uncommon": cloak_EnchantmentValuesU,
+		"listname_rare":      cloak_EnchantmentNameR,
+		"listvalue_rare":     cloak_EnchantmentValuesR,
+		"listname_epic":      cloak_EnchantmentNameE,
+		"listvalue_epic":     cloak_EnchantmentValuesE,
+		"listname_legend":    cloak_EnchantmentNameL,
+		"listvalue_legend":   cloak_EnchantmentValuesL,
+		"listname_unique":    cloak_EnchantmentNameQ,
+		"listvalue_unique":   cloak_EnchantmentValuesQ,
 	})
 
 }
 
 func Necklace_EnchantmentList_Handler(c *gin.Context) {
-	necklace_EnchantmentName := map[string][]string{}
-	necklace_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	necklace_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_Base(c)["necklace"]
+	necklace_EnchantmentNameU := GetEnchatmentLists_Accessory_Base(selection)["necklace"]
+	necklace_EnchantmentNameR := GetEnchantmentLists_Accessory_TypeRare(selection)["necklace"]
+	necklace_EnchantmentNameE := GetEnchantmentLists_Accessory_TypeEpic(selection)["necklace"]
+	necklace_EnchantmentNameL := GetEnchantmentLists_Accessory_TypeLegend(selection)["necklace"]
+	necklace_EnchantmentNameQ := GetEnchantmentLists_Accessory_TypeUnique(selection)["necklace"]
 
-	necklace_EnchantmentName["Rare"] = GetEnchantmentLists_Accessory_TypeRare(c)["necklace"]
-	necklace_EnchantmentName["Epic"] = GetEnchantmentLists_Accessory_TypeEpic(c)["necklace"]
-	necklace_EnchantmentName["Legend"] = GetEnchantmentLists_Accessory_TypeLegend(c)["necklace"]
-	necklace_EnchantmentName["Unique"] = GetEnchantmentLists_Accessory_TypeUnique(c)["necklace"]
-
-	necklace_EnchantmentValues["Uncommon"] = GetEnchantmentLists_Accessory_ValuesUncommon(c)["necklace"]
-	necklace_EnchantmentValues["Rare"] = GetEnchantmentLists_Accessory_ValuesRare(c)["necklace"]
-	necklace_EnchantmentValues["Epic"] = GetEnchantmentLists_Accessory_ValuesEpic(c)["necklace"]
-	necklace_EnchantmentValues["Legend"] = GetEnchantmentLists_Accessory_ValuesLegend(c)["necklace"]
-	necklace_EnchantmentValues["Unique"] = GetEnchantmentLists_Accessory_ValuesUnique(c)["necklace"]
+	necklace_EnchantmentValuesU := GetEnchantmentLists_Accessory_ValuesUncommon(selection)["necklace"]
+	necklace_EnchantmentValuesR := GetEnchantmentLists_Accessory_ValuesRare(selection)["necklace"]
+	necklace_EnchantmentValuesE := GetEnchantmentLists_Accessory_ValuesEpic(selection)["necklace"]
+	necklace_EnchantmentValuesL := GetEnchantmentLists_Accessory_ValuesLegend(selection)["necklace"]
+	necklace_EnchantmentValuesQ := GetEnchantmentLists_Accessory_ValuesUnique(selection)["necklace"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  necklace_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": necklace_EnchantmentValues["Uncommon"],
-		"listname_rare":      necklace_EnchantmentName["Rare"],
-		"listvalue_rare":     necklace_EnchantmentValues["Rare"],
-		"listname_epic":      necklace_EnchantmentName["Epic"],
-		"listvalue_epic":     necklace_EnchantmentValues["Epic"],
-		"listname_legend":    necklace_EnchantmentName["Legend"],
-		"listvalue_legend":   necklace_EnchantmentValues["Legend"],
-		"listname_unique":    necklace_EnchantmentName["Unique"],
-		"listvalue_unique":   necklace_EnchantmentValues["Unique"],
+		"listname_uncommon":  necklace_EnchantmentNameU,
+		"listvalue_uncommon": necklace_EnchantmentValuesU,
+		"listname_rare":      necklace_EnchantmentNameR,
+		"listvalue_rare":     necklace_EnchantmentValuesR,
+		"listname_epic":      necklace_EnchantmentNameE,
+		"listvalue_epic":     necklace_EnchantmentValuesE,
+		"listname_legend":    necklace_EnchantmentNameL,
+		"listvalue_legend":   necklace_EnchantmentValuesL,
+		"listname_unique":    necklace_EnchantmentNameQ,
+		"listvalue_unique":   necklace_EnchantmentValuesQ,
 	})
 
 }
 
 func Ring_EnchantmentList_Handler(c *gin.Context) {
-	ring_EnchantmentName := map[string][]string{}
-	ring_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	ring_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_Base(c)["ring"]
-	ring_EnchantmentName["Rare"] = GetEnchantmentLists_Accessory_TypeRare(c)["ring"]
-	ring_EnchantmentName["Epic"] = GetEnchantmentLists_Accessory_TypeEpic(c)["ring"]
-	ring_EnchantmentName["Legend"] = GetEnchantmentLists_Accessory_TypeLegend(c)["ring"]
-	ring_EnchantmentName["Unique"] = GetEnchantmentLists_Accessory_TypeUnique(c)["ring"]
+	ring_EnchantmentNameU := GetEnchatmentLists_Accessory_Base(selection)["ring"]
+	ring_EnchantmentNameR := GetEnchantmentLists_Accessory_TypeRare(selection)["ring"]
+	ring_EnchantmentNameE := GetEnchantmentLists_Accessory_TypeEpic(selection)["ring"]
+	ring_EnchantmentNameL := GetEnchantmentLists_Accessory_TypeLegend(selection)["ring"]
+	ring_EnchantmentNameQ := GetEnchantmentLists_Accessory_TypeUnique(selection)["ring"]
 
-	ring_EnchantmentValues["Uncommon"] = GetEnchantmentLists_Accessory_ValuesUncommon(c)["ring"]
-	ring_EnchantmentValues["Rare"] = GetEnchantmentLists_Accessory_ValuesRare(c)["ring"]
-	ring_EnchantmentValues["Epic"] = GetEnchantmentLists_Accessory_ValuesEpic(c)["ring"]
-	ring_EnchantmentValues["Legend"] = GetEnchantmentLists_Accessory_ValuesLegend(c)["ring"]
-	ring_EnchantmentValues["Unique"] = GetEnchantmentLists_Accessory_ValuesUnique(c)["ring"]
+	ring_EnchantmentValuesU := GetEnchantmentLists_Accessory_ValuesUncommon(selection)["ring"]
+	ring_EnchantmentValuesR := GetEnchantmentLists_Accessory_ValuesRare(selection)["ring"]
+	ring_EnchantmentValuesE := GetEnchantmentLists_Accessory_ValuesEpic(selection)["ring"]
+	ring_EnchantmentValuesL := GetEnchantmentLists_Accessory_ValuesLegend(selection)["ring"]
+	ring_EnchantmentValuesQ := GetEnchantmentLists_Accessory_ValuesUnique(selection)["ring"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  ring_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": ring_EnchantmentValues["Uncommon"],
-		"listname_rare":      ring_EnchantmentName["Rare"],
-		"listvalue_rare":     ring_EnchantmentValues["Rare"],
-		"listname_epic":      ring_EnchantmentName["Epic"],
-		"listvalue_epic":     ring_EnchantmentValues["Epic"],
-		"listname_legend":    ring_EnchantmentName["Legend"],
-		"listvalue_legend":   ring_EnchantmentValues["Legend"],
-		"listname_unique":    ring_EnchantmentName["Unique"],
-		"listvalue_unique":   ring_EnchantmentValues["Unique"],
+		"listname_uncommon":  ring_EnchantmentNameU,
+		"listvalue_uncommon": ring_EnchantmentValuesU,
+		"listname_rare":      ring_EnchantmentNameR,
+		"listvalue_rare":     ring_EnchantmentValuesR,
+		"listname_epic":      ring_EnchantmentNameE,
+		"listvalue_epic":     ring_EnchantmentValuesE,
+		"listname_legend":    ring_EnchantmentNameL,
+		"listvalue_legend":   ring_EnchantmentValuesL,
+		"listname_unique":    ring_EnchantmentNameQ,
+		"listvalue_unique":   ring_EnchantmentValuesQ,
 	})
 
 }
 
 func RingTwo_EnchantmentList_Handler(c *gin.Context) {
-	ringTwo_EnchantmentName := map[string][]string{}
-	ringTwo_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	ringTwo_EnchantmentName["Uncommon"] = GetEnchatmentLists_Accessory_Base(c)["ringtwo"]
-	ringTwo_EnchantmentName["Rare"] = GetEnchantmentLists_Accessory_TypeRare(c)["ringtwo"]
-	ringTwo_EnchantmentName["Epic"] = GetEnchantmentLists_Accessory_TypeEpic(c)["ringtwo"]
-	ringTwo_EnchantmentName["Legend"] = GetEnchantmentLists_Accessory_TypeLegend(c)["ringtwo"]
-	ringTwo_EnchantmentName["Unique"] = GetEnchantmentLists_Accessory_TypeUnique(c)["ringtwo"]
+	ringTwo_EnchantmentNameU := GetEnchatmentLists_Accessory_Base(selection)["ringtwo"]
+	ringTwo_EnchantmentNameR := GetEnchantmentLists_Accessory_TypeRare(selection)["ringtwo"]
+	ringTwo_EnchantmentNameE := GetEnchantmentLists_Accessory_TypeEpic(selection)["ringtwo"]
+	ringTwo_EnchantmentNameL := GetEnchantmentLists_Accessory_TypeLegend(selection)["ringtwo"]
+	ringTwo_EnchantmentNameQ := GetEnchantmentLists_Accessory_TypeUnique(selection)["ringtwo"]
 
-	ringTwo_EnchantmentValues["Uncommon"] = GetEnchantmentLists_Accessory_ValuesUncommon(c)["ringtwo"]
-	ringTwo_EnchantmentValues["Rare"] = GetEnchantmentLists_Accessory_ValuesRare(c)["ringtwo"]
-	ringTwo_EnchantmentValues["Epic"] = GetEnchantmentLists_Accessory_ValuesEpic(c)["ringtwo"]
-	ringTwo_EnchantmentValues["Legend"] = GetEnchantmentLists_Accessory_ValuesLegend(c)["ringtwo"]
-	ringTwo_EnchantmentValues["Unique"] = GetEnchantmentLists_Accessory_ValuesUnique(c)["ringtwo"]
+	ringTwo_EnchantmentValuesU := GetEnchantmentLists_Accessory_ValuesUncommon(selection)["ringtwo"]
+	ringTwo_EnchantmentValuesR := GetEnchantmentLists_Accessory_ValuesRare(selection)["ringtwo"]
+	ringTwo_EnchantmentValuesE := GetEnchantmentLists_Accessory_ValuesEpic(selection)["ringtwo"]
+	ringTwo_EnchantmentValuesL := GetEnchantmentLists_Accessory_ValuesLegend(selection)["ringtwo"]
+	ringTwo_EnchantmentValuesQ := GetEnchantmentLists_Accessory_ValuesUnique(selection)["ringtwo"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  ringTwo_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": ringTwo_EnchantmentValues["Uncommon"],
-		"listname_rare":      ringTwo_EnchantmentName["Rare"],
-		"listvalue_rare":     ringTwo_EnchantmentValues["Rare"],
-		"listname_epic":      ringTwo_EnchantmentName["Epic"],
-		"listvalue_epic":     ringTwo_EnchantmentValues["Epic"],
-		"listname_legend":    ringTwo_EnchantmentName["Legend"],
-		"listvalue_legend":   ringTwo_EnchantmentValues["Legend"],
-		"listname_unique":    ringTwo_EnchantmentName["Unique"],
-		"listvalue_unique":   ringTwo_EnchantmentValues["Unique"],
+		"listname_uncommon":  ringTwo_EnchantmentNameU,
+		"listvalue_uncommon": ringTwo_EnchantmentValuesU,
+		"listname_rare":      ringTwo_EnchantmentNameR,
+		"listvalue_rare":     ringTwo_EnchantmentValuesR,
+		"listname_epic":      ringTwo_EnchantmentNameE,
+		"listvalue_epic":     ringTwo_EnchantmentValuesE,
+		"listname_legend":    ringTwo_EnchantmentNameL,
+		"listvalue_legend":   ringTwo_EnchantmentValuesL,
+		"listname_unique":    ringTwo_EnchantmentNameQ,
+		"listvalue_unique":   ringTwo_EnchantmentValuesQ,
 	})
 }
 
+/*
 func Pwo_EnchantmentList_Handler(c *gin.Context) {
 	primaryWeapon_EnchantmentName := map[string][]string{}
 	primaryWeapon_EnchantmentValues := map[string][]float32{}
@@ -684,20 +683,19 @@ func setupRoutes(r *gin.Engine) {
 
 	//ENCHANTMENT LISTS ENDPOINTS
 	r.POST("/enchantmentlisthelmet/", Helmet_EnchantmentList_Handler)
+	r.POST("/enchantmentlistchest/", Chest_EnchantmentList_Handler)
+	r.POST("/enchantmentlistgloves/", Gloves_EnchantmentList_Handler)
+	r.POST("/enchantmentlistpants/", Pants_EnchantmentList_Handler)
+	r.POST("/enchantmentlistboots/", Boots_EnchantmentList_Handler)
+	r.POST("/enchantmentlistcloak/", Cloak_EnchantmentList_Handler)
 	/*
-		r.GET("/enchantmentlistchest/", Chest_EnchantmentList_Handler)
-		r.GET("/enchantmentlistgloves/", Gloves_EnchantmentList_Handler)
-		r.GET("/enchantmentlistpants/", Pants_EnchantmentList_Handler)
-		r.GET("/enchantmentlistboots/", Boots_EnchantmentList_Handler)
-		r.GET("/enchantmentlistcloak/", Cloak_EnchantmentList_Handler)
-
 		r.GET("/enchantmentlistpwo/", Pwo_EnchantmentList_Handler)
 		r.GET("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
-
-		r.GET("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
-		r.GET("/enchantmentlistring/", Ring_EnchantmentList_Handler)
-		r.GET("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)
 	*/
+	r.GET("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
+	r.GET("/enchantmentlistring/", Ring_EnchantmentList_Handler)
+	r.GET("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)
+
 	// item display
 	r.POST("/itemdisplay/", itemDisplayHandler)
 
