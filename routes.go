@@ -102,6 +102,8 @@ func Cloak_List_Handler(c *gin.Context) {
 }
 
 func Necklace_List_Handler(c *gin.Context) {
+	var selection Selection
+	c.BindJSON(&selection)
 
 	necklaceList := Im.AccesoryBySlot("Necklace")
 	imageNecklace := ImageLocation("Necklace", necklaceList)
@@ -692,9 +694,9 @@ func setupRoutes(r *gin.Engine) {
 		r.GET("/enchantmentlistpwo/", Pwo_EnchantmentList_Handler)
 		r.GET("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
 	*/
-	r.GET("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
-	r.GET("/enchantmentlistring/", Ring_EnchantmentList_Handler)
-	r.GET("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)
+	r.POST("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
+	r.POST("/enchantmentlistring/", Ring_EnchantmentList_Handler)
+	r.POST("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)
 
 	// item display
 	r.POST("/itemdisplay/", itemDisplayHandler)

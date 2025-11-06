@@ -69,8 +69,7 @@ func NewItemManager() *ItemManager {
 	}
 }
 
-func (im *ItemManager) ArmorsBySlot(slot string, classID string) []string {
-	class := classID
+func (im *ItemManager) ArmorsBySlot(slot string, class string) []string {
 	var result []string
 	for i := 0; i < len(im.armorItems); i++ {
 		for _, c := range im.armorItems[i].Classes {
@@ -84,8 +83,7 @@ func (im *ItemManager) ArmorsBySlot(slot string, classID string) []string {
 	return result
 }
 
-func (im *ItemManager) WeaponsBySlot(slot string, classID string) []string {
-	class := classID
+func (im *ItemManager) WeaponsBySlot(slot string, class string) []string {
 	var result []string
 	for i := 0; i < len(im.weaponItems); i++ {
 		for _, c := range im.weaponItems[i].Classes {
@@ -104,7 +102,6 @@ func (im *ItemManager) AccesoryBySlot(slot string) []string {
 	for i := 0; i < len(im.accessoryItems); i++ {
 		if slot == im.accessoryItems[i].SlotType {
 			result = append(result, im.accessoryItems[i].Name)
-			break
 		}
 	}
 
@@ -481,7 +478,7 @@ func (sm *StatsManager) BaseItemCalc(selection Selection) {
 	for i := 0; i < len(selacc) && i < len(selrarityacc); i++ {
 		totalacc.Health += selacc[i].MaxHealthAdd[selrarityacc[i]]
 		totalacc.MoveSpeedBonus += selacc[i].MoveSpeedBonus
-		totalacc.Luck += selarmor[i].Luck
+		totalacc.Luck += selacc[i].Luck[selrarityacc[i]]
 	}
 
 	sm.variable = computed.AddEnchant()
