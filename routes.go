@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"net/http"
 	"strconv"
 
@@ -16,9 +16,9 @@ func itemDisplayHandler(c *gin.Context) {
 	var selection Selection
 	c.BindJSON(&selection)
 
-	itemArmor := Im.ArmorsByName(selection)
-	itemAccesory := Im.AccesoriesByName(selection)
-	itemWeapon := Im.WeaponsByName(selection)
+	itemArmor := Im.ArmorsByNameD(selection)
+	itemAccesory := Im.AccesoriesByNameD(selection)
+	itemWeapon := Im.WeaponsByNameD(selection)
 
 	c.JSON(http.StatusOK, gin.H{
 
@@ -237,7 +237,7 @@ func Boots_RatingList_Handler(c *gin.Context) {
 	var result = []int{}
 
 	for i := 0; i < len(list); i++ {
-		if list[i].Name == selection.ItemSlot.Foot.Id {
+		if list[i].Name == selection.ItemSlot.Foot.Name {
 			result = list[i].ArmorRatings[rarity]
 		}
 	}
@@ -252,11 +252,11 @@ func Cloak_RatingList_Handler(c *gin.Context) {
 	c.BindJSON(&selection)
 
 	list := Im.ArmorsByName(selection)
-	rarity, _ := strconv.Atoi(selection.ItemSlot.Foot.Rarity)
+	rarity, _ := strconv.Atoi(selection.ItemSlot.Back.Rarity)
 	var result = []int{}
 
 	for i := 0; i < len(list); i++ {
-		if list[i].Name == selection.ItemSlot.Foot.Id {
+		if list[i].Name == selection.ItemSlot.Back.Name {
 			result = list[i].ArmorRatings[rarity]
 		}
 	}
@@ -276,7 +276,7 @@ func Pwo_RatingList_Handler(c *gin.Context) {
 	var result = []int{}
 
 	for i := 0; i < len(list); i++ {
-		if list[i].Name == selection.ItemSlot.WeaponOne.Id {
+		if list[i].Name == selection.ItemSlot.WeaponOne.Name {
 			result = list[i].DamageRatings[rarity]
 		}
 	}
@@ -298,7 +298,7 @@ func Pwt_RatingList_Handler(c *gin.Context) {
 	var result = []int{}
 
 	for i := 0; i < len(list); i++ {
-		if list[i].Name == selection.ItemSlot.WeaponTwo.Id {
+		if list[i].Name == selection.ItemSlot.WeaponTwo.Name {
 			result = list[i].DamageRatings[rarity]
 		}
 	}
@@ -317,7 +317,7 @@ func Helmet_EnchantmentList_Handler(c *gin.Context) {
 	var selection Selection
 	c.BindJSON(&selection)
 
-	fmt.Println(selection)
+	//fmt.Println(selection)
 
 	//listU := GetAvailableHelmetEnchantments(selection)
 	helmet_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["helmet"]

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
 )
 
@@ -110,7 +111,34 @@ func (im *ItemManager) AccesoryBySlot(slot string) []string {
 	return result
 }
 
-func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor { //select items from json
+func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor {
+	slots := []struct {
+		name   string
+		rarity string
+	}{
+		{item.ItemSlot.Head.Name, item.ItemSlot.Head.Rarity},
+		{item.ItemSlot.Chest.Name, item.ItemSlot.Chest.Rarity},
+		{item.ItemSlot.Foot.Name, item.ItemSlot.Foot.Rarity},
+		{item.ItemSlot.Hands.Name, item.ItemSlot.Hands.Rarity},
+		{item.ItemSlot.Pants.Name, item.ItemSlot.Pants.Rarity},
+		{item.ItemSlot.Back.Name, item.ItemSlot.Back.Rarity},
+	}
+
+	var result []Item_Armor
+	for _, slot := range slots {
+		if slot.name != "" && slot.rarity != "" { // ADD THIS CHECK!
+			for i := 0; i < len(im.armorItems); i++ {
+				if im.armorItems[i].Name == slot.name {
+					result = append(result, im.armorItems[i])
+					break
+				}
+			}
+		}
+	}
+	return result
+}
+
+func (im *ItemManager) ArmorsByNameD(item Selection) []Item_Armor { //select items from json
 	var selection []string
 	selection = append(selection, item.ItemSlot.Head.Name, item.ItemSlot.Chest.Name, item.ItemSlot.Foot.Name, item.ItemSlot.Hands.Name, item.ItemSlot.Pants.Name, item.ItemSlot.Back.Name)
 	var result []Item_Armor
@@ -122,6 +150,39 @@ func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor { //select item
 		}
 	}
 
+	return result
+}
+
+func (im *ItemManager) WeaponsByNameD(item Selection) []Item_Weapon {
+	var selection []string
+	selection = append(selection,
+		item.ItemSlot.WeaponOne.Name, item.ItemSlot.WeaponTwo.Name)
+
+	var result []Item_Weapon
+	for i := 0; i < len(im.weaponItems); i++ {
+		for j := 0; j < len(selection); j++ {
+			if im.weaponItems[i].Name == selection[j] && selection[j] != "" {
+				result = append(result, im.weaponItems[i])
+			}
+		}
+
+	}
+	return result
+}
+
+func (im *ItemManager) AccesoriesByNameD(item Selection) []Item_Accessory {
+	var selection []string
+	selection = append(selection,
+		item.ItemSlot.Necklace.Name, item.ItemSlot.RingOne.Name, item.ItemSlot.RingTwo.Name)
+
+	var result []Item_Accessory
+	for i := 0; i < len(im.accessoryItems); i++ {
+		for j := 0; j < len(selection); j++ {
+			if im.accessoryItems[i].Name == selection[j] && selection[j] != "" {
+				result = append(result, im.accessoryItems[i])
+			}
+		}
+	}
 	return result
 }
 
@@ -159,17 +220,27 @@ func (im *ItemManager) AccesoriesByName(item Selection) []Item_Accessory {
 }
 
 func (im *ItemManager) SelByRarity(item Selection) []int {
-	var selection []string
-	selection = append(selection,
-		item.ItemSlot.Head.Rarity, item.ItemSlot.Chest.Rarity, item.ItemSlot.Foot.Rarity,
-		item.ItemSlot.Hands.Rarity, item.ItemSlot.Pants.Rarity, item.ItemSlot.Back.Rarity)
-	var result []int
-	for i := 0; i < len(selection); i++ {
-		if num, err := strconv.Atoi(selection[i]); err == nil {
-			result = append(result, num)
-		}
+	slots := []struct {
+		name   string
+		rarity string
+	}{
+		{item.ItemSlot.Head.Name, item.ItemSlot.Head.Rarity},
+		{item.ItemSlot.Chest.Name, item.ItemSlot.Chest.Rarity},
+		{item.ItemSlot.Foot.Name, item.ItemSlot.Foot.Rarity},
+		{item.ItemSlot.Hands.Name, item.ItemSlot.Hands.Rarity},
+		{item.ItemSlot.Pants.Name, item.ItemSlot.Pants.Rarity},
+		{item.ItemSlot.Back.Name, item.ItemSlot.Back.Rarity},
 	}
 
+	var result []int
+	for _, slot := range slots {
+		if slot.name != "" && slot.rarity != "" {
+			if num, err := strconv.Atoi(slot.rarity); err == nil {
+				result = append(result, num)
+			}
+		}
+	}
+	fmt.Println(result)
 	return result
 }
 
@@ -251,34 +322,125 @@ func (sm *StatsManager) ItemsBaseStats(selection Selection) {
 	var selclass Stats = Selection_Class(selection)
 	selclass = selclass.AddStats(selrace)
 
+	fmt.Printf("=== DEBUG: After race/class selection ===\n")
+	fmt.Printf("selclass: %+v\n", selclass)
+	fmt.Printf("selrace: %+v\n", selrace)
+
 	var selarmor []Item_Armor = Im.ArmorsByName(selection)
 	var selrarity []int = Im.SelByRarity(selection)
 	var totalacc Stats
 	var selacc []Item_Accessory = Im.AccesoriesByName(selection)
 	var selrarityacc []int = Im.SelByRarityAcc(selection)
 
-	for i := 0; i < len(selarmor) && i < len(selrarity); i++ {
-		selclass.Strength += selarmor[i].BaseAttribute.Strength[selrarity[i]]
-		selclass.Vigor += selarmor[i].BaseAttribute.Vigor[selrarity[i]]
-		selclass.Agility += selarmor[i].BaseAttribute.Agility[selrarity[i]]
-		selclass.Dexterity += selarmor[i].BaseAttribute.Dexterity[selrarity[i]]
-		selclass.Will += selarmor[i].BaseAttribute.Will[selrarity[i]]
-		selclass.Knowledge += selarmor[i].BaseAttribute.Knowledge[selrarity[i]]
-		selclass.Resourcefulness += selarmor[i].BaseAttribute.Resourcefulness[selrarity[i]]
+	fmt.Printf("=== DEBUG: Items and rarities ===\n")
+	fmt.Printf("selarmor length: %d\n", len(selarmor))
+	fmt.Printf("selrarity: %v\n", selrarity)
+	for i, item := range selarmor {
+		fmt.Printf("Item %d: %s, Rarity: %d\n", i, item.Name, selrarity[i])
 	}
 
-	for i := 0; i < len(selacc) && i < len(selrarityacc); i++ {
-		totalacc.Strength += selacc[i].BaseAttribute.Strength[selrarityacc[i]]
-		totalacc.Vigor += selacc[i].BaseAttribute.Vigor[selrarityacc[i]]
-		totalacc.Agility += selacc[i].BaseAttribute.Agility[selrarityacc[i]]
-		totalacc.Dexterity += selacc[i].BaseAttribute.Dexterity[selrarityacc[i]]
-		totalacc.Will += selacc[i].BaseAttribute.Will[selrarityacc[i]]
-		totalacc.Knowledge += selacc[i].BaseAttribute.Knowledge[selrarityacc[i]]
-		totalacc.Resourcefulness += selacc[i].BaseAttribute.Resourcefulness[selrarityacc[i]]
+	for i := 0; i < len(selarmor) && i < len(selrarity); i++ {
+		rarity := selrarity[i]
+		baseAttr := selarmor[i].BaseAttribute
+
+		fmt.Printf("\n=== DEBUG: Processing %s (rarity %d) ===\n", selarmor[i].Name, rarity)
+		fmt.Printf("BaseAttribute: %+v\n", baseAttr)
+
+		// Check and add each attribute only if it exists for this rarity
+		if val, exists := baseAttr.Strength[rarity]; exists {
+			fmt.Printf("Adding Strength: %d\n", val)
+			selclass.Strength += val
+		} else {
+			fmt.Printf("No Strength at rarity %d\n", rarity)
+		}
+		if val, exists := baseAttr.Vigor[rarity]; exists {
+			fmt.Printf("Adding Vigor: %d\n", val)
+			selclass.Vigor += val
+		} else {
+			fmt.Printf("No Vigor at rarity %d\n", rarity)
+		}
+		if val, exists := baseAttr.Agility[rarity]; exists {
+			fmt.Printf("Adding Agility: %d\n", val)
+			selclass.Agility += val
+		} else {
+			fmt.Printf("No Agility at rarity %d\n", rarity)
+		}
+		if val, exists := baseAttr.Dexterity[rarity]; exists {
+			fmt.Printf("Adding Dexterity: %d\n", val)
+			selclass.Dexterity += val
+		} else {
+			fmt.Printf("No Dexterity at rarity %d\n", rarity)
+		}
+		if val, exists := baseAttr.Will[rarity]; exists {
+			fmt.Printf("Adding Will: %d\n", val)
+			selclass.Will += val
+		} else {
+			fmt.Printf("No Will at rarity %d\n", rarity)
+		}
+		if val, exists := baseAttr.Knowledge[rarity]; exists {
+			fmt.Printf("Adding Knowledge: %d\n", val)
+			selclass.Knowledge += val
+		} else {
+			fmt.Printf("No Knowledge at rarity %d\n", rarity)
+		}
+		if val, exists := baseAttr.Resourcefulness[rarity]; exists {
+			fmt.Printf("Adding Resourcefulness: %d\n", val)
+			selclass.Resourcefulness += val
+		} else {
+			fmt.Printf("No Resourcefulness at rarity %d\n", rarity)
+		}
+
+		fmt.Printf("Current selclass after %s: %+v\n", selarmor[i].Name, selclass)
 	}
+
+	fmt.Printf("\n=== DEBUG: After armor processing ===\n")
+	fmt.Printf("selclass: %+v\n", selclass)
+
+	for i := 0; i < len(selacc) && i < len(selrarityacc); i++ {
+		rarity := selrarityacc[i]
+		baseAttr := selacc[i].BaseAttribute
+
+		fmt.Printf("\n=== DEBUG: Processing accessory %s (rarity %d) ===\n", selacc[i].Name, rarity)
+
+		// Check and add each attribute only if it exists for this rarity
+		if val, exists := baseAttr.Strength[rarity]; exists {
+			fmt.Printf("Adding Strength: %d\n", val)
+			totalacc.Strength += val
+		}
+		if val, exists := baseAttr.Vigor[rarity]; exists {
+			fmt.Printf("Adding Vigor: %d\n", val)
+			totalacc.Vigor += val
+		}
+		if val, exists := baseAttr.Agility[rarity]; exists {
+			fmt.Printf("Adding Agility: %d\n", val)
+			totalacc.Agility += val
+		}
+		if val, exists := baseAttr.Dexterity[rarity]; exists {
+			fmt.Printf("Adding Dexterity: %d\n", val)
+			totalacc.Dexterity += val
+		}
+		if val, exists := baseAttr.Will[rarity]; exists {
+			fmt.Printf("Adding Will: %d\n", val)
+			totalacc.Will += val
+		}
+		if val, exists := baseAttr.Knowledge[rarity]; exists {
+			fmt.Printf("Adding Knowledge: %d\n", val)
+			totalacc.Knowledge += val
+		}
+		if val, exists := baseAttr.Resourcefulness[rarity]; exists {
+			fmt.Printf("Adding Resourcefulness: %d\n", val)
+			totalacc.Resourcefulness += val
+		}
+	}
+
+	fmt.Printf("\n=== DEBUG: Final totals before adding ===\n")
+	fmt.Printf("selclass: %+v\n", selclass)
+	fmt.Printf("totalacc: %+v\n", totalacc)
 
 	sm.base = selclass.AddStats(totalacc)
 
+	fmt.Printf("\n=== DEBUG: Final result ===\n")
+	fmt.Printf("sm.base: %+v\n", sm.base)
 }
 
 func (sm *StatsManager) BaseItemCalc(selection Selection) {

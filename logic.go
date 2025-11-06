@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"math"
 	"strconv"
 )
@@ -349,12 +349,11 @@ func RatingCalc(ratings []int) int {
 // CALCULATION TOTAL MOVESPEED
 func SpeedCalc(items []Item_Armor, rarity []int) int {
 	speedrating := 0
-	for i := 0; i < len(items); i++ {
 
+	for i := 0; i < len(items); i++ {
 		if items[i].SlotType != "Foot" {
 			speedrating += items[i].MoveSpeed[1]
-		}
-		if items[i].SlotType == "Foot" {
+		} else if items[i].SlotType == "Foot" && i < len(rarity) {
 			speedrating += items[i].MoveSpeed[rarity[i]]
 		}
 	}
@@ -629,7 +628,7 @@ func EnchantBaseAttribExeption(enchantmentlist []string, itemtype Item_Armor) []
 	if itemtype.BaseAttribute.Resourcefulness[1] != 0 {
 		removeAttrs["Resourcefulness"] = true
 	}
-	fmt.Println(removeAttrs)
+	//fmt.Println(removeAttrs)
 	result := make([]string, 0, len(enchantmentlist))
 	for _, enchant := range enchantmentlist {
 		if !removeAttrs[enchant] {
@@ -712,7 +711,6 @@ func (s Stats) AddStats(others ...Stats) Stats {
 // add enchant method
 func (cs Computed_Stats) AddEnchant(others ...Computed_Stats) Computed_Stats {
 	result := cs
-	// Iterate over the variadic inputs and add them to the result
 	for _, other := range others {
 		result.Health += other.Health
 		result.MaxHealthBonus += other.MaxHealthBonus

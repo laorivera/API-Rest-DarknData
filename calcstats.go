@@ -43,7 +43,7 @@ func ProcessOtherEnchantments(selection Selection) Computed_Stats {
 		}
 	}
 	fmt.Println(allEnchantments, "other")
-	fmt.Println(EnchantComputedOthers(allEnchantments), "other")
+	//fmt.Println(EnchantComputedOthers(allEnchantments), "other")
 	// Compute the final stats using your existing function
 	return EnchantComputedOthers(allEnchantments)
 }
@@ -87,7 +87,7 @@ func ProcessBaseEnchantments(selection Selection) Stats {
 		}
 	}
 	fmt.Println(allEnchantments, "base")
-	fmt.Println(setEnchantStats(allEnchantments), "base")
+	//fmt.Println(setEnchantStats(allEnchantments), "base")
 	return setEnchantStats(allEnchantments)
 }
 
