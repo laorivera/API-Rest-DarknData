@@ -125,12 +125,15 @@ func postHandler(c *gin.Context) {
 	resultother := ProcessOtherEnchantments(selection).AddEnchant(Sm.variable)
 
 	fmt.Println(Sm.base, "1")
+	fmt.Println(Sm.variable, "2")
 	//fmt.Println(Sm.totalrating, "2")
 	//fmt.Println(Sm.totalspeed, "3")
 	//fmt.Println(resultother, "4")
-	//fmt.Println(Sm.variable, "5")
+
 	totally := Calculate(Sm.base, Sm.totalrating, Sm.totalspeed, resultother, Sm.variable)
 	total := totally.AddEnchant(resultother)
+
+	Sm.WeaponDamageCalcx(selection, total)
 
 	//fmt.Println(total.Luck)
 	//fmt.Println(total)

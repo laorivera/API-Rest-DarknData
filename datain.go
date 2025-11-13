@@ -26,6 +26,7 @@ type ItemSelect struct {
 	Rarity  string        `json:"rarity"`
 	Enchant EnchantSelect `json:"enchant"`
 	Rating  string        `json:"rating"`
+	Type    string        `json:"type"`
 }
 
 type EnchantSelect struct {

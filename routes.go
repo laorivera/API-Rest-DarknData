@@ -114,6 +114,7 @@ func Necklace_List_Handler(c *gin.Context) {
 }
 
 func Ring_List_Handler(c *gin.Context) {
+
 	ringList := Im.AccesoryBySlot("Ring")
 	imageRing := ImageLocation("Ring", ringList)
 
@@ -596,68 +597,73 @@ func RingTwo_EnchantmentList_Handler(c *gin.Context) {
 	})
 }
 
-/*
 func Pwo_EnchantmentList_Handler(c *gin.Context) {
-	primaryWeapon_EnchantmentName := map[string][]string{}
-	primaryWeapon_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	primaryWeapon_EnchantmentName["Uncommon"] = GetEnchantmentLists_Weapon_Base(c)["pwo"]
-	primaryWeapon_EnchantmentName["Rare"] = GetEnchantmentLists_Weapon_TypeRare(c)["pwo"]
-	primaryWeapon_EnchantmentName["Epic"] = GetEnchantmentLists_Weapon_TypeEpic(c)["pwo"]
-	primaryWeapon_EnchantmentName["Legend"] = GetEnchantmentLists_Weapon_TypeLegend(c)["pwo"]
-	primaryWeapon_EnchantmentName["Unique"] = GetEnchantmentLists_Weapon_TypeUnique(c)["pwo"]
+	//primaryWeapon_EnchantmentName := map[string][]string{}
+	//primaryWeapon_EnchantmentValues := map[string][]float32{}
 
-	primaryWeapon_EnchantmentValues["Uncommon"] = GetEnchantmentLists_Weapon_ValuesUncommon(c)["pwo"]
-	primaryWeapon_EnchantmentValues["Rare"] = GetEnchantmentLists_Weapon_ValuesRare(c)["pwo"]
-	primaryWeapon_EnchantmentValues["Epic"] = GetEnchantmentLists_Weapon_ValuesEpic(c)["pwo"]
-	primaryWeapon_EnchantmentValues["Legend"] = GetEnchantmentLists_Weapon_ValuesLegend(c)["pwo"]
-	primaryWeapon_EnchantmentValues["Unique"] = GetEnchantmentLists_Weapon_ValuesUnique(c)["pwo"]
+	primaryWeapon_EnchantmentNameU := GetEnchantmentLists_Weapon_Base(selection)["pwo"]
+	primaryWeapon_EnchantmentNameR := GetEnchantmentLists_Weapon_TypeRare(selection)["pwo"]
+	primaryWeapon_EnchantmentNameE := GetEnchantmentLists_Weapon_TypeEpic(selection)["pwo"]
+	primaryWeapon_EnchantmentNameL := GetEnchantmentLists_Weapon_TypeLegend(selection)["pwo"]
+	primaryWeapon_EnchantmentNameQ := GetEnchantmentLists_Weapon_TypeUnique(selection)["pwo"]
+
+	primaryWeapon_EnchantmentValuesU := GetEnchantmentLists_Weapon_ValuesUncommon(selection)["pwo"]
+	primaryWeapon_EnchantmentValuesR := GetEnchantmentLists_Weapon_ValuesRare(selection)["pwo"]
+	primaryWeapon_EnchantmentValuesE := GetEnchantmentLists_Weapon_ValuesEpic(selection)["pwo"]
+	primaryWeapon_EnchantmentValuesL := GetEnchantmentLists_Weapon_ValuesLegend(selection)["pwo"]
+	primaryWeapon_EnchantmentValuesQ := GetEnchantmentLists_Weapon_ValuesUnique(selection)["pwo"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  primaryWeapon_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": primaryWeapon_EnchantmentValues["Uncommon"],
-		"listname_rare":      primaryWeapon_EnchantmentName["Rare"],
-		"listvalue_rare":     primaryWeapon_EnchantmentValues["Rare"],
-		"listname_epic":      primaryWeapon_EnchantmentName["Epic"],
-		"listvalue_epic":     primaryWeapon_EnchantmentValues["Epic"],
-		"listname_legend":    primaryWeapon_EnchantmentName["Legend"],
-		"listvalue_legend":   primaryWeapon_EnchantmentValues["Legend"],
-		"listname_unique":    primaryWeapon_EnchantmentName["Unique"],
-		"listvalue_unique":   primaryWeapon_EnchantmentValues["Unique"],
+		"listname_uncommon":  primaryWeapon_EnchantmentNameU,
+		"listvalue_uncommon": primaryWeapon_EnchantmentValuesU,
+		"listname_rare":      primaryWeapon_EnchantmentNameR,
+		"listvalue_rare":     primaryWeapon_EnchantmentValuesR,
+		"listname_epic":      primaryWeapon_EnchantmentNameE,
+		"listvalue_epic":     primaryWeapon_EnchantmentValuesE,
+		"listname_legend":    primaryWeapon_EnchantmentNameL,
+		"listvalue_legend":   primaryWeapon_EnchantmentValuesL,
+		"listname_unique":    primaryWeapon_EnchantmentNameQ,
+		"listvalue_unique":   primaryWeapon_EnchantmentValuesQ,
 	})
 
 }
 
 func Pwt_EnchantmentList_Handler(c *gin.Context) {
-	primaryOffhandWeapon_EnchantmentName := map[string][]string{}
-	primaryOffhandWeapon_EnchantmentValues := map[string][]float32{}
+	var selection Selection
+	c.BindJSON(&selection)
 
-	primaryOffhandWeapon_EnchantmentName["Uncommon"] = GetEnchantmentLists_Weapon_Base(c)["pwt"]
-	primaryOffhandWeapon_EnchantmentName["Rare"] = GetEnchantmentLists_Weapon_TypeRare(c)["pwt"]
-	primaryOffhandWeapon_EnchantmentName["Epic"] = GetEnchantmentLists_Weapon_TypeEpic(c)["pwt"]
-	primaryOffhandWeapon_EnchantmentName["Legend"] = GetEnchantmentLists_Weapon_TypeLegend(c)["pwt"]
-	primaryOffhandWeapon_EnchantmentName["Unique"] = GetEnchantmentLists_Weapon_TypeUnique(c)["pwt"]
+	//primaryOffhandWeapon_EnchantmentName := map[string][]string{}
+	//primaryOffhandWeapon_EnchantmentValues := map[string][]float32{}
 
-	primaryOffhandWeapon_EnchantmentValues["Uncommon"] = GetEnchantmentLists_Weapon_ValuesUncommon(c)["pwt"]
-	primaryOffhandWeapon_EnchantmentValues["Rare"] = GetEnchantmentLists_Weapon_ValuesRare(c)["pwt"]
-	primaryOffhandWeapon_EnchantmentValues["Epic"] = GetEnchantmentLists_Weapon_ValuesEpic(c)["pwt"]
-	primaryOffhandWeapon_EnchantmentValues["Legend"] = GetEnchantmentLists_Weapon_ValuesLegend(c)["pwt"]
-	primaryOffhandWeapon_EnchantmentValues["Unique"] = GetEnchantmentLists_Weapon_ValuesUnique(c)["pwt"]
+	primaryOffhandWeapon_EnchantmentNameU := GetEnchantmentLists_Weapon_Base(selection)["pwt"]
+	primaryOffhandWeapon_EnchantmentNameR := GetEnchantmentLists_Weapon_TypeRare(selection)["pwt"]
+	primaryOffhandWeapon_EnchantmentNameE := GetEnchantmentLists_Weapon_TypeEpic(selection)["pwt"]
+	primaryOffhandWeapon_EnchantmentNameL := GetEnchantmentLists_Weapon_TypeLegend(selection)["pwt"]
+	primaryOffhandWeapon_EnchantmentNameQ := GetEnchantmentLists_Weapon_TypeUnique(selection)["pwt"]
+
+	primaryOffhandWeapon_EnchantmentValuesU := GetEnchantmentLists_Weapon_ValuesUncommon(selection)["pwt"]
+	primaryOffhandWeapon_EnchantmentValuesR := GetEnchantmentLists_Weapon_ValuesRare(selection)["pwt"]
+	primaryOffhandWeapon_EnchantmentValuesE := GetEnchantmentLists_Weapon_ValuesEpic(selection)["pwt"]
+	primaryOffhandWeapon_EnchantmentValuesL := GetEnchantmentLists_Weapon_ValuesLegend(selection)["pwt"]
+	primaryOffhandWeapon_EnchantmentValuesQ := GetEnchantmentLists_Weapon_ValuesUnique(selection)["pwt"]
 
 	c.JSON(http.StatusOK, gin.H{
-		"listname_uncommon":  primaryOffhandWeapon_EnchantmentName["Uncommon"],
-		"listvalue_uncommon": primaryOffhandWeapon_EnchantmentValues["Uncommon"],
-		"listname_rare":      primaryOffhandWeapon_EnchantmentName["Rare"],
-		"listvalue_rare":     primaryOffhandWeapon_EnchantmentValues["Rare"],
-		"listname_epic":      primaryOffhandWeapon_EnchantmentName["Epic"],
-		"listvalue_epic":     primaryOffhandWeapon_EnchantmentValues["Epic"],
-		"listname_legend":    primaryOffhandWeapon_EnchantmentName["Legend"],
-		"listvalue_legend":   primaryOffhandWeapon_EnchantmentValues["Legend"],
-		"listname_unique":    primaryOffhandWeapon_EnchantmentName["Unique"],
-		"listvalue_unique":   primaryOffhandWeapon_EnchantmentValues["Unique"],
+		"listname_uncommon":  primaryOffhandWeapon_EnchantmentNameU,
+		"listvalue_uncommon": primaryOffhandWeapon_EnchantmentValuesU,
+		"listname_rare":      primaryOffhandWeapon_EnchantmentNameR,
+		"listvalue_rare":     primaryOffhandWeapon_EnchantmentValuesR,
+		"listname_epic":      primaryOffhandWeapon_EnchantmentNameE,
+		"listvalue_epic":     primaryOffhandWeapon_EnchantmentValuesE,
+		"listname_legend":    primaryOffhandWeapon_EnchantmentNameL,
+		"listvalue_legend":   primaryOffhandWeapon_EnchantmentValuesL,
+		"listname_unique":    primaryOffhandWeapon_EnchantmentNameQ,
+		"listvalue_unique":   primaryOffhandWeapon_EnchantmentValuesQ,
 	})
 }
-*/
+
 //////////\\\\\\\\\ ------->   ROUTES  <------- //////////\\\\\\\\\
 
 func setupRoutes(r *gin.Engine) {
@@ -690,10 +696,10 @@ func setupRoutes(r *gin.Engine) {
 	r.POST("/enchantmentlistpants/", Pants_EnchantmentList_Handler)
 	r.POST("/enchantmentlistboots/", Boots_EnchantmentList_Handler)
 	r.POST("/enchantmentlistcloak/", Cloak_EnchantmentList_Handler)
-	/*
-		r.GET("/enchantmentlistpwo/", Pwo_EnchantmentList_Handler)
-		r.GET("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
-	*/
+
+	r.POST("/enchantmentlistpwo/", Pwo_EnchantmentList_Handler)
+	//r.GET("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
+
 	r.POST("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
 	r.POST("/enchantmentlistring/", Ring_EnchantmentList_Handler)
 	r.POST("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)

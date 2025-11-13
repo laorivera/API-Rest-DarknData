@@ -461,8 +461,30 @@ func WeaponDamageCalc(weapons []Item_Weapon, rarity []int, powerbonus float64, r
 	return result
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+func EnchantValuesCalc(enchantmentvalue string, enchantmenttype map[string][]float32) []float32 {
+	values := enchantmenttype[enchantmentvalue]
+	if len(values) == 0 {
+		return values
+	}
 
+	// Check if ALL values in the range are integers (no decimal part)
+	allIntegers := true
+	for _, v := range values {
+		if v != float32(int(v)) {
+			allIntegers = false
+			break
+		}
+	}
+
+	if allIntegers {
+		return RangeofEnchanmentValuesInt(values)
+	} else {
+		return RangeofEnchanmentValues(values)
+	}
+}
+
+/*
 func EnchantValuesCalc(enchantmentvalue string, enchantmenttype map[string][]float32) []float32 {
 
 	switch enchantmentvalue {
@@ -507,7 +529,7 @@ func EnchantValuesCalc(enchantmentvalue string, enchantmenttype map[string][]flo
 	}
 
 	return enchantmenttype[enchantmentvalue]
-}
+}*/
 
 func Enchantattrib(enchantmenttype string, enchantmentvalue string) map[string]int {
 	value, _ := strconv.Atoi(enchantmentvalue)

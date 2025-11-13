@@ -502,75 +502,83 @@ func GetEnchantmentLists_Accessory_ValuesUnique(selection Selection) map[string]
 	return lists
 }
 
-/*
-
 /////////\\\\\\\\\ --------------> ENCHCANTMENT LISTS WEAPON <------------------ //////////\\\\\\\\\
 
-func GetEnchantmentLists_Weapon_Base(c *gin.Context) map[string][]string {
+func GetEnchantmentLists_Weapon_Base(selection Selection) map[string][]string {
 
 	lists := map[string][]string{}
+	//physicaltypes := []string{"axe", "sword", "mace"}
+	//shieldtypes := []string{"shield"}
+	//hybridtypes := []string{"polearm", "crossbow"}
+	//magictypes := []string{"magicstuff", "staff"}
+
 	for i := 0; i < len(slotsweapon); i++ {
+		itemName := selection.ItemSlot.WeaponOne.Name
+		itemNameTwo := selection.ItemSlot.WeaponTwo.Name
 		if slotsweapon[i] == "pwo" {
-			if ItemsByNameWeapon(c.Query("item"+slotsweapon[i])).SlotType == "Main Hand" {
+			if ItemsByNameWeapon(itemName).HandType == "One Handed" && ItemsByNameWeapon(itemName).SlotType == "Main Hand" {
 				lists[slotsweapon[i]] = EnchamentbySlot(Enchantments.WeaponOneHand)
-			}
-			if ItemsByNameWeapon(c.Query("item"+slotsweapon[i])).HandType == "Two Handed" {
+			} else if ItemsByNameWeapon(itemName).HandType == "Two Handed" && ItemsByNameWeapon(itemName).SlotType == "Main Hand" {
 				lists[slotsweapon[i]] = EnchamentbySlot(Enchantments.PhysicalTwoHand)
 			}
 		}
 		if slotsweapon[i] == "pwt" {
-			if ItemsByNameWeapon(c.Query("item"+slotsweapon[i])).SlotType == "Off Hand" {
+			itemName := selection.ItemSlot.WeaponTwo.Name
+			if ItemsByNameWeapon(itemNameTwo).SlotType == "Off Hand" && ItemsByNameWeapon(itemName).HandType == "One Handed" {
 				lists[slotsweapon[i]] = EnchamentbySlot(Enchantments.WeaponOneHand)
 			}
-			println(ItemsByNameWeapon(c.Query("item" + slotsweapon[i])).SlotType)
+			//println(ItemsByNameWeapon(c.Query("item" + slotsweapon[i])).SlotType)
 		}
-		if slotsweapon[i] == "swo" {
-			if ItemsByNameWeapon(c.Query("item"+slotsweapon[i])).SlotType == "Main Hand" {
-				lists[slotsweapon[i]] = EnchamentbySlot(Enchantments.WeaponOneHand)
+		/*
+			if slotsweapon[i] == "swo" {
+				if ItemsByNameWeapon(c.Query("item"+slotsweapon[i])).SlotType == "Main Hand" {
+					lists[slotsweapon[i]] = EnchamentbySlot(Enchantments.WeaponOneHand)
+				}
 			}
-		}
-		if slotsweapon[i] == "swt" {
-			if ItemsByNameWeapon(c.Query("item"+slotsweapon[i])).SlotType == "Off Hand" {
-				lists[slotsweapon[i]] = EnchamentbySlot(Enchantments.WeaponOneHand)
+			if slotsweapon[i] == "swt" {
+				if ItemsByNameWeapon(c.Query("item"+slotsweapon[i])).SlotType == "Off Hand" {
+					lists[slotsweapon[i]] = EnchamentbySlot(Enchantments.WeaponOneHand)
+				}
 			}
-		}
-
+		*/
 	}
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesUncommon(c *gin.Context) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesUncommon(selection Selection) map[string][]float32 {
 
 	lists := map[string][]float32{}
 	for i := 0; i < len(slotsweapon); i++ {
-		Query := c.Query("enchantment_" + slotsweapon[i] + "type")
+
 		if slotsweapon[i] == "pwo" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			lists[slotsweapon[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponOne.Enchant.TypeU, Enchantments.WeaponOneHand)
 		}
 
 		if slotsweapon[i] == "pwt" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			lists[slotsweapon[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponTwo.Enchant.TypeU, Enchantments.WeaponOneHand)
 		}
-		if slotsweapon[i] == "swo" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
-		}
-		if slotsweapon[i] == "swt" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
-		}
-
+		/*
+			if slotsweapon[i] == "swo" {
+				lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			}
+			if slotsweapon[i] == "swt" {
+				lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			}
+		*/
 	}
 	return lists
 }
-func GetEnchantmentLists_Weapon_TypeRare(c *gin.Context) map[string][]string {
+
+func GetEnchantmentLists_Weapon_TypeRare(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchantmentLists_Weapon_Base(c)
+	baseLists := GetEnchantmentLists_Weapon_Base(selection)
 
 	for _, slot := range slotsweapon {
 		// Pass all previous selections up to Epic
 		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"), // Uncommon
+			selection.ItemSlot.WeaponOne.Enchant.TypeU, selection.ItemSlot.WeaponTwo.Enchant.TypeU, // Uncommon
 		}
 		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
 	}
@@ -578,38 +586,43 @@ func GetEnchantmentLists_Weapon_TypeRare(c *gin.Context) map[string][]string {
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesRare(c *gin.Context) map[string][]float32 {
-	slotsweapon := []string{"pwo", "pwt", "swo", "swt"}
+
+func GetEnchantmentLists_Weapon_ValuesRare(selection Selection) map[string][]float32 {
+	//slotsweapon := []string{"pwo", "pwt", "swo", "swt"}
+
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsweapon); i++ {
-		Query := c.Query("enchantment_" + slotsweapon[i] + "type2")
+		//Query := c.Query("enchantment_" + slotsweapon[i] + "type2")
 		if slotsweapon[i] == "pwo" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			lists[slotsweapon[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponOne.Enchant.TypeR, Enchantments.WeaponOneHand)
 		}
 		if slotsweapon[i] == "pwt" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			lists[slotsweapon[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponTwo.Enchant.TypeR, Enchantments.WeaponOneHand)
 		}
-		if slotsweapon[i] == "swo" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
-		}
-		if slotsweapon[i] == "swt" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
-		}
+		/*
+			if slotsweapon[i] == "swo" {
+				lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			}
+			if slotsweapon[i] == "swt" {
+				lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			}
+		*/
 
 	}
 	return lists
 }
-func GetEnchantmentLists_Weapon_TypeEpic(c *gin.Context) map[string][]string {
+
+func GetEnchantmentLists_Weapon_TypeEpic(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchantmentLists_Weapon_Base(c)
+	baseLists := GetEnchantmentLists_Weapon_Base(selection)
 
 	for _, slot := range slotsweapon {
 		// Pass all previous selections up to Epic
 		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"),  // Uncommon
-			c.Query("enchantment_" + slot + "type2"), // Rare
+			selection.ItemSlot.WeaponOne.Enchant.TypeU, selection.ItemSlot.WeaponTwo.Enchant.TypeU,
+			selection.ItemSlot.WeaponOne.Enchant.TypeR, selection.ItemSlot.WeaponTwo.Enchant.TypeR,
 		}
 		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
 	}
@@ -617,40 +630,41 @@ func GetEnchantmentLists_Weapon_TypeEpic(c *gin.Context) map[string][]string {
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesEpic(c *gin.Context) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesEpic(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsweapon); i++ {
-		Query := c.Query("enchantment_" + slotsweapon[i] + "type3")
+		//Query := c.Query("enchantment_" + slotsweapon[i] + "type3")
 		if slotsweapon[i] == "pwo" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			lists[slotsweapon[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponOne.Enchant.TypeE, Enchantments.WeaponOneHand)
 		}
 
-			if slots[i] == "pwt" {
-				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.PrimaryWeaponTwoHand)
-			}
+		if slots[i] == "pwt" {
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponTwo.Enchant.TypeE, Enchantments.WeaponOneHand)
+		}
+		/*
 			if slots[i] == "swo" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponOneHand)
 			}
 			if slots[i] == "swt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponTwoHand)
 			}
-
+		*/
 	}
 	return lists
 }
-func GetEnchantmentLists_Weapon_TypeLegend(c *gin.Context) map[string][]string {
+func GetEnchantmentLists_Weapon_TypeLegend(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchantmentLists_Weapon_Base(c)
+	baseLists := GetEnchantmentLists_Weapon_Base(selection)
 
 	for _, slot := range slotsweapon {
 		// Pass all previous selections up to Epic
 		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"),  // Uncommon
-			c.Query("enchantment_" + slot + "type2"), // Rare
-			c.Query("enchantment_" + slot + "type3"), // Epic
+			selection.ItemSlot.WeaponOne.Enchant.TypeU, selection.ItemSlot.WeaponTwo.Enchant.TypeU,
+			selection.ItemSlot.WeaponOne.Enchant.TypeR, selection.ItemSlot.WeaponTwo.Enchant.TypeR,
+			selection.ItemSlot.WeaponOne.Enchant.TypeE, selection.ItemSlot.WeaponTwo.Enchant.TypeE,
 		}
 		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
 	}
@@ -658,41 +672,43 @@ func GetEnchantmentLists_Weapon_TypeLegend(c *gin.Context) map[string][]string {
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesLegend(c *gin.Context) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesLegend(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsweapon); i++ {
-		Query := c.Query("enchantment_" + slotsweapon[i] + "type4")
+
 		if slotsweapon[i] == "pwo" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			lists[slotsweapon[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponOne.Enchant.TypeL, Enchantments.WeaponOneHand)
 		}
 
-			if slots[i] == "pwt" {
-				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.PrimaryWeaponTwoHand)
-			}
+		if slots[i] == "pwt" {
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponTwo.Enchant.TypeL, Enchantments.WeaponOneHand)
+		}
+		/*
 			if slots[i] == "swo" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponOneHand)
 			}
 			if slots[i] == "swt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponTwoHand)
 			}
+		*/
 
 	}
 	return lists
 }
-func GetEnchantmentLists_Weapon_TypeUnique(c *gin.Context) map[string][]string {
+func GetEnchantmentLists_Weapon_TypeUnique(selection Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
-	baseLists := GetEnchantmentLists_Weapon_Base(c)
+	baseLists := GetEnchantmentLists_Weapon_Base(selection)
 
 	for _, slot := range slotsweapon {
 		// Pass all previous selections up to Epic
 		previousSelections := []string{
-			c.Query("enchantment_" + slot + "type"),  // Uncommon
-			c.Query("enchantment_" + slot + "type2"), // Rare
-			c.Query("enchantment_" + slot + "type3"), // Epic
-			c.Query("enchantment_" + slot + "type4"), // Legend
+			selection.ItemSlot.WeaponOne.Enchant.TypeU, selection.ItemSlot.WeaponTwo.Enchant.TypeU,
+			selection.ItemSlot.WeaponOne.Enchant.TypeR, selection.ItemSlot.WeaponTwo.Enchant.TypeR,
+			selection.ItemSlot.WeaponOne.Enchant.TypeE, selection.ItemSlot.WeaponTwo.Enchant.TypeE,
+			selection.ItemSlot.WeaponOne.Enchant.TypeL, selection.ItemSlot.WeaponTwo.Enchant.TypeL,
 		}
 		lists[slot] = EnchantTypeExeption(baseLists[slot], previousSelections)
 	}
@@ -700,27 +716,27 @@ func GetEnchantmentLists_Weapon_TypeUnique(c *gin.Context) map[string][]string {
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesUnique(c *gin.Context) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesUnique(selection Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsweapon); i++ {
-		Query := c.Query("enchantment_" + slotsweapon[i] + "type5")
+
 		if slotsweapon[i] == "pwo" {
-			lists[slotsweapon[i]] = EnchantValuesCalc(Query, Enchantments.WeaponOneHand)
+			lists[slotsweapon[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponOne.Enchant.TypeQ, Enchantments.WeaponOneHand)
 		}
 
-			if slots[i] == "pwt" {
-				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.PrimaryWeaponTwoHand)
-			}
+		if slots[i] == "pwt" {
+			lists[slots[i]] = EnchantValuesCalc(selection.ItemSlot.WeaponTwo.Enchant.TypeQ, Enchantments.WeaponOneHand)
+		}
+		/*
 			if slots[i] == "swo" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponOneHand)
 			}
 			if slots[i] == "swt" {
 				lists[slots[i]] = EnchantValuesCalc(Query, Enchantments.SecondaryWeaponTwoHand)
 			}
+		*/
 
 	}
 	return lists
 }
-
-*/

@@ -1,55 +1,8 @@
 {
   "name": "Kris Dagger",
-  "classes": [
-    "Rogue"
-  ],
-  "damageRatings": {
-    "1": [
-      15
-    ],
-    "2": [
-      16
-    ],
-    "3": [
-      17
-    ],
-    "4": [
-      18
-    ],
-    "5": [
-      19
-    ],
-    "6": [
-      20
-    ],
-    "7": [
-      21
-    ]
-  },
-  "moveSpeed": {
-    "1": -10
-  },
-  "moveSpeedBonus": 0,
-  "damageTypes": [
-    "Slash",
-    "Slash",
-    "Slash"
-  ],
-  "impactZones": [
-    100,
-    100,
-    100
-  ],
-  "impactPower": 0,
-  "comboDamage": [
-    100,
-    100,
-    100
-  ],
-  "type": [
-    "dagger",
-    "Dagger"
-  ],
+  "BaseAttribute": {},
+  "type": "Weapon",
+  "handType": "One Handed",
   "rarities": [
     1,
     2,
@@ -59,48 +12,58 @@
     6,
     7
   ],
-  "handType": "One Handed",
-  "slotType": "Main Hand",
-  "gearScore": {},
-  "invWidth": 1,
-  "invHeight": 2,
-  "flavorText": "A wavy blade that causes multiple jagged wounds with every stab. It's handle, also curved for a better grip.",
-  "ap": {},
-  "xp": {},
-  "numEnchants": {},
-  "maxHealthAdd": {},
-  "maxHealthBonus": {},
-  "magicalResistance": {},
-  "projectileReduction": 0,
-  "projectileReductionRate": {},
-  "headshotReduction": 0,
-  "BaseAttribute": {
-    "strength": {},
-    "vigor": {},
-    "agility": {},
-    "dexterity": {},
-    "will": {},
-    "knowledge": {},
-    "resourcefulness": {}
+  "slotType": "Primary",
+  "description": "A wavy blade that causes multiple jagged wounds with every stab. It's handle, also curved for a better grip.",
+  "gearScore": {
+    "1": 1,
+    "2": 2,
+    "3": 20,
+    "4": 30,
+    "5": 40,
+    "6": 50,
+    "7": 70
   },
-  "physicalPower": 0,
-  "armorPenetration": 0,
-  "magicPenetration": 0,
-  "buffDuration": 0,
-  "magicalPower": {},
-  "magicalPowerBonus": {},
-  "regularInteraction": {},
-  "magicalHealing": {},
-  "actionSpeed": {},
-  "magicalDamageReduction": 0,
-  "physicalDamageReduction": 0,
-  "luck": 0,
-  "armorRating": {},
-  "impactResistance": 0,
-  "artifactName": "",
-  "maxAmmoCount": 0,
-  "maxCount": 1,
-  "wearingDelayTime": 0,
-  "unequipTime": 0.6,
-  "sellPrices": {}
+  "classes": [
+    "Rogue",
+    "Warlock"
+  ],
+  "numEnchants": {
+    "3": 1,
+    "4": 2,
+    "5": 3,
+    "6": 4,
+    "7": 5
+  },
+  "damageRatings": {
+    "1": [
+      16
+    ],
+    "2": [
+      17
+    ],
+    "3": [
+      18
+    ],
+    "4": [
+      19
+    ],
+    "5": [
+      20
+    ],
+    "6": [
+      21
+    ],
+    "7": [
+      22
+    ]
+  },
+  "moveSpeed": {
+    "1": -10,
+    "2": -10,
+    "3": -10,
+    "4": -10,
+    "5": -10,
+    "6": -10,
+    "7": -10
+  }
 }

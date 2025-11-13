@@ -1,6 +1,6 @@
 package main
 
-import "fmt"
+//import "fmt"
 
 func ProcessOtherEnchantments(selection Selection) Computed_Stats {
 	var allEnchantments []map[string]float64
@@ -42,7 +42,7 @@ func ProcessOtherEnchantments(selection Selection) Computed_Stats {
 			}
 		}
 	}
-	fmt.Println(allEnchantments, "other")
+	//fmt.Println(allEnchantments, "other")
 	//fmt.Println(EnchantComputedOthers(allEnchantments), "other")
 	// Compute the final stats using your existing function
 	return EnchantComputedOthers(allEnchantments)
@@ -86,7 +86,7 @@ func ProcessBaseEnchantments(selection Selection) Stats {
 			}
 		}
 	}
-	fmt.Println(allEnchantments, "base")
+	//fmt.Println(allEnchantments, "base")
 	//fmt.Println(setEnchantStats(allEnchantments), "base")
 	return setEnchantStats(allEnchantments)
 }

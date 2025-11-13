@@ -18,7 +18,7 @@
     "impactZones": [100, 70],
     "comboDamage": [100, 105, 120],
     "impactPower": 5,
-    "type": "Polearm, Axe",
+    "type": ["Polearm, Axe"],
     "rarities": [1, 2, 3, 4, 5, 6],
     "handType": "Two Handed",
     "slotType": "Main Hand",

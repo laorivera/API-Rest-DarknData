@@ -134,7 +134,7 @@ type Item struct {
 	HandCrossbow         Item_Weapon
 	HeaterShield         Item_Weapon
 	HorsemanAxe          Item_Weapon
-	KrissDagger          Item_Weapon
+	KrisDagger           Item_Weapon
 	LaternShield         Item_Weapon
 	Longbow              Item_Weapon
 	Longsword            Item_Weapon
@@ -292,7 +292,7 @@ var item = Item{
 	HandCrossbow:         CreateItemWeapon("./data/HandCrossbow.json"),
 	HeaterShield:         CreateItemWeapon("./data/HeaterShield.json"),
 	HorsemanAxe:          CreateItemWeapon("./data/HorsemanAxe.json"),
-	KrissDagger:          CreateItemWeapon("./data/KrissDagger.json"),
+	KrisDagger:           CreateItemWeapon("./data/KrisDagger.json"),
 	LaternShield:         CreateItemWeapon("./data/LaternShield.json"),
 	Longbow:              CreateItemWeapon("./data/Longbow.json"),
 	Longsword:            CreateItemWeapon("./data/Longsword.json"),
@@ -440,7 +440,7 @@ var Items = List_Items{
 		item.HandCrossbow,
 		item.HeaterShield,
 		item.HorsemanAxe,
-		item.KrissDagger,
+		item.KrisDagger,
 		item.LaternShield,
 		item.Longbow,
 		item.Longsword,
@@ -511,6 +511,7 @@ var slots = []string{"helmet", "chest", "gloves", "pants", "boots", "cloak"}
 // var slotsm = []string{"Head", "Chest", "Hands", "Legs", "Foot", "Back"}
 var slotsacc = []string{"necklace", "ring", "ringtwo"}
 
-//var slotsmacc = []string{"Necklace", "Ring"}
-//var slotsweapon = []string{"pwo", "pwt", "swo", "swt"}
+// var slotsmacc = []string{"Necklace", "Ring"}
+var slotsweapon = []string{"pwo", "pwt", "swo", "swt"}
+
 //var slotshand = []string{"Main Hand", "Off Hand"}

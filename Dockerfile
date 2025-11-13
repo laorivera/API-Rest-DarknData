@@ -1,4 +1,4 @@
-# Stage 1: Build the Go binary
+
 FROM golang:1.24-alpine3.22 AS builder
 RUN apk add --no-cache git ca-certificates
 WORKDIR /app

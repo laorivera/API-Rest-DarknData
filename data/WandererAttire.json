@@ -1,45 +1,6 @@
 {
   "name": "Wanderer Attire",
-  "armorRatings": {
-    "1": [
-      22
-    ],
-    "2": [
-      23,
-      24
-    ],
-    "3": [
-      25,
-      28
-    ],
-    "4": [
-      29,
-      30
-    ],
-    "5": [
-      31,
-      33
-    ],
-    "6": [
-      34
-    ],
-    "7": [
-      37,
-      40
-    ]
-  },
-  "projectileReduction": 0,
-  "headshotReduction": 0,
   "BaseAttribute": {
-    "Dexterity": {
-      "1": 2,
-      "2": 2,
-      "3": 2,
-      "4": 3,
-      "5": 3,
-      "6": 4,
-      "7": 4
-    },
     "Strength": {
       "1": 1,
       "2": 2,
@@ -48,12 +9,19 @@
       "5": 3,
       "6": 3,
       "7": 4
+    },
+    "Dexterity": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 4,
+      "7": 4
     }
   },
-  "moveSpeed": {
-    "1": -4
-  },
-  "type": "Cloth",
+  "type": "Armor",
+  "armorType": "Cloth",
   "rarities": [
     1,
     2,
@@ -64,8 +32,8 @@
     7
   ],
   "slotType": "Chest",
+  "description": "Old clothes worn out in a long wandering life.",
   "gearScore": {
-    "0": 0,
     "1": 1,
     "2": 1,
     "3": 15,
@@ -75,16 +43,50 @@
     "7": 50
   },
   "classes": [
-    "Bard",
+    "Rogue",
     "Ranger",
-    "Rogue"
+    "Bard"
   ],
   "numEnchants": {
     "3": 1,
     "4": 2,
     "5": 3,
     "6": 4,
-    "7": 1
+    "7": 5
   },
-  "flavorText": "Old clothes worn out in a long wandering life."
+  "armorRatings": {
+    "1": [
+      37
+    ],
+    "2": [
+      38
+    ],
+    "3": [
+      39,
+      40
+    ],
+    "4": [
+      41,
+      42
+    ],
+    "5": [
+      43,
+      44
+    ],
+    "6": [
+      45
+    ],
+    "7": [
+      46
+    ]
+  },
+  "moveSpeed": {
+    "1": -3,
+    "2": -3,
+    "3": -3,
+    "4": -3,
+    "5": -3,
+    "6": -3,
+    "7": -3
+  }
 }

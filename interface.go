@@ -1,6 +1,7 @@
 package main
 
 import (
+	//"fmt"
 	"fmt"
 	"strconv"
 )
@@ -135,7 +136,7 @@ func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor {
 	return result
 }
 
-func (im *ItemManager) ArmorsByNameD(item Selection) []Item_Armor { //select items from json
+func (im *ItemManager) ArmorsByNameD(item Selection) []Item_Armor {
 	var selection []string
 	selection = append(selection, item.ItemSlot.Head.Name, item.ItemSlot.Chest.Name, item.ItemSlot.Foot.Name, item.ItemSlot.Hands.Name, item.ItemSlot.Pants.Name, item.ItemSlot.Back.Name)
 	var result []Item_Armor
@@ -237,7 +238,7 @@ func (im *ItemManager) SelByRarity(item Selection) []int {
 			}
 		}
 	}
-	fmt.Println(result)
+	//fmt.Println(result)
 	return result
 }
 
@@ -319,9 +320,9 @@ func (sm *StatsManager) ItemsBaseStats(selection Selection) {
 	var selclass Stats = Selection_Class(selection)
 	selclass = selclass.AddStats(selrace)
 
-	fmt.Printf("=== DEBUG: After race/class selection ===\n")
-	fmt.Printf("selclass: %+v\n", selclass)
-	fmt.Printf("selrace: %+v\n", selrace)
+	//fmt.Printf("=== DEBUG: After race/class selection ===\n")
+	//fmt.Printf("selclass: %+v\n", selclass)
+	//fmt.Printf("selrace: %+v\n", selrace)
 
 	var selarmor []Item_Armor = Im.ArmorsByName(selection)
 	var selrarity []int = Im.SelByRarity(selection)
@@ -329,115 +330,116 @@ func (sm *StatsManager) ItemsBaseStats(selection Selection) {
 	var selacc []Item_Accessory = Im.AccesoriesByName(selection)
 	var selrarityacc []int = Im.SelByRarityAcc(selection)
 
-	fmt.Printf("=== DEBUG: Items and rarities ===\n")
-	fmt.Printf("selarmor length: %d\n", len(selarmor))
-	fmt.Printf("selrarity: %v\n", selrarity)
-	for i, item := range selarmor {
-		fmt.Printf("Item %d: %s, Rarity: %d\n", i, item.Name, selrarity[i])
-	}
+	//fmt.Printf("=== DEBUG: Items and rarities ===\n")
+	//fmt.Printf("selarmor length: %d\n", len(selarmor))
+	//fmt.Printf("selrarity: %v\n", selrarity)
+	/*
+		for i, item := range selarmor {
+			fmt.Printf("Item %d: %s, Rarity: %d\n", i, item.Name, selrarity[i])
+		}*/
 
 	for i := 0; i < len(selarmor) && i < len(selrarity); i++ {
 		rarity := selrarity[i]
 		baseAttr := selarmor[i].BaseAttribute
 
-		fmt.Printf("\n=== DEBUG: Processing %s (rarity %d) ===\n", selarmor[i].Name, rarity)
-		fmt.Printf("BaseAttribute: %+v\n", baseAttr)
+		//fmt.Printf("\n=== DEBUG: Processing %s (rarity %d) ===\n", selarmor[i].Name, rarity)
+		//fmt.Printf("BaseAttribute: %+v\n", baseAttr)
 
 		// Check and add each attribute only if it exists for this rarity
 		if val, exists := baseAttr.Strength[rarity]; exists {
-			fmt.Printf("Adding Strength: %d\n", val)
+			//fmt.Printf("Adding Strength: %d\n", val)
 			selclass.Strength += val
 		} else {
-			fmt.Printf("No Strength at rarity %d\n", rarity)
+			//fmt.Printf("No Strength at rarity %d\n", rarity)
 		}
 		if val, exists := baseAttr.Vigor[rarity]; exists {
-			fmt.Printf("Adding Vigor: %d\n", val)
+			//fmt.Printf("Adding Vigor: %d\n", val)
 			selclass.Vigor += val
 		} else {
-			fmt.Printf("No Vigor at rarity %d\n", rarity)
+			//fmt.Printf("No Vigor at rarity %d\n", rarity)
 		}
 		if val, exists := baseAttr.Agility[rarity]; exists {
-			fmt.Printf("Adding Agility: %d\n", val)
+			//fmt.Printf("Adding Agility: %d\n", val)
 			selclass.Agility += val
 		} else {
-			fmt.Printf("No Agility at rarity %d\n", rarity)
+			//fmt.Printf("No Agility at rarity %d\n", rarity)
 		}
 		if val, exists := baseAttr.Dexterity[rarity]; exists {
-			fmt.Printf("Adding Dexterity: %d\n", val)
+			//fmt.Printf("Adding Dexterity: %d\n", val)
 			selclass.Dexterity += val
 		} else {
-			fmt.Printf("No Dexterity at rarity %d\n", rarity)
+			//fmt.Printf("No Dexterity at rarity %d\n", rarity)
 		}
 		if val, exists := baseAttr.Will[rarity]; exists {
-			fmt.Printf("Adding Will: %d\n", val)
+			//fmt.Printf("Adding Will: %d\n", val)
 			selclass.Will += val
 		} else {
-			fmt.Printf("No Will at rarity %d\n", rarity)
+			//fmt.Printf("No Will at rarity %d\n", rarity)
 		}
 		if val, exists := baseAttr.Knowledge[rarity]; exists {
-			fmt.Printf("Adding Knowledge: %d\n", val)
+			//fmt.Printf("Adding Knowledge: %d\n", val)
 			selclass.Knowledge += val
 		} else {
-			fmt.Printf("No Knowledge at rarity %d\n", rarity)
+			//fmt.Printf("No Knowledge at rarity %d\n", rarity)
 		}
 		if val, exists := baseAttr.Resourcefulness[rarity]; exists {
-			fmt.Printf("Adding Resourcefulness: %d\n", val)
+			//fmt.Printf("Adding Resourcefulness: %d\n", val)
 			selclass.Resourcefulness += val
 		} else {
-			fmt.Printf("No Resourcefulness at rarity %d\n", rarity)
+			//fmt.Printf("No Resourcefulness at rarity %d\n", rarity)
 		}
 
-		fmt.Printf("Current selclass after %s: %+v\n", selarmor[i].Name, selclass)
+		//fmt.Printf("Current selclass after %s: %+v\n", selarmor[i].Name, selclass)
 	}
 
-	fmt.Printf("\n=== DEBUG: After armor processing ===\n")
-	fmt.Printf("selclass: %+v\n", selclass)
+	//fmt.Printf("\n=== DEBUG: After armor processing ===\n")
+	//fmt.Printf("selclass: %+v\n", selclass)
 
 	for i := 0; i < len(selacc) && i < len(selrarityacc); i++ {
 		rarity := selrarityacc[i]
 		baseAttr := selacc[i].BaseAttribute
 
-		fmt.Printf("\n=== DEBUG: Processing accessory %s (rarity %d) ===\n", selacc[i].Name, rarity)
+		//fmt.Printf("\n=== DEBUG: Processing accessory %s (rarity %d) ===\n", selacc[i].Name, rarity)
 
 		// Check and add each attribute only if it exists for this rarity
 		if val, exists := baseAttr.Strength[rarity]; exists {
-			fmt.Printf("Adding Strength: %d\n", val)
+			//fmt.Printf("Adding Strength: %d\n", val)
 			totalacc.Strength += val
 		}
 		if val, exists := baseAttr.Vigor[rarity]; exists {
-			fmt.Printf("Adding Vigor: %d\n", val)
+			//fmt.Printf("Adding Vigor: %d\n", val)
 			totalacc.Vigor += val
 		}
 		if val, exists := baseAttr.Agility[rarity]; exists {
-			fmt.Printf("Adding Agility: %d\n", val)
+			//fmt.Printf("Adding Agility: %d\n", val)
 			totalacc.Agility += val
 		}
 		if val, exists := baseAttr.Dexterity[rarity]; exists {
-			fmt.Printf("Adding Dexterity: %d\n", val)
+			//fmt.Printf("Adding Dexterity: %d\n", val)
 			totalacc.Dexterity += val
 		}
 		if val, exists := baseAttr.Will[rarity]; exists {
-			fmt.Printf("Adding Will: %d\n", val)
+			//fmt.Printf("Adding Will: %d\n", val)
 			totalacc.Will += val
 		}
 		if val, exists := baseAttr.Knowledge[rarity]; exists {
-			fmt.Printf("Adding Knowledge: %d\n", val)
+			//fmt.Printf("Adding Knowledge: %d\n", val)
 			totalacc.Knowledge += val
 		}
 		if val, exists := baseAttr.Resourcefulness[rarity]; exists {
-			fmt.Printf("Adding Resourcefulness: %d\n", val)
+			//fmt.Printf("Adding Resourcefulness: %d\n", val)
 			totalacc.Resourcefulness += val
 		}
 	}
 
-	fmt.Printf("\n=== DEBUG: Final totals before adding ===\n")
-	fmt.Printf("selclass: %+v\n", selclass)
-	fmt.Printf("totalacc: %+v\n", totalacc)
+	//fmt.Printf("\n=== DEBUG: Final totals before adding ===\n")
+	//fmt.Printf("selclass: %+v\n", selclass)
+	//fmt.Printf("totalacc: %+v\n", totalacc)
 
 	sm.base = selclass.AddStats(totalacc)
 
-	fmt.Printf("\n=== DEBUG: Final result ===\n")
-	fmt.Printf("sm.base: %+v\n", sm.base)
+	//fmt.Printf("\n=== DEBUG: Final result ===\n")
+	//fmt.Printf("sm.base: %+v\n", sm.base)
 }
 
 func (sm *StatsManager) BaseItemCalc(selection Selection) {
@@ -482,6 +484,7 @@ func (sm *StatsManager) BaseItemCalc(selection Selection) {
 	}
 
 	sm.variable = computed.AddEnchant()
+	fmt.Println(sm.variable)
 }
 
 func (sm *StatsManager) TotalSpeedRating(selection Selection) {
@@ -497,7 +500,7 @@ func (sm *StatsManager) TotalArmorRating(selection Selection) {
 	sm.totalrating = RatingCalc(selrating)
 }
 
-func (sm *StatsManager) WeaponDamageCalcx(selection Selection) {
+func (sm *StatsManager) WeaponDamageCalcx(selection Selection, statsother Computed_Stats) {
 
 	Im := NewItemManager()
 	selweapons := Im.WeaponsByName(selection)
@@ -507,21 +510,21 @@ func (sm *StatsManager) WeaponDamageCalcx(selection Selection) {
 	var result Computed_Stats_Weapon
 	for i := 0; i < len(selweapons) && i < len(selrarity); i++ {
 		if selweapons[i].SlotType == "Main Hand" {
-			result.PrimaryWeapon.Attackone += ((float64(selrating[i]) * (sm.variable.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[0])) / 100) // adjust % of power bonus
-			result.PrimaryWeapon.Attacktwo += ((float64(selrating[i]) * (sm.variable.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[1])) / 100)
-			result.PrimaryWeapon.Attackthree += ((float64(selrating[i]) * (sm.variable.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[2])) / 100)
+			result.PrimaryWeapon.Attackone += ((float64(selrating[i]) * (statsother.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[0])) / 100) // adjust % of power bonus
+			result.PrimaryWeapon.Attacktwo += ((float64(selrating[i]) * (statsother.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[1])) / 100)
+			result.PrimaryWeapon.Attackthree += ((float64(selrating[i]) * (statsother.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[2])) / 100)
 		}
 		if selweapons[i].SlotType == "Main Hand" && len(selweapons[i].ComboDamage) >= 4 {
-			result.PrimaryWeapon.Attackfour += ((float64(selrating[i]) * (sm.variable.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[3])) / 100)
+			result.PrimaryWeapon.Attackfour += ((float64(selrating[i]) * (statsother.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[3])) / 100)
 		}
 
 		if selweapons[i].SlotType == "Off Hand" && len(selweapons[i].ComboDamage) <= 3 {
-			result.SecondaryWeapon.Attackone += ((float64(selrating[i]) * (sm.variable.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[0])) / 100)
-			result.SecondaryWeapon.Attacktwo += ((float64(selrating[i]) * (sm.variable.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[1])) / 100)
-			result.SecondaryWeapon.Attackthree += ((float64(selrating[i]) * (sm.variable.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[2])) / 100)
+			result.SecondaryWeapon.Attackone += ((float64(selrating[i]) * (statsother.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[0])) / 100)
+			result.SecondaryWeapon.Attacktwo += ((float64(selrating[i]) * (statsother.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[1])) / 100)
+			result.SecondaryWeapon.Attackthree += ((float64(selrating[i]) * (statsother.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[2])) / 100)
 		}
 		if selweapons[i].SlotType == "Off Hand" && len(selweapons[i].ComboDamage) >= 4 {
-			result.SecondaryWeapon.Attackfour += ((float64(selrating[i]) * (sm.variable.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[3])) / 100)
+			result.SecondaryWeapon.Attackfour += ((float64(selrating[i]) * (statsother.PhysicalPowerBonus / 100)) + float64(selrating[i])) * (float64((selweapons[i].ComboDamage[3])) / 100)
 		}
 	}
 
