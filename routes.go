@@ -698,7 +698,7 @@ func setupRoutes(r *gin.Engine) {
 	r.POST("/enchantmentlistcloak/", Cloak_EnchantmentList_Handler)
 
 	r.POST("/enchantmentlistpwo/", Pwo_EnchantmentList_Handler)
-	//r.GET("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
+	r.POST("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
 
 	r.POST("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
 	r.POST("/enchantmentlistring/", Ring_EnchantmentList_Handler)
@@ -708,9 +708,6 @@ func setupRoutes(r *gin.Engine) {
 	r.POST("/itemdisplay/", itemDisplayHandler)
 
 	// Calculate stats
-	//r.GET("/charbuilder/:classSelection", updateStatsHandler)
-
-	// json handler
 	r.POST("/api/", postHandler)
 
 }
