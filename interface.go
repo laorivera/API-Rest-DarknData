@@ -2,11 +2,12 @@ package main
 
 import (
 	//"fmt"
+	"builder/src/models"
 	"fmt"
 	"strconv"
 )
 
-func Selection_Class(item Selection) Stats {
+func Selection_Class(item models.Selection) Stats {
 	class := item.Class
 	var result Stats
 	if x, exists := characterStat[class]; exists {
@@ -15,7 +16,7 @@ func Selection_Class(item Selection) Stats {
 	return result
 }
 
-func Selection_Race(item Selection) Stats {
+func Selection_Race(item models.Selection) Stats {
 	race := item.Race
 	var result Stats
 	if x, exists := raceStats[race]; exists {
@@ -24,7 +25,7 @@ func Selection_Race(item Selection) Stats {
 	return result
 }
 
-func Selection_Brace(item Selection) Computed_Stats {
+func Selection_Brace(item models.Selection) Computed_Stats {
 	race := item.Race
 	var result Computed_Stats
 	if x, exists := raceComputed[race]; exists {
@@ -109,7 +110,7 @@ func (im *ItemManager) AccesoryBySlot(slot string) []string {
 	return result
 }
 
-func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor {
+func (im *ItemManager) ArmorsByName(item models.Selection) []Item_Armor {
 	slots := []struct {
 		name   string
 		rarity string
@@ -136,7 +137,7 @@ func (im *ItemManager) ArmorsByName(item Selection) []Item_Armor {
 	return result
 }
 
-func (im *ItemManager) ArmorsByNameD(item Selection) []Item_Armor {
+func (im *ItemManager) ArmorsByNameD(item models.Selection) []Item_Armor {
 	var selection []string
 	selection = append(selection, item.ItemSlot.Head.Name, item.ItemSlot.Chest.Name, item.ItemSlot.Foot.Name, item.ItemSlot.Hands.Name, item.ItemSlot.Pants.Name, item.ItemSlot.Back.Name)
 	var result []Item_Armor
@@ -151,7 +152,7 @@ func (im *ItemManager) ArmorsByNameD(item Selection) []Item_Armor {
 	return result
 }
 
-func (im *ItemManager) WeaponsByNameD(item Selection) []Item_Weapon {
+func (im *ItemManager) WeaponsByNameD(item models.Selection) []Item_Weapon {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.WeaponOne.Name, item.ItemSlot.WeaponTwo.Name)
@@ -168,7 +169,7 @@ func (im *ItemManager) WeaponsByNameD(item Selection) []Item_Weapon {
 	return result
 }
 
-func (im *ItemManager) AccesoriesByNameD(item Selection) []Item_Accessory {
+func (im *ItemManager) AccesoriesByNameD(item models.Selection) []Item_Accessory {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.Necklace.Name, item.ItemSlot.RingOne.Name, item.ItemSlot.RingTwo.Name)
@@ -184,7 +185,7 @@ func (im *ItemManager) AccesoriesByNameD(item Selection) []Item_Accessory {
 	return result
 }
 
-func (im *ItemManager) WeaponsByName(item Selection) []Item_Weapon {
+func (im *ItemManager) WeaponsByName(item models.Selection) []Item_Weapon {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.WeaponOne.Name, item.ItemSlot.WeaponTwo.Name)
@@ -201,7 +202,7 @@ func (im *ItemManager) WeaponsByName(item Selection) []Item_Weapon {
 	return result
 }
 
-func (im *ItemManager) AccesoriesByName(item Selection) []Item_Accessory {
+func (im *ItemManager) AccesoriesByName(item models.Selection) []Item_Accessory {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.Necklace.Name, item.ItemSlot.RingOne.Name, item.ItemSlot.RingTwo.Name)
@@ -217,7 +218,7 @@ func (im *ItemManager) AccesoriesByName(item Selection) []Item_Accessory {
 	return result
 }
 
-func (im *ItemManager) SelByRarity(item Selection) []int {
+func (im *ItemManager) SelByRarity(item models.Selection) []int {
 	slots := []struct {
 		name   string
 		rarity string
@@ -242,7 +243,7 @@ func (im *ItemManager) SelByRarity(item Selection) []int {
 	return result
 }
 
-func (im *ItemManager) SelByRarityAcc(item Selection) []int {
+func (im *ItemManager) SelByRarityAcc(item models.Selection) []int {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.Necklace.Rarity, item.ItemSlot.RingOne.Rarity, item.ItemSlot.RingTwo.Rarity)
@@ -256,7 +257,7 @@ func (im *ItemManager) SelByRarityAcc(item Selection) []int {
 	return result
 }
 
-func (im *ItemManager) SelByRating(item Selection) []int {
+func (im *ItemManager) SelByRating(item models.Selection) []int {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.Head.Rating, item.ItemSlot.Chest.Rating, item.ItemSlot.Foot.Rating,
@@ -270,7 +271,7 @@ func (im *ItemManager) SelByRating(item Selection) []int {
 	return result
 }
 
-func (im *ItemManager) SelByRarityWeapon(item Selection) []int {
+func (im *ItemManager) SelByRarityWeapon(item models.Selection) []int {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.WeaponOne.Rating, item.ItemSlot.WeaponTwo.Rating)
@@ -283,7 +284,7 @@ func (im *ItemManager) SelByRarityWeapon(item Selection) []int {
 	return result
 }
 
-func (im *ItemManager) SelByRatingWeapon(item Selection) []int {
+func (im *ItemManager) SelByRatingWeapon(item models.Selection) []int {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.WeaponOne.Rating, item.ItemSlot.WeaponTwo.Rating)
@@ -312,7 +313,7 @@ func NewStatsManager() *StatsManager {
 	}
 }
 
-func (sm *StatsManager) ItemsBaseStats(selection Selection) {
+func (sm *StatsManager) ItemsBaseStats(selection models.Selection) {
 	// CALCULATE TOTAL BASE ATTRIBUTE STATS OF ITEMS=
 	Im := NewItemManager()
 
@@ -442,7 +443,7 @@ func (sm *StatsManager) ItemsBaseStats(selection Selection) {
 	//fmt.Printf("sm.base: %+v\n", sm.base)
 }
 
-func (sm *StatsManager) BaseItemCalc(selection Selection) {
+func (sm *StatsManager) BaseItemCalc(selection models.Selection) {
 
 	Im := NewItemManager()
 
@@ -487,20 +488,20 @@ func (sm *StatsManager) BaseItemCalc(selection Selection) {
 	fmt.Println(sm.variable)
 }
 
-func (sm *StatsManager) TotalSpeedRating(selection Selection) {
+func (sm *StatsManager) TotalSpeedRating(selection models.Selection) {
 	Im := NewItemManager()
 	var selarmor []Item_Armor = Im.ArmorsByName(selection)
 	var selrarity []int = Im.SelByRarity(selection)
 	sm.totalspeed = SpeedCalc(selarmor, selrarity)
 }
 
-func (sm *StatsManager) TotalArmorRating(selection Selection) {
+func (sm *StatsManager) TotalArmorRating(selection models.Selection) {
 	Im := NewItemManager()
 	var selrating = Im.SelByRating(selection)
 	sm.totalrating = RatingCalc(selrating)
 }
 
-func (sm *StatsManager) WeaponDamageCalcx(selection Selection, statsother Computed_Stats) {
+func (sm *StatsManager) WeaponDamageCalcx(selection models.Selection, statsother Computed_Stats) {
 
 	Im := NewItemManager()
 	selweapons := Im.WeaponsByName(selection)

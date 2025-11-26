@@ -2,6 +2,7 @@ package main
 
 import (
 	//"fmt"
+	"builder/src/models"
 	"net/http"
 	"strconv"
 
@@ -13,7 +14,7 @@ import (
 var Im = NewItemManager()
 
 func itemDisplayHandler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	itemArmor := Im.ArmorsByNameD(selection)
@@ -29,7 +30,7 @@ func itemDisplayHandler(c *gin.Context) {
 }
 
 func Helmet_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	helmetList := Im.ArmorsBySlot("Head", selection.Class)
@@ -41,7 +42,7 @@ func Helmet_List_Handler(c *gin.Context) {
 }
 
 func Chest_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	chestList := Im.ArmorsBySlot("Chest", selection.Class)
@@ -53,7 +54,7 @@ func Chest_List_Handler(c *gin.Context) {
 }
 
 func Gloves_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	glovesList := Im.ArmorsBySlot("Hands", selection.Class)
@@ -65,7 +66,7 @@ func Gloves_List_Handler(c *gin.Context) {
 }
 
 func Pants_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	pantsList := Im.ArmorsBySlot("Legs", selection.Class)
@@ -78,7 +79,7 @@ func Pants_List_Handler(c *gin.Context) {
 }
 
 func Boots_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	bootsList := Im.ArmorsBySlot("Foot", selection.Class)
@@ -90,7 +91,7 @@ func Boots_List_Handler(c *gin.Context) {
 }
 
 func Cloak_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	cloakList := Im.ArmorsBySlot("Back", selection.Class)
@@ -102,7 +103,7 @@ func Cloak_List_Handler(c *gin.Context) {
 }
 
 func Necklace_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	necklaceList := Im.AccesoryBySlot("Necklace")
@@ -124,7 +125,7 @@ func Ring_List_Handler(c *gin.Context) {
 }
 
 func Pwo_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	primaryWeaponList := Im.WeaponsBySlot("Main Hand", selection.Class)
@@ -136,7 +137,7 @@ func Pwo_List_Handler(c *gin.Context) {
 }
 
 func Pwt_List_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	primaryOffhandWeaponList := Im.WeaponsBySlot("Off Hand", selection.Class)
@@ -154,7 +155,7 @@ func Rating_List(c *gin.Context) {
 }
 
 func Helmet_RatingList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	list := Im.ArmorsByName(selection)
@@ -174,7 +175,7 @@ func Helmet_RatingList_Handler(c *gin.Context) {
 }
 
 func Chest_RatingList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	list := Im.ArmorsByName(selection)
@@ -193,7 +194,7 @@ func Chest_RatingList_Handler(c *gin.Context) {
 }
 
 func Gloves_RatingList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	list := Im.ArmorsByName(selection)
@@ -213,7 +214,7 @@ func Gloves_RatingList_Handler(c *gin.Context) {
 }
 
 func Pants_RatingList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	list := Im.ArmorsByName(selection)
@@ -232,7 +233,7 @@ func Pants_RatingList_Handler(c *gin.Context) {
 }
 
 func Boots_RatingList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	list := Im.ArmorsByName(selection)
@@ -251,7 +252,7 @@ func Boots_RatingList_Handler(c *gin.Context) {
 }
 
 func Cloak_RatingList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	list := Im.ArmorsByName(selection)
@@ -271,7 +272,7 @@ func Cloak_RatingList_Handler(c *gin.Context) {
 
 func Pwo_RatingList_Handler(c *gin.Context) {
 
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	list := Im.WeaponsByName(selection)
@@ -293,7 +294,7 @@ func Pwo_RatingList_Handler(c *gin.Context) {
 
 func Pwt_RatingList_Handler(c *gin.Context) {
 
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	list := Im.WeaponsByName(selection)
@@ -317,7 +318,7 @@ func Pwt_RatingList_Handler(c *gin.Context) {
 
 func Helmet_EnchantmentList_Handler(c *gin.Context) {
 
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	//fmt.Println(selection)
@@ -351,7 +352,7 @@ func Helmet_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Chest_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 	//fmt.Println(selection)
 
@@ -383,7 +384,7 @@ func Chest_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Gloves_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	gloves_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["gloves"]
@@ -414,7 +415,7 @@ func Gloves_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Pants_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	pants_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["pants"]
@@ -445,7 +446,7 @@ func Pants_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Boots_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	boots_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["boots"]
@@ -475,7 +476,7 @@ func Boots_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Cloak_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	cloak_EnchantmentNameU := GetEnchatmentLists_Armor_Base(selection)["cloak"]
@@ -506,7 +507,7 @@ func Cloak_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Necklace_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	necklace_EnchantmentNameU := GetEnchatmentLists_Accessory_Base(selection)["necklace"]
@@ -537,7 +538,7 @@ func Necklace_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Ring_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	ring_EnchantmentNameU := GetEnchatmentLists_Accessory_Base(selection)["ring"]
@@ -568,7 +569,7 @@ func Ring_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func RingTwo_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	ringTwo_EnchantmentNameU := GetEnchatmentLists_Accessory_Base(selection)["ringtwo"]
@@ -598,7 +599,7 @@ func RingTwo_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Pwo_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	//primaryWeapon_EnchantmentName := map[string][]string{}
@@ -632,7 +633,7 @@ func Pwo_EnchantmentList_Handler(c *gin.Context) {
 }
 
 func Pwt_EnchantmentList_Handler(c *gin.Context) {
-	var selection Selection
+	var selection models.Selection
 	c.BindJSON(&selection)
 
 	//primaryOffhandWeapon_EnchantmentName := map[string][]string{}

@@ -484,53 +484,6 @@ func EnchantValuesCalc(enchantmentvalue string, enchantmenttype map[string][]flo
 	}
 }
 
-/*
-func EnchantValuesCalc(enchantmentvalue string, enchantmenttype map[string][]float32) []float32 {
-
-	switch enchantmentvalue {
-	case "ArmorPenetration":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "PhysicalPowerBonus":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "MagicPenetration":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "MagicalPowerBonus":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "PhysicalDamageReduction":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "MagicalDamageReduction":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "ProjectileReduction":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "ActionSpeed":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "MoveSpeedBonus":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "RegularInteractionSpeed":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "MagicalInteractionSpeed":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "MaxHealthBonus":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "BuffDurationBonus":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "DebuffDurationBonus":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "MemoryCapacityBonus":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "SpellCastingSpeed":
-		return RangeofEnchanmentValues(enchantmenttype[enchantmentvalue])
-	case "Luck":
-		return RangeofEnchanmentValuesInt(enchantmenttype[enchantmentvalue])
-	case "ArmorRating":
-		return RangeofEnchanmentValuesInt(enchantmenttype[enchantmentvalue])
-	case "MagicResistance":
-		return RangeofEnchanmentValuesInt(enchantmenttype[enchantmentvalue])
-	}
-
-	return enchantmenttype[enchantmentvalue]
-}*/
-
 func Enchantattrib(enchantmenttype string, enchantmentvalue string) map[string]int {
 	value, _ := strconv.Atoi(enchantmentvalue)
 	switch enchantmenttype {
@@ -831,11 +784,3 @@ func CompleteArrayInt(array []int) []int {
 
 	return result
 }
-
-/*
-func x(a []string, b Selection){
-	for i:=0;i<len(a);i++{
-		if a[i] ==
-	}
-}
-*/

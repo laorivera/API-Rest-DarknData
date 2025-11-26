@@ -4,17 +4,6 @@ var Characterlist = []Stats{
 	characterStats, classFighter, classBarbarian, classRogue, classWizard, classCleric, classWarlock, classBard, classDruid, classRanger, classSorcerer,
 }
 
-/*
-	var characterHolder = Stats{
-		Strength:        0,
-		Vigor:           0,
-		Agility:         0,
-		Dexterity:       0,
-		Will:            0,
-		Knowledge:       0,
-		Resourcefulness: 0,
-	}
-*/
 var characterStats = Stats{
 	Strength:        1,
 	Vigor:           1,

@@ -1,79 +1,10 @@
 package main
 
-//import "fmt"
-
-//"net/http"
-//"strconv"
-
-//type amor_manager struct {
-//	slotarmor   []string
-//	slot
-//}
-
-/*
-// get item lists
-
-	func GetItemLists_Armor_Json(class string) map[string][]string {
-		lists := map[string][]string{}
-		for i := 0; i < len(slotsm); i++ {
-			lists[slotsm[i]] = ItemsBySlotType_Json(class, slotsm[i])
-		}
-		return lists
-	}
-
-func GetItemLists_Accesory_Json() map[string][]string {
-
-		lists := map[string][]string{}
-		for i := 0; i < len(slotsmacc); i++ {
-			lists[slotsmacc[i]] = AccessoryBySlotType_Json(slotsmacc[i])
-		}
-		return lists
-	}
-
-// get rating lists
-
-	func GetRatingLists_Armor(c *gin.Context) map[string][]int {
-		ratings := map[string][]int{}
-
-		for i := 0; i < len(slots); i++ {
-			itemName := c.Query("item" + slots[i])
-			rarityIndex, _ := strconv.Atoi((c.Query("rarityselect_" + slots[i])))
-
-			item := ItemsByNameArmor(itemName)
-			ratings[slots[i]] = CompleteArrayInt(item.ArmorRatings[rarityIndex])
-		}
-
-		return ratings
-	}
-
-	func GetItemLists_Weapon_Json(class string) map[string][]string {
-		lists := map[string][]string{}
-
-		for i := 0; i < len(slotshand); i++ {
-			lists[slotshand[i]] = WeaponsBySlotType_Json(class, slotshand[i])
-		}
-
-		return lists
-	}
-
-func GetRatingLists_Weapon(c *gin.Context) map[string][]int {
-
-		ratings := map[string][]int{}
-		for i := 0; i < len(slotsweapon); i++ {
-			itemname := c.Query("item" + slotsweapon[i])
-			rarityindex, _ := strconv.Atoi((c.Query("rarityselect_" + slotsweapon[i])))
-
-			item := ItemsByNameWeapon(itemname)
-			ratings[slotsweapon[i]] = CompleteArrayInt(item.DamageRatings[rarityindex])
-
-		}
-
-		return ratings
-	}
+import "builder/src/models"
 
 // /////\\\\\\ --------------> ENCHCANTMENT LISTS ARMOR <------------------///////////\\\\\\\\\
-*/
-func GetEnchatmentLists_Armor_Base(selection Selection) map[string][]string {
+
+func GetEnchatmentLists_Armor_Base(selection models.Selection) map[string][]string {
 
 	lists := map[string][]string{}
 	for i := 0; i < len(slots); i++ {
@@ -112,7 +43,7 @@ func GetEnchatmentLists_Armor_Base(selection Selection) map[string][]string {
 	return lists
 
 }
-func GetEnchatmentLists_Armor_ValuesUncommon(selection Selection) map[string][]float32 {
+func GetEnchatmentLists_Armor_ValuesUncommon(selection models.Selection) map[string][]float32 {
 
 	lists := map[string][]float32{}
 	for i := 0; i < len(slots); i++ {
@@ -138,7 +69,7 @@ func GetEnchatmentLists_Armor_ValuesUncommon(selection Selection) map[string][]f
 	}
 	return lists
 }
-func GetEnchatmentLists_Armor_TypeRare(selection Selection) map[string][]string {
+func GetEnchatmentLists_Armor_TypeRare(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -156,7 +87,7 @@ func GetEnchatmentLists_Armor_TypeRare(selection Selection) map[string][]string 
 	return lists
 
 }
-func GetEnchatmentLists_Armor_ValuesRare(selection Selection) map[string][]float32 {
+func GetEnchatmentLists_Armor_ValuesRare(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slots); i++ {
@@ -182,7 +113,7 @@ func GetEnchatmentLists_Armor_ValuesRare(selection Selection) map[string][]float
 	}
 	return lists
 }
-func GetEnchatmentLists_Armor_TypeEpic(selection Selection) map[string][]string {
+func GetEnchatmentLists_Armor_TypeEpic(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -201,7 +132,7 @@ func GetEnchatmentLists_Armor_TypeEpic(selection Selection) map[string][]string 
 
 	return lists
 }
-func GetEnchatmentLists_Armor_ValuesEpic(selection Selection) map[string][]float32 {
+func GetEnchatmentLists_Armor_ValuesEpic(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slots); i++ {
@@ -227,7 +158,7 @@ func GetEnchatmentLists_Armor_ValuesEpic(selection Selection) map[string][]float
 	}
 	return lists
 }
-func GetEnchatmentLists_Armor_TypeLegend(selection Selection) map[string][]string {
+func GetEnchatmentLists_Armor_TypeLegend(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -248,7 +179,7 @@ func GetEnchatmentLists_Armor_TypeLegend(selection Selection) map[string][]strin
 
 	return lists
 }
-func GetEnchatmentLists_Armor_ValuesLegend(selection Selection) map[string][]float32 {
+func GetEnchatmentLists_Armor_ValuesLegend(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slots); i++ {
@@ -274,7 +205,7 @@ func GetEnchatmentLists_Armor_ValuesLegend(selection Selection) map[string][]flo
 	}
 	return lists
 }
-func GetEnchatmentLists_Armor_TypeUnique(selection Selection) map[string][]string {
+func GetEnchatmentLists_Armor_TypeUnique(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -297,7 +228,7 @@ func GetEnchatmentLists_Armor_TypeUnique(selection Selection) map[string][]strin
 
 	return lists
 }
-func GetEnchatmentLists_Armor_ValuesUnique(selection Selection) map[string][]float32 {
+func GetEnchatmentLists_Armor_ValuesUnique(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slots); i++ {
@@ -326,7 +257,7 @@ func GetEnchatmentLists_Armor_ValuesUnique(selection Selection) map[string][]flo
 
 /////////\\\\\\\\\ --------------> ENCHCANTMENT LISTS ACCESSORY <------------------ //////////\\\\\\\\\
 
-func GetEnchatmentLists_Accessory_Base(selection Selection) map[string][]string {
+func GetEnchatmentLists_Accessory_Base(selection models.Selection) map[string][]string {
 
 	lists := map[string][]string{}
 	for i := 0; i < len(slotsacc); i++ {
@@ -343,7 +274,7 @@ func GetEnchatmentLists_Accessory_Base(selection Selection) map[string][]string 
 	return lists
 
 }
-func GetEnchantmentLists_Accessory_ValuesUncommon(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesUncommon(selection models.Selection) map[string][]float32 {
 
 	lists := map[string][]float32{}
 	for i := 0; i < len(slotsacc); i++ {
@@ -360,7 +291,7 @@ func GetEnchantmentLists_Accessory_ValuesUncommon(selection Selection) map[strin
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_TypeRare(selection Selection) map[string][]string {
+func GetEnchantmentLists_Accessory_TypeRare(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -376,7 +307,7 @@ func GetEnchantmentLists_Accessory_TypeRare(selection Selection) map[string][]st
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_ValuesRare(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesRare(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsacc); i++ {
@@ -393,7 +324,7 @@ func GetEnchantmentLists_Accessory_ValuesRare(selection Selection) map[string][]
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_TypeEpic(selection Selection) map[string][]string {
+func GetEnchantmentLists_Accessory_TypeEpic(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -411,7 +342,7 @@ func GetEnchantmentLists_Accessory_TypeEpic(selection Selection) map[string][]st
 
 	return lists
 }
-func GetEnchantmentLists_Accessory_ValuesEpic(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesEpic(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsacc); i++ {
@@ -428,7 +359,7 @@ func GetEnchantmentLists_Accessory_ValuesEpic(selection Selection) map[string][]
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_TypeLegend(selection Selection) map[string][]string {
+func GetEnchantmentLists_Accessory_TypeLegend(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -447,7 +378,7 @@ func GetEnchantmentLists_Accessory_TypeLegend(selection Selection) map[string][]
 
 	return lists
 }
-func GetEnchantmentLists_Accessory_ValuesLegend(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesLegend(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsacc); i++ {
@@ -464,7 +395,7 @@ func GetEnchantmentLists_Accessory_ValuesLegend(selection Selection) map[string]
 	}
 	return lists
 }
-func GetEnchantmentLists_Accessory_TypeUnique(selection Selection) map[string][]string {
+func GetEnchantmentLists_Accessory_TypeUnique(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -484,7 +415,7 @@ func GetEnchantmentLists_Accessory_TypeUnique(selection Selection) map[string][]
 
 	return lists
 }
-func GetEnchantmentLists_Accessory_ValuesUnique(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Accessory_ValuesUnique(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsacc); i++ {
@@ -504,7 +435,7 @@ func GetEnchantmentLists_Accessory_ValuesUnique(selection Selection) map[string]
 
 /////////\\\\\\\\\ --------------> ENCHCANTMENT LISTS WEAPON <------------------ //////////\\\\\\\\\
 
-func GetEnchantmentLists_Weapon_Base(selection Selection) map[string][]string {
+func GetEnchantmentLists_Weapon_Base(selection models.Selection) map[string][]string {
 
 	lists := map[string][]string{}
 	//physicaltypes := []string{"axe", "sword", "mace"}
@@ -545,7 +476,7 @@ func GetEnchantmentLists_Weapon_Base(selection Selection) map[string][]string {
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesUncommon(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesUncommon(selection models.Selection) map[string][]float32 {
 
 	lists := map[string][]float32{}
 	for i := 0; i < len(slotsweapon); i++ {
@@ -569,7 +500,7 @@ func GetEnchantmentLists_Weapon_ValuesUncommon(selection Selection) map[string][
 	return lists
 }
 
-func GetEnchantmentLists_Weapon_TypeRare(selection Selection) map[string][]string {
+func GetEnchantmentLists_Weapon_TypeRare(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -587,7 +518,7 @@ func GetEnchantmentLists_Weapon_TypeRare(selection Selection) map[string][]strin
 
 }
 
-func GetEnchantmentLists_Weapon_ValuesRare(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesRare(selection models.Selection) map[string][]float32 {
 	//slotsweapon := []string{"pwo", "pwt", "swo", "swt"}
 
 	lists := make(map[string][]float32)
@@ -612,7 +543,7 @@ func GetEnchantmentLists_Weapon_ValuesRare(selection Selection) map[string][]flo
 	return lists
 }
 
-func GetEnchantmentLists_Weapon_TypeEpic(selection Selection) map[string][]string {
+func GetEnchantmentLists_Weapon_TypeEpic(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -630,7 +561,7 @@ func GetEnchantmentLists_Weapon_TypeEpic(selection Selection) map[string][]strin
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesEpic(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesEpic(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsweapon); i++ {
@@ -653,7 +584,7 @@ func GetEnchantmentLists_Weapon_ValuesEpic(selection Selection) map[string][]flo
 	}
 	return lists
 }
-func GetEnchantmentLists_Weapon_TypeLegend(selection Selection) map[string][]string {
+func GetEnchantmentLists_Weapon_TypeLegend(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -672,7 +603,7 @@ func GetEnchantmentLists_Weapon_TypeLegend(selection Selection) map[string][]str
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesLegend(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesLegend(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsweapon); i++ {
@@ -696,7 +627,7 @@ func GetEnchantmentLists_Weapon_ValuesLegend(selection Selection) map[string][]f
 	}
 	return lists
 }
-func GetEnchantmentLists_Weapon_TypeUnique(selection Selection) map[string][]string {
+func GetEnchantmentLists_Weapon_TypeUnique(selection models.Selection) map[string][]string {
 
 	lists := make(map[string][]string)
 
@@ -716,7 +647,7 @@ func GetEnchantmentLists_Weapon_TypeUnique(selection Selection) map[string][]str
 	return lists
 
 }
-func GetEnchantmentLists_Weapon_ValuesUnique(selection Selection) map[string][]float32 {
+func GetEnchantmentLists_Weapon_ValuesUnique(selection models.Selection) map[string][]float32 {
 
 	lists := make(map[string][]float32)
 	for i := 0; i < len(slotsweapon); i++ {

@@ -1,12 +1,12 @@
 package main
 
-//import "fmt"
+import "builder/src/models"
 
-func ProcessOtherEnchantments(selection Selection) Computed_Stats {
+func ProcessOtherEnchantments(selection models.Selection) Computed_Stats {
 	var allEnchantments []map[string]float64
 
 	// Process all item slots
-	items := []ItemSelect{
+	items := []models.ItemSelect{
 		selection.ItemSlot.Head,
 		selection.ItemSlot.Chest,
 		selection.ItemSlot.Foot,
@@ -42,16 +42,14 @@ func ProcessOtherEnchantments(selection Selection) Computed_Stats {
 			}
 		}
 	}
-	//fmt.Println(allEnchantments, "other")
-	//fmt.Println(EnchantComputedOthers(allEnchantments), "other")
-	// Compute the final stats using your existing function
+
 	return EnchantComputedOthers(allEnchantments)
 }
 
-func ProcessBaseEnchantments(selection Selection) Stats {
+func ProcessBaseEnchantments(selection models.Selection) Stats {
 	var allEnchantments []map[string]int
 
-	items := []ItemSelect{
+	items := []models.ItemSelect{
 		selection.ItemSlot.Head,
 		selection.ItemSlot.Chest,
 		selection.ItemSlot.Foot,
@@ -86,13 +84,12 @@ func ProcessBaseEnchantments(selection Selection) Stats {
 			}
 		}
 	}
-	//fmt.Println(allEnchantments, "base")
-	//fmt.Println(setEnchantStats(allEnchantments), "base")
+
 	return setEnchantStats(allEnchantments)
 }
 
 /*
-func GetAvailableHelmetEnchantments(selection Selection) []string {
+func GetAvailableHelmetEnchantments(selection models.Selection) []string {
 	// Get the currently selected helmet enchantment
 	selected := getSelectedHelmetEnchantment(selection)
 
@@ -113,7 +110,7 @@ func GetAvailableHelmetEnchantments(selection Selection) []string {
 }
 
 // Extract the currently selected helmet enchantment
-func getSelectedHelmetEnchantment(selection Selection) string {
+func getSelectedHelmetEnchantment(selection models.Selection) string {
 	helm := selection.ItemSlot.Head.Enchant
 
 	// Check which enchantment type is selected in the helmet
