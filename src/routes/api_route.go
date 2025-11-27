@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func postHandler(c *gin.Context) {
+func apiHandler(c *gin.Context) {
 	var selection models.Selection
 
 	if err := c.BindJSON(&selection); err != nil {

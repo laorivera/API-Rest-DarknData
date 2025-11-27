@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// SetupRoutes configures all routes on the gin router using controllers
 func SetupRoutes(r *gin.Engine) {
 	// LISTS ITEMS ENDPOINTS
 	r.POST("/helmetlist/", controllers.Helmet_List_Handler)
@@ -31,24 +30,24 @@ func SetupRoutes(r *gin.Engine) {
 	r.POST("/pwtratinglist/", controllers.Pwt_RatingList_Handler)
 
 	//ENCHANTMENT LISTS ENDPOINTS
-	r.POST("/enchantmentlisthelmet/", Helmet_EnchantmentList_Handler)
-	r.POST("/enchantmentlistchest/", Chest_EnchantmentList_Handler)
-	r.POST("/enchantmentlistgloves/", Gloves_EnchantmentList_Handler)
-	r.POST("/enchantmentlistpants/", Pants_EnchantmentList_Handler)
-	r.POST("/enchantmentlistboots/", Boots_EnchantmentList_Handler)
-	r.POST("/enchantmentlistcloak/", Cloak_EnchantmentList_Handler)
+	r.POST("/enchantmentlisthelmet/", controllers.Helmet_EnchantmentList_Handler)
+	r.POST("/enchantmentlistchest/", controllers.Chest_EnchantmentList_Handler)
+	r.POST("/enchantmentlistgloves/", controllers.Gloves_EnchantmentList_Handler)
+	r.POST("/enchantmentlistpants/", controllers.Pants_EnchantmentList_Handler)
+	r.POST("/enchantmentlistboots/", controllers.Boots_EnchantmentList_Handler)
+	r.POST("/enchantmentlistcloak/", controllers.Cloak_EnchantmentList_Handler)
 
-	r.POST("/enchantmentlistpwo/", Pwo_EnchantmentList_Handler)
-	r.POST("/enchantmentlistpwt/", Pwt_EnchantmentList_Handler)
+	r.POST("/enchantmentlistpwo/", controllers.Pwo_EnchantmentList_Handler)
+	r.POST("/enchantmentlistpwt/", controllers.Pwt_EnchantmentList_Handler)
 
-	r.POST("/enchantmentlistnecklace/", Necklace_EnchantmentList_Handler)
-	r.POST("/enchantmentlistring/", Ring_EnchantmentList_Handler)
-	r.POST("/enchantmentlistringtwo/", RingTwo_EnchantmentList_Handler)
+	r.POST("/enchantmentlistnecklace/", controllers.Necklace_EnchantmentList_Handler)
+	r.POST("/enchantmentlistring/", controllers.Ring_EnchantmentList_Handler)
+	r.POST("/enchantmentlistringtwo/", controllers.RingTwo_EnchantmentList_Handler)
 
 	// item display
-	r.POST("/itemdisplay/", controllers.itemDisplayHandler)
+	r.POST("/itemdisplay/", controllers.ItemDisplayHandler)
 
 	// Calculate stats
-	r.POST("/api/", postHandler)
+	r.POST("/api/", apiHandler)
 
 }

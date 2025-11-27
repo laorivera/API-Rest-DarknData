@@ -10,9 +10,6 @@ import (
 
 // ////////\\\\\\\\\ ------->   RATING LISTS HANDLER <------- //////////\\\\\\\\\
 
-func Rating_List(c *gin.Context) {
-}
-
 func Helmet_RatingList_Handler(c *gin.Context) {
 	var selection models.Selection
 	c.BindJSON(&selection)

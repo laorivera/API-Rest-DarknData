@@ -10,7 +10,7 @@ import (
 // ////////\\\\\\\\\ ------->  LISTS ITEMS HANDLER <------- //////////\\\\\\\\\
 var Im = NewItemManager()
 
-func itemDisplayHandler(c *gin.Context) {
+func ItemDisplayHandler(c *gin.Context) {
 	var selection models.Selection
 	c.BindJSON(&selection)
 
