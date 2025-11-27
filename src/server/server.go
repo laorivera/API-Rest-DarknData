@@ -15,8 +15,9 @@ func (s *Server) CORS() {
 	allowedOrigins := []string{
 		"https://laorivera.github.io",
 		"http://localhost:4200",
-		"https://crm-resulting-toolbar-clay.trycloudflare.com",
-		"*",
+		//"http://localhost:8080",
+		//"https://extensions-pocket-sake-longitude.trycloudflare.com",
+
 	}
 
 	s.server.Use(func(c *gin.Context) {
@@ -31,7 +32,7 @@ func (s *Server) CORS() {
 		}
 
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-API-Key")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 
 		// Handle preflight requests
