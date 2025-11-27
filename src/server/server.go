@@ -15,6 +15,7 @@ func (s *Server) CORS() {
 	allowedOrigins := []string{
 		"https://laorivera.github.io",
 		"http://localhost:4200",
+		"https://crm-resulting-toolbar-clay.trycloudflare.com",
 		"*",
 	}
 
@@ -49,7 +50,7 @@ func (s *Server) GetRouter() *gin.Engine {
 
 func NewServer() *Server {
 	router := gin.Default()
-	server := &Server{server: router, port: ":80"}
+	server := &Server{server: router, port: ":8080"}
 	server.CORS()
 	return server
 }
