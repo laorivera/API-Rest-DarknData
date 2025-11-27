@@ -165,8 +165,3 @@ type List_Items struct {
 	ItemsWeapon    []models.Item_Weapon
 	ItemsAccessory []models.Item_Accessory
 }
-
-// /////////////////////////////////////////////////////////////////////////////////////////////
-// CREATE AN ITEM
-
-//var slotshand = []string{"Main Hand", "Off Hand"}

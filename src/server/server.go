@@ -7,21 +7,15 @@ type Server struct {
 	port   string
 }
 
-func NewServer() *Server {
-	router := gin.Default()
-	server := &Server{server: router, port: ":8080"}
-	server.CORS()
-	return server
-}
-
 func (s *Server) Start() error {
-	return s.server.Run()
+	return s.server.Run(s.port)
 }
 
 func (s *Server) CORS() {
 	allowedOrigins := []string{
 		"https://laorivera.github.io",
 		"http://localhost:4200",
+		"*",
 	}
 
 	s.server.Use(func(c *gin.Context) {
@@ -29,7 +23,7 @@ func (s *Server) CORS() {
 
 		// Check if origin is allowed
 		for i := 0; i < len(allowedOrigins); i++ {
-			if requestOrigin == allowedOrigins[i] {
+			if allowedOrigins[i] == "*" || requestOrigin == allowedOrigins[i] {
 				c.Writer.Header().Set("Access-Control-Allow-Origin", requestOrigin)
 				break
 			}
@@ -51,4 +45,11 @@ func (s *Server) CORS() {
 
 func (s *Server) GetRouter() *gin.Engine {
 	return s.server
+}
+
+func NewServer() *Server {
+	router := gin.Default()
+	server := &Server{server: router, port: ":80"}
+	server.CORS()
+	return server
 }
