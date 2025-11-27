@@ -1,0 +1,737 @@
+package controllers
+
+import (
+	//"fmt"
+	"builder/src/models"
+	//"builder/src/middlewares"
+	"encoding/json"
+	"math"
+	"os"
+	"strconv"
+)
+
+// FIND ITEMS BY SLOT TYPE'\
+
+func ItemsBySlotType(class string, slot string) []models.Item_Armor {
+	class = InttoClass(class)
+	var result []models.Item_Armor
+	for i := 0; i < len(Items.ItemsArmor); i++ {
+		for _, c := range Items.ItemsArmor[i].Classes {
+			if c == class && slot == Items.ItemsArmor[i].SlotType {
+				result = append(result, Items.ItemsArmor[i])
+				break
+			}
+		}
+
+	}
+	return result
+}
+
+func WeaponsBySlotType(class string, slot string) []models.Item_Weapon {
+	switch class {
+	case "1":
+		class = "Fighter"
+	case "2":
+		class = "Barbarian"
+	case "3":
+		class = "Rogue"
+	case "4":
+		class = "Wizard"
+	case "5":
+		class = "Cleric"
+	case "6":
+		class = "Warlock"
+	case "7":
+		class = "Bard"
+	case "8":
+		class = "Druid"
+	case "9":
+		class = "Ranger"
+	default:
+
+	}
+	var result []models.Item_Weapon
+	for i := 0; i < len(Items.ItemsWeapon); i++ {
+		for _, c := range Items.ItemsWeapon[i].Classes {
+			if c == class && slot == Items.ItemsWeapon[i].SlotType {
+				result = append(result, Items.ItemsWeapon[i])
+				break
+			}
+		}
+
+	}
+	return result
+}
+
+func AccessoryBySlotType(slot string) []models.Item_Accessory {
+	var result []models.Item_Accessory
+	for i := 0; i < len(Items.ItemsAccessory); i++ {
+		if slot == Items.ItemsAccessory[i].SlotType {
+			result = append(result, Items.ItemsAccessory[i])
+		}
+	}
+	return result
+}
+
+func AccessoryBySlotType_Json(slot string) []string {
+	var result []string
+	for i := 0; i < len(Items.ItemsAccessory); i++ {
+		if slot == Items.ItemsAccessory[i].SlotType {
+			result = append(result, Items.ItemsAccessory[i].Name)
+		}
+	}
+	return result
+}
+
+func ItemsBySlotType_Json(class string, slot string) []string {
+	switch class {
+	case "1":
+		class = "Fighter"
+	case "2":
+		class = "Barbarian"
+	case "3":
+		class = "Rogue"
+	case "4":
+		class = "Wizard"
+	case "5":
+		class = "Cleric"
+	case "6":
+		class = "Warlock"
+	case "7":
+		class = "Bard"
+	case "8":
+		class = "Druid"
+	case "9":
+		class = "Ranger"
+	case "10":
+		class = "Sorcerer"
+	default:
+
+	}
+	var result []string
+	for i := 0; i < len(Items.ItemsArmor); i++ {
+		for _, c := range Items.ItemsArmor[i].Classes {
+			if c == class && slot == Items.ItemsArmor[i].SlotType {
+				result = append(result, Items.ItemsArmor[i].Name)
+				break
+			}
+		}
+
+	}
+	return result
+}
+
+func WeaponsBySlotType_Json(class string, slot string) []string {
+	switch class {
+	case "1":
+		class = "Fighter"
+	case "2":
+		class = "Barbarian"
+	case "3":
+		class = "Rogue"
+	case "4":
+		class = "Wizard"
+	case "5":
+		class = "Cleric"
+	case "6":
+		class = "Warlock"
+	case "7":
+		class = "Bard"
+	case "8":
+		class = "Druid"
+	case "9":
+		class = "Ranger"
+	case "10":
+		class = "Sorcerer"
+	default:
+
+	}
+	var result []string
+	for i := 0; i < len(Items.ItemsWeapon); i++ {
+		for _, c := range Items.ItemsWeapon[i].Classes {
+			if c == class && slot == Items.ItemsWeapon[i].SlotType {
+				result = append(result, Items.ItemsWeapon[i].Name)
+				break
+			}
+		}
+
+	}
+	return result
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// FIND SINGLE ITEM BY NAME
+func ItemsByNameArmor(name string) models.Item_Armor {
+	var result models.Item_Armor
+	for i := 0; i < len(Items.ItemsArmor); i++ {
+		if Items.ItemsArmor[i].Name == name {
+			result = Items.ItemsArmor[i]
+			return result
+		}
+	}
+	return result
+}
+
+func ItemsByNameWeapon(name string) models.Item_Weapon {
+	var result models.Item_Weapon
+	for i := 0; i < len(Items.ItemsWeapon); i++ {
+		if name == Items.ItemsWeapon[i].Name {
+			result = Items.ItemsWeapon[i]
+			return result
+		}
+	}
+	return result
+}
+
+func ItemsByNameAccesory(name string) models.Item_Accessory {
+	var result models.Item_Accessory
+	for i := 0; i < len(Items.ItemsAccessory); i++ {
+		if name == Items.ItemsAccessory[i].Name {
+			result = Items.ItemsAccessory[i]
+			return result
+		}
+	}
+	return result
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// FIND ARRAY ENCHANTMENTS BY SLOT
+func EnchamentbySlot(list map[string][]float32) []string {
+	keys := []string{}
+	for key := range list {
+		keys = append(keys, key)
+	}
+	return keys
+}
+
+func RangeofEnchanmentValuesInt(value []float32) []float32 {
+	var valueRange []float32
+	if len(value) < 2 {
+		return []float32{} // Return an empty slice
+	}
+	for v := value[0]; v <= value[1]; v++ {
+		valueRange = append(valueRange, float32(v))
+	}
+	return valueRange
+}
+
+// RANGE OF ENCANTMENT VALUES
+func RangeofEnchanmentValues(value []float32) []float32 {
+	var valueRange []float32
+	if len(value) < 2 {
+		return []float32{} // Return an empty slice
+	}
+	for v := value[0]; v <= value[1]; v += 0.1 {
+		v = float32(math.Round(float64(v)*10) / 10)
+		valueRange = append(valueRange, v)
+	}
+	return valueRange
+}
+
+// SELECT CLASS STATS AND DEFAULT IF NO CLASS SELECTED
+func SelectClass(classselected string) models.Stats {
+	allClases_array := [11]models.Stats{models.CharacterStats, models.ClassFighter, models.ClassBarbarian, models.ClassRogue, models.ClassWizard, models.ClassCleric, models.ClassWarlock, models.ClassBard, models.ClassDruid, models.ClassRanger, models.ClassSorcerer}
+	int_converted, _ := strconv.Atoi(classselected)
+	for i := 0; i <= len(allClases_array); i++ {
+		if int_converted == i {
+			return allClases_array[i]
+		}
+	}
+	return models.CharacterStats
+}
+
+// //////////////////////////////////////////////////////////////////////////////////////////////////
+// CALCULATE TOTAL ENCHANTMENT STATS
+func setEnchantStats(enchantments []map[string]int) models.Stats {
+	var totalStats models.Stats
+	for _, enchant := range enchantments {
+		for key, value := range enchant {
+			switch key {
+			case "Strength":
+				totalStats.Strength += value
+			case "Vigor":
+				totalStats.Vigor += value
+			case "Agility":
+				totalStats.Agility += value
+			case "Dexterity":
+				totalStats.Dexterity += value
+			case "Will":
+				totalStats.Will += value
+			case "Knowledge":
+				totalStats.Knowledge += value
+			case "Resourcefulness":
+				totalStats.Resourcefulness += value
+			case "AllAttributes":
+				totalStats.Strength += value
+				totalStats.Vigor += value
+				totalStats.Agility += value
+				totalStats.Dexterity += value
+				totalStats.Will += value
+				totalStats.Knowledge += value
+			}
+		}
+	}
+	return totalStats
+}
+
+// CALCULATE TOTAL BASE ATTRIBUTE STATS OF ITEMS
+func SetItemStats(baseStats models.Stats, item []models.Item_Armor, rarity []int /* enchantments []map[string]int */) models.Stats {
+	// Calculate total by sum base stats and item stats
+	for i := 0; i < len(item) && i < len(rarity); i++ {
+		baseStats = models.Stats{
+			Strength:        baseStats.Strength + item[i].BaseAttribute.Strength[rarity[i]],
+			Vigor:           baseStats.Vigor + item[i].BaseAttribute.Vigor[rarity[i]],
+			Agility:         baseStats.Agility + item[i].BaseAttribute.Agility[rarity[i]],
+			Dexterity:       baseStats.Dexterity + item[i].BaseAttribute.Dexterity[rarity[i]],
+			Will:            baseStats.Will + item[i].BaseAttribute.Will[rarity[i]],
+			Knowledge:       baseStats.Knowledge + item[i].BaseAttribute.Knowledge[rarity[i]],
+			Resourcefulness: baseStats.Resourcefulness + item[i].BaseAttribute.Resourcefulness[rarity[i]],
+		}
+	}
+	// Return the total stats struct
+	return baseStats
+}
+
+func SetItemStatsAccessory(baseStats models.Stats, item []models.Item_Accessory, rarity []int /*,enchantments []map[string]int*/) models.Stats {
+	// Calculate total by sum base stats and item stats
+	for i := 0; i < len(item) && i < len(rarity); i++ {
+		baseStats = models.Stats{
+			Strength:        baseStats.Strength + item[i].BaseAttribute.Strength[rarity[i]],               // + enchantments[i]["Strength"],
+			Vigor:           baseStats.Vigor + item[i].BaseAttribute.Vigor[rarity[i]],                     // + enchantments[i]["Vigor"],
+			Agility:         baseStats.Agility + item[i].BaseAttribute.Agility[rarity[i]],                 // + enchantments[i]["Agility"],
+			Dexterity:       baseStats.Dexterity + item[i].BaseAttribute.Dexterity[rarity[i]],             // + enchantments[i]["Dexterity"],
+			Will:            baseStats.Will + item[i].BaseAttribute.Will[rarity[i]],                       // + enchantments[i]["Will"],
+			Knowledge:       baseStats.Knowledge + item[i].BaseAttribute.Knowledge[rarity[i]],             // + enchantments[i]["Knowledge"],
+			Resourcefulness: baseStats.Resourcefulness + item[i].BaseAttribute.Resourcefulness[rarity[i]], // + enchantments[i]["Resourcefulness"],
+		}
+	}
+	// Return the total stats struct
+	return baseStats
+}
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CONVERT STRING INTO CHARACTER CLASS
+func InttoClass(convert string) string {
+	switch convert {
+	case "1":
+		convert = "Fighter"
+	case "2":
+		convert = "Barbarian"
+	case "3":
+		convert = "Rogue"
+	case "4":
+		convert = "Wizard"
+	case "5":
+		convert = "Cleric"
+	case "6":
+		convert = "Warlock"
+	case "7":
+		convert = "Bard"
+	case "8":
+		convert = "Druid"
+	case "9":
+		convert = "Ranger"
+	case "10":
+		convert = "Soccerer"
+	default:
+	}
+	return convert
+}
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CALCULATION TOTAL AMOR RATING
+func RatingCalc(ratings []int) int {
+	result := 0
+	for i := 0; i < len(ratings); i++ {
+		result = result + ratings[i]
+	}
+	return result
+}
+
+// CALCULATION TOTAL MOVESPEED
+func SpeedCalc(items []models.Item_Armor, rarity []int) int {
+	speedrating := 0
+
+	for i := 0; i < len(items); i++ {
+		if items[i].SlotType != "Foot" {
+			speedrating += items[i].MoveSpeed[1]
+		} else if items[i].SlotType == "Foot" && i < len(rarity) {
+			speedrating += items[i].MoveSpeed[rarity[i]]
+		}
+	}
+	return speedrating
+}
+
+func BaseItemCalc(items []models.Item_Armor, rarity []int) models.Computed_Stats {
+	computed := models.Computed_Stats{}
+	for i := 0; i < len(items); i++ {
+		computed.Health += items[i].MaxHealthAdd[rarity[i]]
+		computed.ProjectileReduction += items[i].ProjectileReduction
+		computed.ProjectileReduction += items[i].ProjectileReductionRate[rarity[i]]
+		computed.HeadshotReduction += items[i].HeadshotReduction
+		computed.MoveSpeedBonus += items[i].MoveSpeedBonus
+		computed.ArmorPenetration += items[i].ArmorPenetration
+		computed.MagicPenetration += items[i].MagicPenetration
+		computed.ActionSpeed += items[i].ActionSpeed[0]
+		computed.MagicalDamageReduction += items[i].MagicalDamageReduction
+		computed.PhysicalDamageReduction += items[i].PhysicalDamageReduction
+		computed.Luck += items[i].Luck
+		computed.MagicalHealing += items[i].MagicalHealing[rarity[i]]
+		computed.MagicalPower += items[i].MagicalPower[rarity[i]]
+		computed.PhysicalPower += items[i].PhysicalPower
+		if len(items[i].MagicResistance[rarity[i]]) > 0 {
+			computed.MagicRating += items[i].MagicResistance[rarity[i]][0]
+		}
+		if len(items[i].MaxHealthBonus[rarity[i]]) > 0 {
+			computed.MaxHealthBonus += items[i].MaxHealthBonus[rarity[i]][i]
+		}
+	}
+	return computed
+}
+
+func ComputedTotal(curvetotal, enchatarmor, enchantacc, totalitembase, racetotal models.Computed_Stats) models.Computed_Stats {
+
+	stats := []models.Computed_Stats{curvetotal, enchatarmor, enchantacc, totalitembase, racetotal}
+
+	result := models.Computed_Stats{}
+
+	for _, stat := range stats {
+		result.Health += stat.Health
+		result.ActionSpeed += stat.ActionSpeed
+		result.RegularInteractionSpeed += stat.RegularInteractionSpeed
+		result.MoveSpeed += stat.MoveSpeed
+		result.MoveSpeedBonus += stat.MoveSpeedBonus
+		result.HealthRecovery += stat.HealthRecovery
+		result.ManualDexterity += stat.ManualDexterity
+		result.EquipSpeed += stat.EquipSpeed
+		result.BuffDuration += stat.BuffDuration
+		result.DebuffDuration += stat.DebuffDuration
+		result.MagicalDamageReduction += stat.MagicalDamageReduction
+		result.SpellRecovery += stat.SpellRecovery
+		result.SpellCastingSpeed += stat.SpellCastingSpeed
+		result.MagicalInteractionSpeed += stat.MagicalInteractionSpeed
+		result.Persuasiveness += stat.Persuasiveness
+		result.CooldownReduction += stat.CooldownReduction
+		result.PhysicalDamageReduction += stat.PhysicalDamageReduction
+		result.PhysicalHealing += stat.PhysicalHealing
+		result.MagicalHealing += stat.MagicalHealing
+		result.Luck += stat.Luck
+		result.SpellRecoveryBonus += stat.SpellRecoveryBonus
+		result.ArmorPenetration += stat.ArmorPenetration
+		result.MagicPenetration += stat.MagicPenetration
+		result.HeadshotReduction += stat.HeadshotReduction
+		result.ProjectileReduction += stat.ProjectileReduction
+		result.FromArmorRating += stat.FromArmorRating
+		result.MemoryCapacity += stat.MemoryCapacity
+	}
+
+	result.PhysicalPower = curvetotal.PhysicalPower
+	result.MagicalPower = curvetotal.MagicalPower
+	result.PhysicalPowerBonus = curvetotal.PhysicalPowerBonus
+	result.MagicalPowerBonus = curvetotal.MagicalPowerBonus
+	result.MagicRating = curvetotal.MagicRating
+	result.BonusPhysicalDamageReduction = enchatarmor.PhysicalDamageReduction
+	result.BonusMagicalDamageReduction = enchatarmor.MagicalDamageReduction
+	result.BonusPhysicalPower = enchatarmor.PhysicalPowerBonus
+	result.BonusMagicalPower = enchatarmor.MagicalPowerBonus
+
+	return result
+}
+
+func WeaponDamageCalc(weapons []models.Item_Weapon, rarity []int, powerbonus float64, rating []int) models.Computed_Stats_Weapon {
+	var result models.Computed_Stats_Weapon
+	for i := 0; i < len(weapons); i++ {
+		if weapons[i].SlotType == "Main Hand" {
+			result.PrimaryWeapon.Attackone += ((float64(rating[i]) * (powerbonus / 100)) + float64(rating[i])) * (float64((weapons[i].ComboDamage[0])) / 100) // adjust % of power bonus
+			result.PrimaryWeapon.Attacktwo += ((float64(rating[i]) * (powerbonus / 100)) + float64(rating[i])) * (float64((weapons[i].ComboDamage[1])) / 100)
+			result.PrimaryWeapon.Attackthree += ((float64(rating[i]) * (powerbonus / 100)) + float64(rating[i])) * (float64((weapons[i].ComboDamage[2])) / 100)
+		}
+		if weapons[i].SlotType == "Main Hand" && len(weapons[i].ComboDamage) >= 4 {
+			result.PrimaryWeapon.Attackfour += ((float64(rating[i]) * (powerbonus / 100)) + float64(rating[i])) * (float64((weapons[i].ComboDamage[3])) / 100)
+		}
+
+		if weapons[i].SlotType == "Off Hand" && len(weapons[i].ComboDamage) <= 3 {
+			result.SecondaryWeapon.Attackone += ((float64(rating[i]) * (powerbonus / 100)) + float64(rating[i])) * (float64((weapons[i].ComboDamage[0])) / 100)
+			result.SecondaryWeapon.Attacktwo += ((float64(rating[i]) * (powerbonus / 100)) + float64(rating[i])) * (float64((weapons[i].ComboDamage[1])) / 100)
+			result.SecondaryWeapon.Attackthree += ((float64(rating[i]) * (powerbonus / 100)) + float64(rating[i])) * (float64((weapons[i].ComboDamage[2])) / 100)
+		}
+		if weapons[i].SlotType == "Off Hand" && len(weapons[i].ComboDamage) >= 4 {
+			result.SecondaryWeapon.Attackfour += ((float64(rating[i]) * (powerbonus / 100)) + float64(rating[i])) * (float64((weapons[i].ComboDamage[3])) / 100)
+		}
+	}
+
+	return result
+}
+
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+func EnchantValuesCalc(enchantmentvalue string, enchantmenttype map[string][]float32) []float32 {
+	values := enchantmenttype[enchantmentvalue]
+	if len(values) == 0 {
+		return values
+	}
+
+	// Check if ALL values in the range are integers (no decimal part)
+	allIntegers := true
+	for _, v := range values {
+		if v != float32(int(v)) {
+			allIntegers = false
+			break
+		}
+	}
+
+	if allIntegers {
+		return RangeofEnchanmentValuesInt(values)
+	} else {
+		return RangeofEnchanmentValues(values)
+	}
+}
+
+func Enchantattrib(enchantmenttype string, enchantmentvalue string) map[string]int {
+	value, _ := strconv.Atoi(enchantmentvalue)
+	switch enchantmenttype {
+	case "Strength", "Vigor", "Agility", "Dexterity", "Will", "Knowledge", "Resourcefulness", "AllAttributes":
+		return map[string]int{
+			enchantmenttype: value,
+		}
+	}
+	return map[string]int{}
+}
+
+func Enchantother(enchantmenttype string, enchantmentvalue string) map[string]float64 {
+	value, _ := strconv.ParseFloat(enchantmentvalue, 64)
+	switch enchantmenttype {
+	case "Strength", "Vigor", "Agility", "Dexterity", "Will", "Knowledge", "Resourcefulness", "AllAttributes":
+		return map[string]float64{}
+	default:
+		return map[string]float64{
+			enchantmenttype: value,
+		}
+	}
+}
+
+func EnchantComputedOthers(enchant []map[string]float64) models.Computed_Stats {
+	var result = models.Computed_Stats{} // Uses zero-value initialization
+	for _, item := range enchant {       // Better range loop
+		for key, value := range item {
+			switch key {
+			case "PhysicalPower":
+				result.PhysicalPower += value
+			case "PhysicalPowerBonus":
+				result.PhysicalPowerBonus += value
+			case "MagicalPower":
+				result.MagicalPower += value
+			case "MagicalPowerBonus":
+				result.MagicalPowerBonus += value
+			case "MagicPenetration":
+				result.MagicPenetration += value
+			case "ArmorPenetration":
+				result.ArmorPenetration += value
+			case "ActionSpeed":
+				result.ActionSpeed += value
+			case "RegularInteractionSpeed":
+				result.RegularInteractionSpeed += value
+			case "MagicalHealing":
+				result.MagicalHealing += int(value)
+			case "Luck":
+				result.Luck += int(value)
+			case "PhysicalDamageReduction":
+				result.PhysicalDamageReduction += value
+			case "MagicResistance":
+				result.MagicRating += value
+			case "MagicalDamageReduction":
+				result.MagicalDamageReduction += value
+			case "ProjectileReduction":
+				result.ProjectileReduction += value
+			case "HeadshotReduction":
+				result.HeadshotReduction += value
+			case "SpellRecoveryBonus":
+				result.SpellRecoveryBonus += value
+			case "SpellCastingSpeed":
+				result.SpellCastingSpeed += value
+			case "SpellRecovery":
+				result.SpellRecovery += value
+			case "MagicalInteractionSpeed":
+				result.MagicalInteractionSpeed += value
+			case "CooldownReduction":
+				result.CooldownReduction += value
+			case "PhysicalHealing":
+				result.PhysicalHealing += int(value)
+			case "ArmorRating":
+				result.FromArmorRating += int(value)
+			case "MaxHealthAdd":
+				result.Health += value
+			case "MaxHealthBonus":
+				result.MaxHealthBonus += value
+			case "BuffDurationBonus":
+				result.BuffDuration += value
+			case "DebuffDurationBonus":
+				result.DebuffDuration += value
+			case "MemoryCapacityAdd":
+				result.MemoryCapacity += value
+			case "MemoryCapacityBonus":
+				result.MemoryCapacityBonus += value
+			case "MoveSpeedBonus":
+				result.MoveSpeedBonus += value
+			case "MoveSpeed":
+				result.MoveSpeed += value
+			}
+		}
+	}
+	return result
+}
+
+// ///////////////////////////////////////////////////////////////////////////////////////
+// Remove base attributes from the enchantment list
+func EnchantBaseAttribExeption(enchantmentlist []string, itemtype models.Item_Armor) []string {
+	removeAttrs := make(map[string]bool)
+	if itemtype.BaseAttribute.Strength[1] != 0 {
+		removeAttrs["Strength"] = true
+	}
+	if itemtype.BaseAttribute.Vigor[1] != 0 {
+		removeAttrs["Vigor"] = true
+	}
+	if itemtype.BaseAttribute.Agility[1] != 0 {
+		removeAttrs["Agility"] = true
+	}
+	if itemtype.BaseAttribute.Dexterity[1] != 0 {
+		removeAttrs["Dexterity"] = true
+	}
+	if itemtype.BaseAttribute.Will[1] != 0 {
+		removeAttrs["Will"] = true
+	}
+	if itemtype.BaseAttribute.Knowledge[1] != 0 {
+		removeAttrs["Knowledge"] = true
+	}
+	if itemtype.BaseAttribute.Resourcefulness[1] != 0 {
+		removeAttrs["Resourcefulness"] = true
+	}
+	//fmt.Println(removeAttrs)
+	result := make([]string, 0, len(enchantmentlist))
+	for _, enchant := range enchantmentlist {
+		if !removeAttrs[enchant] {
+			result = append(result, enchant)
+		}
+	}
+	return result
+
+}
+
+// Remove a specific enchantment type from the list
+func EnchantTypeExeption(enchantmentlist []string, previousSelections []string) []string {
+	exclude := make(map[string]bool)
+	for _, selection := range previousSelections {
+		if selection != "" {
+			exclude[selection] = true
+		}
+	}
+
+	result := make([]string, 0, len(enchantmentlist))
+	for _, enchant := range enchantmentlist {
+		if !exclude[enchant] {
+			result = append(result, enchant)
+		}
+	}
+	return result
+}
+
+// For accessories, same logic
+func EnchantBaseAttribExeptionAcc(enchantmentlist []string, itemtype models.Item_Accessory) []string {
+	removeAttrs := make(map[string]bool)
+	if itemtype.BaseAttribute.Strength[1] == 1 {
+		removeAttrs["Strength"] = true
+	}
+	if itemtype.BaseAttribute.Vigor[1] == 1 {
+		removeAttrs["Vigor"] = true
+	}
+	if itemtype.BaseAttribute.Agility[1] == 1 {
+		removeAttrs["Agility"] = true
+	}
+	if itemtype.BaseAttribute.Dexterity[1] == 1 {
+		removeAttrs["Dexterity"] = true
+	}
+	if itemtype.BaseAttribute.Will[1] == 1 {
+		removeAttrs["Will"] = true
+	}
+	if itemtype.BaseAttribute.Knowledge[1] == 1 {
+		removeAttrs["Knowledge"] = true
+	}
+	if itemtype.BaseAttribute.Resourcefulness[1] == 1 {
+		removeAttrs["Resourcefulness"] = true
+	}
+
+	result := make([]string, 0, len(enchantmentlist))
+	for _, enchant := range enchantmentlist {
+		if !removeAttrs[enchant] {
+			result = append(result, enchant)
+		}
+	}
+	return result
+}
+
+// LOAD ITEM FROM JSON
+func readJSON(filename string, data interface{}) error {
+	file, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	return decoder.Decode(data)
+}
+
+///////////////////////////////////////////--- METHODS ----///////////////////////////////////////////////////////
+
+// Methods AddStats and AddEnchant are now in builder/src/models package
+
+///////////////////////////////////////////////---FROTEND LOGIC--- ////////////////////////////////////////////////////////
+
+func RemoveSpaces(s string) string {
+	var result []rune
+	for _, char := range s {
+		if char != ' ' {
+			result = append(result, char)
+		}
+	}
+	return string(result)
+}
+
+func ImageLocation(itemtype string, itemname []string) []map[string]string {
+	result := []map[string]string{}
+
+	for i := 0; i < len(itemname); i++ {
+		result = append(result, map[string]string{
+			"image": "assets/" + RemoveSpaces(itemname[i]) + ".png",
+			"name":  itemname[i],
+		})
+
+	}
+	return result
+}
+
+func CompleteArrayInt(array []int) []int {
+	// Handle edge cases
+	if len(array) == 0 {
+		return []int{}
+	}
+	if len(array) == 1 {
+		return []int{array[0]}
+	}
+
+	// For arrays with 2+ elements, only use first two
+	start, end := array[0], array[1]
+
+	// Handle case where start > end
+	if start > end {
+		start, end = end, start
+	}
+
+	result := make([]int, 0, end-start+1)
+	for x := start; x <= end; x++ {
+		result = append(result, x)
+	}
+
+	return result
+}

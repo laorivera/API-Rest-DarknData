@@ -1,6 +1,7 @@
 package main
 
 import (
+	"builder/src/routes"
 	"builder/src/server"
 )
 
@@ -10,9 +11,8 @@ func main() {
 
 	router := server.GetRouter()
 
-	setupRoutes(router)
+	routes.SetupRoutes(router)
 
-	// Corre en puerto 8080
 	server.Start()
 
 }
