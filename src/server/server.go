@@ -1,6 +1,10 @@
 package server
 
-import "github.com/gin-gonic/gin"
+import (
+	"builder/src/services"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Server struct {
 	server *gin.Engine
@@ -12,20 +16,15 @@ func (s *Server) Start() error {
 }
 
 func (s *Server) CORS() {
-	allowedOrigins := []string{
-		"https://laorivera.github.io",
-		"http://localhost:4200",
-		//"http://localhost:8080",
-		//"https://extensions-pocket-sake-longitude.trycloudflare.com",
 
-	}
+	allowedOrigins := services.LoadConfig().AllowedOrigins
 
 	s.server.Use(func(c *gin.Context) {
 		requestOrigin := c.Request.Header.Get("Origin")
 
 		// Check if origin is allowed
 		for i := 0; i < len(allowedOrigins); i++ {
-			if allowedOrigins[i] == "*" || requestOrigin == allowedOrigins[i] {
+			if requestOrigin == allowedOrigins[i] {
 				c.Writer.Header().Set("Access-Control-Allow-Origin", requestOrigin)
 				break
 			}
@@ -51,7 +50,7 @@ func (s *Server) GetRouter() *gin.Engine {
 
 func NewServer() *Server {
 	router := gin.Default()
-	server := &Server{server: router, port: ":8080"}
+	server := &Server{server: router, port: services.LoadConfig().Port}
 	server.CORS()
 	return server
 }

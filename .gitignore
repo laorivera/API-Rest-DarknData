@@ -10,6 +10,7 @@ Thumbs.db
 
 # Ignore log files
 *.log
+*.json
 
 # Ignore Go build files
 *.out
@@ -18,4 +19,3 @@ Thumbs.db
 # Ignore directories
 /vendor/
 node_modules/
-src/services/hash.go
