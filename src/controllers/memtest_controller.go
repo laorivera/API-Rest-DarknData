@@ -8,21 +8,23 @@ import (
 )
 
 // /// mem test ia script
+
 func printMemoryUsage(step string) {
+
 	var m runtime.MemStats
+
 	runtime.ReadMemStats(&m)
+
 	fmt.Printf("[%s] Memory: %.2f MB\n", step, float64(m.Alloc)/1024/1024)
 }
 
 func TestMemoryUsage(t *testing.T) {
-	// Force garbage collection to get clean baseline
+
 	runtime.GC()
 	printMemoryUsage("START - Before loading items")
 
-	// Load your items (this happens when package initializes)
 	_ = NewItemManager()
 
-	// Check memory after loading
 	printMemoryUsage("AFTER - Items loaded")
 
 	// Do some operations to see memory in action

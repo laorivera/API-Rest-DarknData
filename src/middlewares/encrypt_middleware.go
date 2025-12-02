@@ -10,7 +10,7 @@ import (
 	"builder/src/services"
 )
 
-var jwtSecret = []byte("your-super-secret-key-here")
+var jwtSecret = []byte("")
 
 func GenerateToken(userID string) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{

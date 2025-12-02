@@ -16,7 +16,7 @@ func apiHandler(c *gin.Context) {
 		fmt.Println("JSON Bind Error:", err)
 		return
 	}
-	fmt.Println(selection)
+	//fmt.Println(selection)
 
 	var Sm = controllers.NewStatsManager()
 

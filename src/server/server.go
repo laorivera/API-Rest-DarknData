@@ -2,6 +2,8 @@ package server
 
 import (
 	"builder/src/services"
+	"log"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -48,9 +50,26 @@ func (s *Server) GetRouter() *gin.Engine {
 	return s.server
 }
 
+func (s *Server) AddLog() {
+	s.server.Use(func(c *gin.Context) {
+		start := time.Now()
+		c.Next()
+		duration := time.Since(start)
+
+		log.Printf("METRIC path=%s method=%s status=%d size=%d duration=%v",
+			c.Request.URL.Path,
+			c.Request.Method,
+			c.Writer.Status(),
+			c.Writer.Size(),
+			duration,
+		)
+	})
+}
+
 func NewServer() *Server {
 	router := gin.Default()
 	server := &Server{server: router, port: services.LoadConfig().Port}
 	server.CORS()
+	server.AddLog()
 	return server
 }

@@ -5,7 +5,7 @@ import (
 
 	//"builder/src/controllers"
 	"builder/src/models"
-	"fmt"
+	//"fmt"
 	"strconv"
 )
 
@@ -488,7 +488,7 @@ func (sm *StatsManager) BaseItemCalc(selection models.Selection) { //PENDING!
 	}
 
 	sm.Variable = computed.AddEnchant()
-	fmt.Println(sm.Variable)
+	//fmt.Println(sm.Variable)
 
 	/////////////////////////////////////////////////////////////////////////////////////
 }
