@@ -13,32 +13,32 @@ func GetEnchatmentLists_Armor_Base(selection models.Selection) map[string][]stri
 		if models.Slots[i] == "helmet" {
 			item := ItemsByNameArmor(selection.ItemSlot.Head.Name)
 			echantments := EnchamentbySlot(models.Enchantments.Helmet)
-			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, item)
+			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, *item)
 		}
 		if models.Slots[i] == "chest" {
 			item := ItemsByNameArmor(selection.ItemSlot.Chest.Name)
 			echantments := EnchamentbySlot(models.Enchantments.Chest)
-			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, item)
+			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, *item)
 		}
 		if models.Slots[i] == "gloves" {
 			item := ItemsByNameArmor(selection.ItemSlot.Hands.Name)
 			echantments := EnchamentbySlot(models.Enchantments.Gloves)
-			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, item)
+			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, *item)
 		}
 		if models.Slots[i] == "pants" {
 			item := ItemsByNameArmor(selection.ItemSlot.Pants.Name)
 			echantments := EnchamentbySlot(models.Enchantments.Pants)
-			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, item)
+			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, *item)
 		}
 		if models.Slots[i] == "boots" {
 			item := ItemsByNameArmor(selection.ItemSlot.Foot.Name)
 			echantments := EnchamentbySlot(models.Enchantments.Boots)
-			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, item)
+			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, *item)
 		}
 		if models.Slots[i] == "cloak" {
 			item := ItemsByNameArmor(selection.ItemSlot.Back.Name)
 			echantments := EnchamentbySlot(models.Enchantments.Cloak)
-			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, item)
+			lists[models.Slots[i]] = EnchantBaseAttribExeption(echantments, *item)
 		}
 
 	}
@@ -264,13 +264,13 @@ func GetEnchatmentLists_Accessory_Base(selection models.Selection) map[string][]
 	lists := map[string][]string{}
 	for i := 0; i < len(models.Slotsacc); i++ {
 		if models.Slotsacc[i] == "necklace" {
-			lists[models.Slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(models.Enchantments.Necklace), ItemsByNameAccesory(selection.ItemSlot.Necklace.Name))
+			lists[models.Slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(models.Enchantments.Necklace), *ItemsByNameAccesory(selection.ItemSlot.Necklace.Name))
 		}
 		if models.Slotsacc[i] == "ring" {
-			lists[models.Slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(models.Enchantments.Ring), ItemsByNameAccesory(selection.ItemSlot.RingOne.Name))
+			lists[models.Slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(models.Enchantments.Ring), *ItemsByNameAccesory(selection.ItemSlot.RingOne.Name))
 		}
 		if models.Slotsacc[i] == "ringtwo" {
-			lists[models.Slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(models.Enchantments.Ring), ItemsByNameAccesory(selection.ItemSlot.RingTwo.Name))
+			lists[models.Slotsacc[i]] = EnchantBaseAttribExeptionAcc(EnchamentbySlot(models.Enchantments.Ring), *ItemsByNameAccesory(selection.ItemSlot.RingTwo.Name))
 		}
 	}
 	return lists

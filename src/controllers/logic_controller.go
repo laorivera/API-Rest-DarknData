@@ -12,9 +12,9 @@ import (
 
 // FIND ITEMS BY SLOT TYPE'\
 
-func ItemsBySlotType(class string, slot string) []models.Item_Armor {
+func ItemsBySlotType(class string, slot string) []*models.Item_Armor {
 	class = InttoClass(class)
-	var result []models.Item_Armor
+	var result []*models.Item_Armor
 	for i := 0; i < len(Items.ItemsArmor); i++ {
 		for _, c := range Items.ItemsArmor[i].Classes {
 			if c == class && slot == Items.ItemsArmor[i].SlotType {
@@ -27,7 +27,7 @@ func ItemsBySlotType(class string, slot string) []models.Item_Armor {
 	return result
 }
 
-func WeaponsBySlotType(class string, slot string) []models.Item_Weapon {
+func WeaponsBySlotType(class string, slot string) []*models.Item_Weapon {
 	switch class {
 	case "1":
 		class = "Fighter"
@@ -50,7 +50,7 @@ func WeaponsBySlotType(class string, slot string) []models.Item_Weapon {
 	default:
 
 	}
-	var result []models.Item_Weapon
+	var result []*models.Item_Weapon
 	for i := 0; i < len(Items.ItemsWeapon); i++ {
 		for _, c := range Items.ItemsWeapon[i].Classes {
 			if c == class && slot == Items.ItemsWeapon[i].SlotType {
@@ -63,8 +63,8 @@ func WeaponsBySlotType(class string, slot string) []models.Item_Weapon {
 	return result
 }
 
-func AccessoryBySlotType(slot string) []models.Item_Accessory {
-	var result []models.Item_Accessory
+func AccessoryBySlotType(slot string) []*models.Item_Accessory {
+	var result []*models.Item_Accessory
 	for i := 0; i < len(Items.ItemsAccessory); i++ {
 		if slot == Items.ItemsAccessory[i].SlotType {
 			result = append(result, Items.ItemsAccessory[i])
@@ -162,8 +162,8 @@ func WeaponsBySlotType_Json(class string, slot string) []string {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // FIND SINGLE ITEM BY NAME
-func ItemsByNameArmor(name string) models.Item_Armor {
-	var result models.Item_Armor
+func ItemsByNameArmor(name string) *models.Item_Armor {
+	var result *models.Item_Armor
 	for i := 0; i < len(Items.ItemsArmor); i++ {
 		if Items.ItemsArmor[i].Name == name {
 			result = Items.ItemsArmor[i]
@@ -173,8 +173,8 @@ func ItemsByNameArmor(name string) models.Item_Armor {
 	return result
 }
 
-func ItemsByNameWeapon(name string) models.Item_Weapon {
-	var result models.Item_Weapon
+func ItemsByNameWeapon(name string) *models.Item_Weapon {
+	var result *models.Item_Weapon
 	for i := 0; i < len(Items.ItemsWeapon); i++ {
 		if name == Items.ItemsWeapon[i].Name {
 			result = Items.ItemsWeapon[i]
@@ -184,8 +184,8 @@ func ItemsByNameWeapon(name string) models.Item_Weapon {
 	return result
 }
 
-func ItemsByNameAccesory(name string) models.Item_Accessory {
-	var result models.Item_Accessory
+func ItemsByNameAccesory(name string) *models.Item_Accessory {
+	var result *models.Item_Accessory
 	for i := 0; i < len(Items.ItemsAccessory); i++ {
 		if name == Items.ItemsAccessory[i].Name {
 			result = Items.ItemsAccessory[i]
@@ -351,7 +351,7 @@ func RatingCalc(ratings []int) int {
 }
 
 // CALCULATION TOTAL MOVESPEED
-func SpeedCalc(items []models.Item_Armor, rarity []int) int {
+func SpeedCalc(items []*models.Item_Armor, rarity []int) int {
 	speedrating := 0
 
 	for i := 0; i < len(items); i++ {

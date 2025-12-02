@@ -52,7 +52,7 @@ func JWTAuth() gin.HandlerFunc {
 	}
 }
 
-func Lock() gin.HandlerFunc {
+func Auth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		apiKey := c.GetHeader("X-API-Key")
 		expectedKey := services.GetKey()

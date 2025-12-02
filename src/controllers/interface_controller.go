@@ -60,9 +60,9 @@ func Speed_Calc(items []models.Item_Armor, rarity []int) int {
 
 // //////////////////////////////////////////////ItemManager////////////////////////////////////////////////////////////////
 type ItemManager struct {
-	armorItems     []models.Item_Armor
-	weaponItems    []models.Item_Weapon
-	accessoryItems []models.Item_Accessory
+	armorItems     []*models.Item_Armor
+	weaponItems    []*models.Item_Weapon
+	accessoryItems []*models.Item_Accessory
 }
 
 func NewItemManager() *ItemManager {
@@ -112,7 +112,7 @@ func (im *ItemManager) AccesoryBySlot(slot string) []string {
 	return result
 }
 
-func (im *ItemManager) ArmorsByName(item models.Selection) []models.Item_Armor {
+func (im *ItemManager) ArmorsByName(item models.Selection) []*models.Item_Armor {
 	slots := []struct {
 		name   string
 		rarity string
@@ -125,7 +125,7 @@ func (im *ItemManager) ArmorsByName(item models.Selection) []models.Item_Armor {
 		{item.ItemSlot.Back.Name, item.ItemSlot.Back.Rarity},
 	}
 
-	var result []models.Item_Armor
+	var result []*models.Item_Armor
 	for _, slot := range slots {
 		if slot.name != "" && slot.rarity != "" { // ADD THIS CHECK!
 			for i := 0; i < len(im.armorItems); i++ {
@@ -139,10 +139,10 @@ func (im *ItemManager) ArmorsByName(item models.Selection) []models.Item_Armor {
 	return result
 }
 
-func (im *ItemManager) ArmorsByNameD(item models.Selection) []models.Item_Armor {
+func (im *ItemManager) ArmorsByNameD(item models.Selection) []*models.Item_Armor {
 	var selection []string
 	selection = append(selection, item.ItemSlot.Head.Name, item.ItemSlot.Chest.Name, item.ItemSlot.Foot.Name, item.ItemSlot.Hands.Name, item.ItemSlot.Pants.Name, item.ItemSlot.Back.Name)
-	var result []models.Item_Armor
+	var result []*models.Item_Armor
 	for i := 0; i < len(im.armorItems); i++ {
 		for j := 0; j < len(selection); j++ {
 			if im.armorItems[i].Name == selection[j] && selection[j] != "" {
@@ -154,12 +154,12 @@ func (im *ItemManager) ArmorsByNameD(item models.Selection) []models.Item_Armor 
 	return result
 }
 
-func (im *ItemManager) WeaponsByNameD(item models.Selection) []models.Item_Weapon {
+func (im *ItemManager) WeaponsByNameD(item models.Selection) []*models.Item_Weapon {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.WeaponOne.Name, item.ItemSlot.WeaponTwo.Name)
 
-	var result []models.Item_Weapon
+	var result []*models.Item_Weapon
 	for i := 0; i < len(im.weaponItems); i++ {
 		for j := 0; j < len(selection); j++ {
 			if im.weaponItems[i].Name == selection[j] && selection[j] != "" {
@@ -171,12 +171,12 @@ func (im *ItemManager) WeaponsByNameD(item models.Selection) []models.Item_Weapo
 	return result
 }
 
-func (im *ItemManager) AccesoriesByNameD(item models.Selection) []models.Item_Accessory {
+func (im *ItemManager) AccesoriesByNameD(item models.Selection) []*models.Item_Accessory {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.Necklace.Name, item.ItemSlot.RingOne.Name, item.ItemSlot.RingTwo.Name)
 
-	var result []models.Item_Accessory
+	var result []*models.Item_Accessory
 	for i := 0; i < len(im.accessoryItems); i++ {
 		for j := 0; j < len(selection); j++ {
 			if im.accessoryItems[i].Name == selection[j] && selection[j] != "" {
@@ -187,12 +187,12 @@ func (im *ItemManager) AccesoriesByNameD(item models.Selection) []models.Item_Ac
 	return result
 }
 
-func (im *ItemManager) WeaponsByName(item models.Selection) []models.Item_Weapon {
+func (im *ItemManager) WeaponsByName(item models.Selection) []*models.Item_Weapon {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.WeaponOne.Name, item.ItemSlot.WeaponTwo.Name)
 
-	var result []models.Item_Weapon
+	var result []*models.Item_Weapon
 	for i := 0; i < len(im.weaponItems); i++ {
 		for j := 0; j < len(selection); j++ {
 			if im.weaponItems[i].Name == selection[j] && selection[j] != "" {
@@ -204,12 +204,12 @@ func (im *ItemManager) WeaponsByName(item models.Selection) []models.Item_Weapon
 	return result
 }
 
-func (im *ItemManager) AccesoriesByName(item models.Selection) []models.Item_Accessory {
+func (im *ItemManager) AccesoriesByName(item models.Selection) []*models.Item_Accessory {
 	var selection []string
 	selection = append(selection,
 		item.ItemSlot.Necklace.Name, item.ItemSlot.RingOne.Name, item.ItemSlot.RingTwo.Name)
 
-	var result []models.Item_Accessory
+	var result []*models.Item_Accessory
 	for i := 0; i < len(im.accessoryItems); i++ {
 		for j := 0; j < len(selection); j++ {
 			if im.accessoryItems[i].Name == selection[j] && selection[j] != "" {
@@ -327,10 +327,10 @@ func (sm *StatsManager) ItemsBaseStats(selection models.Selection) {
 	//fmt.Printf("selclass: %+v\n", selclass)
 	//fmt.Printf("selrace: %+v\n", selrace)
 
-	var selarmor []models.Item_Armor = Im.ArmorsByName(selection)
+	var selarmor []*models.Item_Armor = Im.ArmorsByName(selection)
 	var selrarity []int = Im.SelByRarity(selection)
 	var totalacc models.Stats
-	var selacc []models.Item_Accessory = Im.AccesoriesByName(selection)
+	var selacc []*models.Item_Accessory = Im.AccesoriesByName(selection)
 	var selrarityacc []int = Im.SelByRarityAcc(selection)
 
 	//fmt.Printf("=== DEBUG: Items and rarities ===\n")
@@ -445,17 +445,18 @@ func (sm *StatsManager) ItemsBaseStats(selection models.Selection) {
 	//fmt.Printf("sm.Base: %+v\n", sm.Base)
 }
 
-func (sm *StatsManager) BaseItemCalc(selection models.Selection) {
+func (sm *StatsManager) BaseItemCalc(selection models.Selection) { //PENDING!
 
 	Im := NewItemManager()
 
 	var computed models.Computed_Stats = Selection_Brace(selection) // race selection passed into computed
-	var selarmor []models.Item_Armor = Im.ArmorsByName(selection)
+	var selarmor []*models.Item_Armor = Im.ArmorsByName(selection)
 	var selrarity []int = Im.SelByRarity(selection)
 	var totalacc models.Computed_Stats
-	var selacc []models.Item_Accessory = Im.AccesoriesByName(selection)
+	var selacc []*models.Item_Accessory = Im.AccesoriesByName(selection)
 	var selrarityacc []int = Im.SelByRarityAcc(selection)
 
+	///////////////////////////PENDING TO REFACTOR /.////////////////////////////////
 	for i := 0; i < len(selarmor) && i < len(selrarity); i++ {
 		computed.Health += selarmor[i].MaxHealthAdd[selrarity[i]]
 		computed.ProjectileReduction += selarmor[i].ProjectileReduction
@@ -488,11 +489,13 @@ func (sm *StatsManager) BaseItemCalc(selection models.Selection) {
 
 	sm.Variable = computed.AddEnchant()
 	fmt.Println(sm.Variable)
+
+	/////////////////////////////////////////////////////////////////////////////////////
 }
 
 func (sm *StatsManager) TotalSpeedRating(selection models.Selection) {
 	Im := NewItemManager()
-	var selarmor []models.Item_Armor = Im.ArmorsByName(selection)
+	var selarmor []*models.Item_Armor = Im.ArmorsByName(selection)
 	var selrarity []int = Im.SelByRarity(selection)
 	sm.Totalspeed = SpeedCalc(selarmor, selrarity)
 }

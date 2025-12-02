@@ -1,4 +1,4 @@
-package middlewares
+package services
 
 import "builder/src/models"
 
@@ -161,7 +161,7 @@ type Item struct {
 }
 
 type List_Items struct {
-	ItemsArmor     []models.Item_Armor
-	ItemsWeapon    []models.Item_Weapon
-	ItemsAccessory []models.Item_Accessory
+	ItemsArmor     []*models.Item_Armor
+	ItemsWeapon    []*models.Item_Weapon
+	ItemsAccessory []*models.Item_Accessory
 }
