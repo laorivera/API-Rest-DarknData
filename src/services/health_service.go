@@ -5,7 +5,7 @@ import (
 )
 
 func GetHealth(c *gin.Context) {
-	c.JSON(201, gin.H{
+	c.JSON(200, gin.H{
 		"status": "healthy",
 	})
 }
