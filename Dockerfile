@@ -18,6 +18,8 @@ COPY --from=builder /docker-gs-ping /app/docker-gs-ping
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ 
 COPY --chown=1000:1000 calc/ ./calc/
 COPY --chown=1000:1000 data/ ./data/
+COPY --chown=1000:1000 env.json ./env.json
+
 
 
 RUN adduser -D -u 1000 appuser && \

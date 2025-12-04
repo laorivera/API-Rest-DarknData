@@ -3,6 +3,7 @@ package routes
 import (
 	"builder/src/controllers"
 	"builder/src/middlewares"
+	"builder/src/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -53,5 +54,8 @@ func SetupRoutes(r *gin.Engine) {
 
 	// Calculate stats
 	r.POST("/api/", middlewares.Auth(), apiHandler)
+
+	//healthy boy
+	r.GET("/health", services.GetHealth)
 
 }

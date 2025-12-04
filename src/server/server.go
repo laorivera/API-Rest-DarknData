@@ -14,24 +14,25 @@ type Server struct {
 }
 
 func (s *Server) Start() error {
-	return s.server.Run(s.port)
+	return s.server.Run("0.0.0.0" + s.port) // 0.0.0.0 testing
 }
 
 func (s *Server) CORS() {
 
-	allowedOrigins := services.LoadConfig().AllowedOrigins
+	//allowedOrigins := services.LoadConfig().AllowedOrigins
 
 	s.server.Use(func(c *gin.Context) {
-		requestOrigin := c.Request.Header.Get("Origin")
+		//requestOrigin := c.Request.Header.Get("Origin")
 
-		// Check if origin is allowed
-		for i := 0; i < len(allowedOrigins); i++ {
-			if requestOrigin == allowedOrigins[i] {
-				c.Writer.Header().Set("Access-Control-Allow-Origin", requestOrigin)
-				break
+		/*
+			for i := 0; i < len(allowedOrigins); i++ {
+				if requestOrigin == allowedOrigins[i] {
+					c.Writer.Header().Set("Access-Control-Allow-Origin", requestOrigin)
+					break
+				}
 			}
-		}
-
+		*/
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*") // all origins
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-API-Key")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
