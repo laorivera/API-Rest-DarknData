@@ -55,7 +55,10 @@ func SetupRoutes(r *gin.Engine) {
 	// Calculate stats
 	r.POST("/api/", middlewares.Auth(), apiHandler)
 
-	//healthy boy
+	//healthy
 	r.GET("/health", services.GetHealth)
+
+	//Db
+	r.GET("/db-test", controllers.DBtest)
 
 }

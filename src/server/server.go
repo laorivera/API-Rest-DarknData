@@ -1,6 +1,7 @@
 package server
 
 import (
+	"builder/src/database"
 	"builder/src/services"
 	"log"
 	"time"
@@ -14,7 +15,7 @@ type Server struct {
 }
 
 func (s *Server) Start() error {
-	return s.server.Run("0.0.0.0" + s.port) // 0.0.0.0 testing
+	return s.server.Run(s.port) // 0.0.0.0 testing
 }
 
 func (s *Server) CORS() {
@@ -66,11 +67,21 @@ func (s *Server) AddLog() {
 		)
 	})
 }
+func (s *Server) InitDB() {
+	err := database.Init()
+	if err != nil {
+		log.Fatal("DB connection failed:", err)
+	}
+	log.Println("Database connected successfully")
+
+}
 
 func NewServer() *Server {
 	router := gin.Default()
 	server := &Server{server: router, port: services.LoadConfig().Port}
 	server.CORS()
 	server.AddLog()
+	server.InitDB()
+
 	return server
 }

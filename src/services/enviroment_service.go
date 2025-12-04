@@ -11,6 +11,11 @@ type Config struct {
 	Host           string   `json:"host"`
 	AllowedOrigins []string `json:"allowed_origins"`
 	APIKey         string   `json:"api_key"`
+	DBHost         string   `json:"db_host"`
+	DBPort         string   `json:"db_port"`
+	DBName         string   `json:"db_name"`
+	DBUser         string   `json:"db_user"`
+	DBPassword     string   `json:"db_password"`
 }
 
 func LoadConfig() Config {
